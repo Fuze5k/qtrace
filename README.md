@@ -8,20 +8,21 @@ for that server, how long the server worked on it, and at which priority**.
 
 ```
 # qtrace -f -c sh -c "ls /proc/boot | wc -l"
-  0.011195 sh[671766:1] open("/", pipe) on coid 0x40000000 = redirect 0x800b0000 <66.0us>  -> procnto[1] queued 21.0us, served 20.0us, prio 10
-  0.011266 sh[671766:1] ConnectAttach(pid=122889 (pipe), chid=1, index=0, flags=64) = 1 <5.0us>
-  0.011274 sh[671766:1] open("/", pipe) on fd 1 = 0 <167.0us>  -> pipe[122889] queued 13.0us, served 125.0us, prio 10
-  0.012330 sh[671766:1] fork(coid 0x40000000) = 671767 <2003.0us>  -> procnto[1] queued 12.0us, served 1948.0us, prio 10
-  0.014108 ls[671767:1] spawn(coid 0x40000000) = 0 <227.0us>  -> procnto[1] queued 9.0us, served 193.0us, prio 10
+  0.007886 sh[1327126:1] open("/", pipe) on coid 0x40000000 = redirect 0x800b0000 <59.0us>  -> procnto[1] queued 17.0us, served 24.0us, prio 10
+  0.007950 sh[1327126:1] ConnectAttach(pid=122889 (pipe), chid=1, index=0, flags=64) = 1 <6.0us>
+  0.007959 sh[1327126:1] open("/", pipe) on fd 1 = 0 <151.0us>  -> pipe[122889] queued 16.0us, served 103.0us, prio 10
+  0.009048 sh[1327126:1] fork() = 1327127 <1672.0us>  -> procnto[1] queued 9.0us, served 1633.0us, prio 10
+  0.010623 ls[1327127:1] spawn() = 0 <107.0us>  -> procnto[1] queued 10.0us, served 70.0us, prio 10
   ...
-  0.041596 wc[671768:1] read(fd 0, 4096 bytes) = 641 <14631.0us>  -> pipe[122889] queued 29.0us, served 14567.0us, prio 10
-  0.056013 ls[671767:1] write(fd 1, 641 bytes) = 641 <232.0us>  -> pipe[122889] queued 19.0us, served 189.0us, prio 10
+  0.058212 wc[1327128:1] read(fd 0, 4096 bytes) = 641 <8347.0us>  -> pipe[122889] queued 24.0us, served 8189.0us, prio 10
+  0.066174 ls[1327127:1] write(fd 1, 641 bytes) = 641 <421.0us>  -> pipe[122889] queued 20.0us, served 282.0us, prio 10
   ...
 % time   total us    calls  errors    avg us    max us  server           operation
- 30.65    39614.0        2       2   19807.0   39442.0  (kernel)         SignalSuspend
- 14.51    18755.9      308     117      60.9     494.0  procnto          combine
- 11.53    14908.0        2       0    7454.0   14631.0  pipe             read
- 10.32    13343.1       89       0     149.9    1730.0  procnto          mmap
+ 28.38    52838.0        2       2   26419.0   52352.0  (kernel)         SignalSuspend
+ 21.79    40564.9       89       0     455.8   11997.0  procnto          mmap
+ 13.18    24535.0        4       0    6133.7   20337.0  procnto          spawn
+ 12.12    22559.0      308     117      73.2     426.0  procnto          combine
+  4.65     8660.0        2       0    4330.0    8347.0  pipe             read
 ```
 <sub>Real output on QNX 8.0 in QEMU (aarch64le), trimmed. Full log and HTML report:
 [`examples/sh-pipeline.txt`](examples/sh-pipeline.txt),
@@ -29,7 +30,7 @@ for that server, how long the server worked on it, and at which priority**.
 
 Each line is one kernel call: time, process and thread, the call, its result
 and how long it took. A `MsgSend()` is shown as the operation it carries, with
-the server that answered: here `wc` spends 14.6 ms in a `read()` that the
+the server that answered: here `wc` spends 8.3 ms in a `read()` that the
 `pipe` server holds until `ls` has written its output.
 
 `qtrace -H report.html` also writes a self-contained HTML report — a timeline
@@ -126,7 +127,7 @@ then boot it headless with SSH forwarded to `127.0.0.1:2222`:
 ```sh
 mkdir -p vm && ssh-keygen -t ed25519 -N '' -f vm/id_ed25519
 (cd vm && ../env/qnx mkqnximage --type=qemu --arch=aarch64le --cpu=4 --ram=1G \
-    --hostname=qtrace --ssh-ident="$PWD/id_ed25519.pub" --noprompt --build)
+    --hostname=qtrace --ssh-ident="$PWD/id_ed25519.pub" --noprompt --force --build)
 env/run-qemu.sh vm start          # ~60 s to SSH
 ```
 
@@ -144,7 +145,7 @@ env/run-qemu.sh vm stop
 
 ## Checked on QNX 8.0
 
-All runs on QNX 8.0.0 (`uname`: `QNX qtrace 8.0.0 ... QEMU_virt aarch64le`), 4
+All runs on QNX 8.0.0 (`uname`: `QNX qnxtrace 8.0.0 ... QEMU_virt aarch64le`), 4
 virtual CPUs, built by `env/qnx make qnx demo`:
 
 - `qtrace -f -c -H sh-pipeline.html sh -c "ls /proc/boot | wc -l"`: exit 0;
@@ -161,12 +162,12 @@ virtual CPUs, built by `env/qnx make qnx demo`:
   ([`examples/kcalls.txt`](examples/kcalls.txt)):
 
   ```
-  0.005680 kcalls[704534:1] MsgReceivePulse() = 0 <22.0us>
-  0.005745 kcalls[704534:1] InterruptUnblock() = -1 errno 3 (No such process) <36.0us>
-  0.005829 kcalls[704534:1] InterruptCtl() = -1 errno 89 (Function not implemented) <9.0us>
-  0.005881 kcalls[704534:1] PipeOpen() = -1 errno 14 (Bad address) <100.0us>
-  0.006025 kcalls[704534:1] PipeCtl() = -1 errno 22 (Invalid argument) <19.0us>
-  0.006082 kcalls[704534:1] PipeClose() = -1 errno 3 (No such process) <18.0us>
+  0.004267 kcalls[1359894:1] MsgReceivePulse() = 0 <12.0us>
+  0.004324 kcalls[1359894:1] InterruptUnblock() = -1 errno 3 (No such process) <30.0us>
+  0.004396 kcalls[1359894:1] InterruptCtl() = -1 errno 89 (Function not implemented) <5.0us>
+  0.004440 kcalls[1359894:1] PipeOpen() = -1 errno 14 (Bad address) <116.0us>
+  0.004600 kcalls[1359894:1] PipeCtl() = -1 errno 22 (Invalid argument) <22.0us>
+  0.004658 kcalls[1359894:1] PipeClose() = -1 errno 3 (No such process) <25.0us>
   ```
 
   `traceprinter` prints `MSG_RECEIVEPULSEV/24` but leaves out the other five
@@ -178,7 +179,9 @@ virtual CPUs, built by `env/qnx make qnx demo`:
 format of the [QNX codelabs](https://qnx.github.io/codelabs/): *What is my QNX program waiting for?*
 It builds [`codelab/msgwait.c`](codelab/msgwait.c), a 300-line tracer that shows how the send, receive and
 reply events of the instrumented kernel fit together, using only `TraceEvent()`, `tracelogger` and
-`libtraceparser` (`env/qnx make codelab`).
+`libtraceparser` (`env/qnx make codelab`). Its macOS path was run end to end on a fresh `mkqnximage` image
+on QEMU, and its outputs are from that run. The rendered page is at <https://fuze5k.github.io/qtrace/qnx-message-tracing/>, built
+into `docs/` by `tools/build_site.sh`.
 
 ## Usage
 
@@ -213,8 +216,9 @@ tests/                decoder tests on synthetic traces (run on any host)
 demo/kcalls.c         makes kernel calls the SAT event table leaves out
 codelab/              the codelab and its program, msgwait.c
 examples/             real qtrace output from QNX 8.0 in QEMU
+docs/                 GitHub Pages site: the rendered codelab and an example report
 env/                  Docker build environment for the SDP host tools; QEMU runner
-tools/                generators for the tables and the embedded report
+tools/                generators for the tables and the embedded report; site build
 ```
 
 ## Licence

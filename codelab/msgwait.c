@@ -107,11 +107,14 @@ static proc_info_t *proc(int pid)
     if (nprocs == MAXPROC) { fprintf(stderr, "msgwait: too many processes\n"); exit(1); }
     memset(&procs[nprocs], 0, sizeof procs[0]);
     procs[nprocs].pid = pid;
-    snprintf(procs[nprocs].name, sizeof procs[0].name, "pid");
     return &procs[nprocs++];
 }
 
-static const char *name_of(int pid) { return proc(pid)->name; }
+static const char *name_of(int pid)
+{
+    const char *name = proc(pid)->name;
+    return name[0] ? name : "?";
+}
 
 /* A client thread has at most one message in flight, because MsgSend()
  * blocks, so (pid, tid) finds it; a newer send replaces an older one that
@@ -174,16 +177,20 @@ static int on_running(struct traceparser_state *tp, void *ud, unsigned header, u
 static int on_process(struct traceparser_state *tp, void *ud, unsigned header, unsigned time,
                       unsigned *d, unsigned n)
 {
-    proc_info_t *p;
+    proc_info_t *parent, *p;
     if (n < 2) return 0;
+    parent = proc((int)d[0]);
     p = proc((int)d[1]);
-    if (proc((int)d[0])->traced) p->traced = 1;            /* follow children */
+    if (parent->traced) p->traced = 1;                     /* follow children */
     if (ud && n > 2) {                                     /* keep the basename */
         const char *s = (const char *)&d[2];
         size_t len = strnlen(s, (n - 2) * sizeof d[0]), i, from = 0;
         for (i = 0; i < len; i++)
             if (s[i] == '/') from = i + 1;
         snprintf(p->name, sizeof p->name, "%.*s", (int)(len - from), s + from);
+    } else if (!p->name[0]) {
+        /* fork() logs no name: the child runs its parent's program until exec() */
+        memcpy(p->name, parent->name, sizeof p->name);
     }
     return 0;
 }
@@ -224,9 +231,9 @@ static int on_reply(struct traceparser_state *tp, void *ud, unsigned header, uns
     if (!m || !m->received) return 0;
     queued = us(m->t_send, m->t_recv);
     served = us(m->t_recv, time);
-    printf("%12s[%d:%d] -> %-12s[%d]  queued %9.1f us  served %9.1f us  server prio %d%s\n",
-           name_of(m->pid), m->pid, m->tid, name_of(m->srv), m->srv, queued, served,
-           m->srv_prio, ud ? "  (MsgError)" : "");
+    fprintf(stderr, "%12s[%d:%d] -> %-17s[%d]  queued %9.1f us  served %9.1f us  server prio %d%s\n",
+            name_of(m->pid), m->pid, m->tid, name_of(m->srv), m->srv, queued, served,
+            m->srv_prio, ud ? "  (MsgError)" : "");
     srv = proc(m->srv);
     srv->msgs++;
     srv->queued_us += queued;
@@ -264,10 +271,10 @@ static int report(pid_t child)
     traceparser_destroy(&tp);
 
     qsort(procs, nprocs, sizeof procs[0], by_total);
-    printf("\n%-16s %8s %14s %14s\n", "server", "messages", "queued us", "served us");
+    fprintf(stderr, "\n%-17s %8s %14s %14s\n", "server", "messages", "queued us", "served us");
     for (i = 0; i < nprocs && procs[i].msgs; i++)
-        printf("%-16s %8u %14.1f %14.1f\n", procs[i].name, procs[i].msgs,
-               procs[i].queued_us, procs[i].served_us);
+        fprintf(stderr, "%-17s %8u %14.1f %14.1f\n", name_of(procs[i].pid), procs[i].msgs,
+                procs[i].queued_us, procs[i].served_us);
     return 0;
 }
 

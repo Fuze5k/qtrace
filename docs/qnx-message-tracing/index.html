@@ -1,0 +1,563 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>What Is My QNX Program Waiting For? Trace Message Passing on QNX 8.0</title>
+
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/claat-public/codelab-elements.css">
+
+  
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+
+     
+    google-codelab #done {
+      display: none !important;
+    }
+  </style>
+
+</head>
+<body>
+
+  <google-codelab-analytics gaid="" ga4id=""></google-codelab-analytics>
+
+  <google-codelab codelab-gaid=""
+                  codelab-ga4id=""
+                  id="qnx-message-tracing"
+                  title="What Is My QNX Program Waiting For? Trace Message Passing on QNX 8.0"
+                  environment="web"
+                  feedback-link="https://github.com/Fuze5k/qtrace/issues">
+    
+      <google-codelab-step label="Overview" duration="2">
+        <p>On Linux, <code>read()</code> is a system call: the kernel does the work. On QNX OS 8.0 the microkernel only passes messages. <code>read()</code> becomes a <code>MsgSend()</code> to a <strong>server process</strong>: the pipe server, a file system, a serial driver or <code>procnto</code> itself. When your program is slow, the answer is usually on the other side of a message: the server was busy, or it was slow to reply.</p>
+<p>In this codelab you write <code>msgwait</code>, a small C program that runs a command and prints every message the command sends:</p>
+<pre><code language="language-text" class="language-text">          wc[1191960:1] -&gt; pipe             [122889]  queued      15.0 us  served   13016.0 us  server prio 10
+</code></pre>
+<p>That line says which server answered, how long the message waited before the server picked it up, how long the server worked on it, and the priority the server ran at while it did.</p>
+<h2 class="checklist" is-upgraded>What you&#39;ll learn</h2>
+<ul class="checklist">
+<li>How message passing appears in a QNX kernel trace: the send, receive and reply events, and the thread states around them</li>
+<li>How to tell the instrumented kernel what to record with <code>TraceEvent()</code>, and how to let <code>tracelogger</code> save it</li>
+<li>How to start a program held, so tracing is on before its first instruction</li>
+<li>How to read a <code>.kev</code> trace file in your own code with <code>libtraceparser</code></li>
+<li>How to see priority inheritance at work</li>
+</ul>
+<h2 is-upgraded>What you&#39;ll need</h2>
+<ul>
+<li>A QNX Everywhere licence and QNX SDP 8.0 installed on a Linux, Windows or macOS host</li>
+<li>A QNX OS 8.0 target that boots the instrumented kernel. This codelab uses an image built by <code>mkqnximage</code> and run on QEMU. It was tested on QNX 8.0.0, aarch64le, QEMU 11.1 on macOS.</li>
+<li>Root access on the target, and SSH to copy files to it</li>
+<li>Working knowledge of C</li>
+</ul>
+<p>The full program is in the <a href="https://github.com/Fuze5k/qtrace/blob/main/codelab/msgwait.c" target="_blank">qtrace repository</a> under the Apache 2.0 licence.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Set up a QNX 8.0 target on QEMU" duration="10">
+        <p><code>mkqnximage</code> comes with the SDP. It builds a bootable QNX 8.0 image for QEMU, VMware or VirtualBox from the packages you have installed. You need the QEMU target packages (<code>com.qnx.qnx800.target.qemuvirt</code>), the <code>mkqnximage</code> host package and the virtio drivers; install them with the QNX Software Center if they are missing.</p>
+<ol type="1">
+<li>Open a terminal with the SDP environment. On a Linux host:<pre><code language="language-bash" class="language-bash">source ~/qnx800/qnxsdp-env.sh
+</code></pre>
+The SDP&#39;s host tools are built for x86-64 Linux and Windows. On a Mac, install the package &#34;QNX SDP Host Tools (Linux 64-bit)&#34; too and run the tools in an x86-64 Linux container under Docker, as QNX&#39;s <a href="https://gitlab.com/qnx/projects/docker-mac" target="_blank">docker-mac</a> project shows. The <code>env/qnx</code> script in the qtrace repository does that for one command: put it in front of each SDP command below.<pre><code language="language-bash" class="language-bash"># macOS only
+git clone https://github.com/Fuze5k/qtrace.git ~/qtrace
+</code></pre>
+</li>
+<li>Create a directory for the image and an SSH key for root login:<pre><code language="language-bash" class="language-bash">mkdir -p ~/qnx-vm &amp;&amp; cd ~/qnx-vm
+ssh-keygen -t ed25519 -N &#39;&#39; -f ./id_ed25519
+</code></pre>
+</li>
+<li>Build the image. <code>--force</code> lets <code>mkqnximage</code> use a directory that is not empty (the key is in it):<pre><code language="language-bash" class="language-bash">mkqnximage --type=qemu --arch=aarch64le --cpu=4 --ram=1G \
+    --hostname=qnxtrace --ssh-ident=&#34;$PWD/id_ed25519.pub&#34; --noprompt --force --build
+# macOS: the same command after ~/qtrace/env/qnx
+</code></pre>
+Use <code>--arch=x86_64</code> for an x86-64 image instead.</li>
+<li>Start it. On Linux, <code>mkqnximage --run</code> starts the image with its own <code>runimage</code> script. On macOS that script needs a Linux network bridge, so use <code>run-qemu.sh</code> from the qtrace repository instead: it boots the same image headless and forwards SSH to <code>127.0.0.1:2222</code>.<pre><code language="language-bash" class="language-bash"># Linux
+mkqnximage --run=-h
+# macOS (about a minute until SSH answers)
+~/qtrace/env/run-qemu.sh ~/qnx-vm start
+</code></pre>
+</li>
+<li>Log in and check the kernel:<pre><code language="language-bash" class="language-bash">ssh -i ./id_ed25519 -p 2222 root@127.0.0.1   # on Linux: ssh -i ./id_ed25519 root@&lt;target address&gt;
+uname -a
+</code></pre>
+<pre><code language="language-text" class="language-text">QNX qnxtrace 8.0.0 2026/10/30-09:09:47EDT QEMU_virt aarch64le
+</code></pre>
+</li>
+</ol>
+<p>Images built by <code>mkqnximage</code> boot <code>procnto-smp-instr</code>, the instrumented kernel; you can see it in <code>output/build/ifs.build</code>. Only the instrumented kernel can record events, so if you use another target, check its build file for <code>procnto-smp-instr</code> first.</p>
+<p>Negative : Tracing needs root. Every command on the target in this codelab runs as root.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="A read() is a message" duration="3">
+        <p>Here is what happens when a program calls <code>read(fd, buf, 4096)</code> on a pipe:</p>
+<ol type="1">
+<li>The C library turns the call into a message of type <code>_IO_READ</code> and calls <code>MsgSend()</code> on the connection behind <code>fd</code>. That connection leads to a channel of the <strong>pipe</strong> server.</li>
+<li>If a pipe server thread is waiting in <code>MsgReceive()</code>, the kernel copies the message to it at once and the client becomes <strong>REPLY blocked</strong>. If all server threads are busy, the client is <strong>SEND blocked</strong> and waits in a queue.</li>
+<li>The server thread wakes up with the message and runs <strong>at the client&#39;s priority</strong> (priority inheritance), so a low-priority server does not delay a high-priority client.</li>
+<li>When the data is there, the server calls <code>MsgReply()</code>. The kernel copies the reply into <code>buf</code> and the client runs again.</li>
+</ol>
+<p>So the time a client spends in one <code>MsgSend()</code> has two parts:</p>
+<table>
+<tr><td colspan="1" rowspan="1"><p>Part</p>
+</td><td colspan="1" rowspan="1"><p>From</p>
+</td><td colspan="1" rowspan="1"><p>To</p>
+</td><td colspan="1" rowspan="1"><p>Large when</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><strong>queued</strong></p>
+</td><td colspan="1" rowspan="1"><p>the client sends</p>
+</td><td colspan="1" rowspan="1"><p>a server thread receives</p>
+</td><td colspan="1" rowspan="1"><p>the server has no free thread</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><strong>served</strong></p>
+</td><td colspan="1" rowspan="1"><p>the server receives</p>
+</td><td colspan="1" rowspan="1"><p>the server replies</p>
+</td><td colspan="1" rowspan="1"><p>the server works long or waits for something itself</p>
+</td></tr>
+</table>
+<p>The kernel can log each of these moments as a trace event. The rest of this codelab finds them in the trace and does the subtraction.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Look at a raw kernel trace" duration="5">
+        <p>Before writing code, record a trace with the standard tools and find one message in it.</p>
+<ol type="1">
+<li>On the target, record the whole system for one second, in wide mode, while <code>ls</code> runs:<pre><code language="language-bash" class="language-bash">tracelogger -w -s 1 -f /tmp/all.kev &amp; sleep 0.3; ls /proc/boot &gt; /dev/null; wait
+</code></pre>
+</li>
+<li>Print it. <code>traceprinter</code> is not in the default image, but the SDP&#39;s host tools include it: copy the file to the host and print it there.<pre><code language="language-bash" class="language-bash">scp -O -i ~/qnx-vm/id_ed25519 -P 2222 root@127.0.0.1:/tmp/all.kev .
+traceprinter -f all.kev &gt; all.txt      # macOS: after ~/qtrace/env/qnx
+</code></pre>
+</li>
+<li>Look for <code>SND_MESSAGE</code> lines. One message from a client (here process 831510) to <code>procnto</code> (pid 1) looks like this; lines from other CPUs in between are left out and the spacing is trimmed:<pre><code language="language-text" class="language-text">t:0xc6cb00ae CPU:01 KER_CALL :MSG_SENDVNC/12
+                             coid:0x40000000
+t:0xc6cb0590 CPU:01 COMM    :SND_MESSAGE    rcvid:0x00000016 pid:1
+t:0xc6cb0784 CPU:01 THREAD  :THREPLY        pid:831510 tid:1 priority:10 policy:2
+t:0xc6cb0801 CPU:01 THREAD  :THRUNNING      pid:1 tid:17 priority:10 policy:2
+t:0xc6cb08fb CPU:01 COMM    :REC_MESSAGE    rcvid:0x00000016 pid:1
+t:0xc6cb21a3 CPU:01 COMM    :REPLY_MESSAGE  tid:1 pid:831510
+t:0xc6cb229d CPU:01 THREAD  :THREADY        pid:831510 tid:1 priority:10 policy:2
+t:0xc6cb448d CPU:00 KER_EXIT :MSG_SENDVNC/12
+                             ret_val:0x0000000000000000
+</code></pre>
+</li>
+</ol>
+<p>Read it from the top:</p>
+<ul>
+<li><code>KER_CALL MSG_SENDVNC</code>: the client enters <code>MsgSend()</code> on connection <code>0x40000000</code>, the side channel to <code>procnto</code>.</li>
+<li><code>SND_MESSAGE rcvid:0x16 pid:1</code>: the message is sent to process 1 and gets receive id <code>0x16</code>. The event holds the <strong>server&#39;s</strong> pid, not the client&#39;s: the client is whichever thread is running on that CPU.</li>
+<li><code>THREPLY</code>: a <code>procnto</code> thread was already waiting, so the client goes straight to REPLY blocked.</li>
+<li><code>THRUNNING pid:1 tid:17 priority:10</code>: <code>procnto</code> thread 17 runs, at priority 10 like the client.</li>
+<li><code>REC_MESSAGE rcvid:0x16 pid:1</code>: that thread receives the message with the same receive id.</li>
+<li><code>REPLY_MESSAGE tid:1 pid:831510</code>: it replies to thread 1 of process 831510, which becomes READY and later leaves <code>MsgSend()</code> on CPU 0.</li>
+</ul>
+<p>The <code>t:</code> values are <code>ClockCycles()</code> timestamps. Here the message queued for <code>0x08fb - 0x0590</code> cycles and the server worked on it for <code>0x21a3 - 0x08fb</code> cycles.</p>
+<p>Doing that by hand for hundreds of messages is not practical, and a system-wide trace grows quickly. Next, you make the kernel record only what you need and do the matching in code.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Tell the kernel what to record" duration="8">
+        <p><code>tracelogger</code> has a <strong>daemon mode</strong> (<code>-d1</code>): it allocates the kernel&#39;s trace buffers and writes them to a file, but it does not decide what is recorded or when. Your program does that with the <code>TraceEvent()</code> kernel call. Create <code>msgwait.c</code> and start with the capture half.</p>
+<h2 is-upgraded>Start tracelogger</h2>
+<pre><code language="language-c" class="language-c">#define KEV     &#34;/tmp/msgwait.kev&#34;
+
+/* tracelogger in daemon mode (-d1) only drains the kernel&#39;s trace buffers
+ * into the file; this program decides what the kernel records. */
+static pid_t start_tracelogger(void)
+{
+    char *argv[] = { &#34;tracelogger&#34;, &#34;-d1&#34;, &#34;-w&#34;, &#34;-c&#34;, &#34;-f&#34;, KEV, NULL };
+    posix_spawn_file_actions_t fa;
+    pid_t pid;
+    int rc;
+
+    posix_spawn_file_actions_init(&amp;fa);
+    posix_spawn_file_actions_addopen(&amp;fa, 1, &#34;/dev/null&#34;, O_WRONLY, 0);
+    posix_spawn_file_actions_addopen(&amp;fa, 2, &#34;/dev/null&#34;, O_WRONLY, 0);
+    rc = posix_spawnp(&amp;pid, &#34;tracelogger&#34;, &amp;fa, NULL, argv, environ);
+    posix_spawn_file_actions_destroy(&amp;fa);
+    if (rc != 0) {
+        fprintf(stderr, &#34;msgwait: cannot start tracelogger: %s\n&#34;, strerror(rc));
+        return -1;
+    }
+    return pid;
+}
+</code></pre>
+<p><code>-w</code> asks for wide events and <code>-c</code> keeps logging until <code>tracelogger</code> is stopped. Its own messages go to <code>/dev/null</code>, so they do not mix with the report.</p>
+<h2 is-upgraded>Choose the events</h2>
+<pre><code language="language-c" class="language-c">/* Thread states (who runs on which CPU), message passing (send, receive,
+ * reply) and process events (names), all in wide mode, which adds the
+ * thread priority to every THRUNNING event. */
+static int arm_kernel(void)
+{
+    if (TraceEvent(_NTO_TRACE_DELALLCLASSES) == -1 ||
+        TraceEvent(_NTO_TRACE_ADDCLASS, _NTO_TRACE_THREAD) == -1 ||
+        TraceEvent(_NTO_TRACE_ADDCLASS, _NTO_TRACE_COMM) == -1 ||
+        TraceEvent(_NTO_TRACE_ADDCLASS, _NTO_TRACE_PROCESS) == -1 ||
+        TraceEvent(_NTO_TRACE_SETALLCLASSESWIDE) == -1)
+        return -1;
+    return TraceEvent(_NTO_TRACE_START);
+}
+</code></pre>
+<ul>
+<li><code>_NTO_TRACE_DELALLCLASSES</code> starts from nothing.</li>
+<li>The <strong>thread</strong> class gives <code>THRUNNING</code> and the other state changes: who runs on which CPU, at which priority.</li>
+<li>The <strong>communication</strong> class gives <code>SND_MESSAGE</code>, <code>REC_MESSAGE</code>, <code>REPLY_MESSAGE</code> and <code>MSG_ERROR</code>.</li>
+<li>The <strong>process</strong> class gives process names. When tracing starts, the kernel also emits a name event for every process that already exists, so servers started at boot get their names too.</li>
+<li>Wide mode adds the priority and scheduling policy to every thread event.</li>
+</ul>
+<p>Kernel calls are left out on purpose: <code>msgwait</code> does not need them, and they are the largest class. To record the calls of one process only, add <code>_NTO_TRACE_KERCALL</code> and filter it with <code>TraceEvent(_NTO_TRACE_SETCLASSPID, _NTO_TRACE_KERCALL, pid)</code>.</p>
+<h2 is-upgraded>Start the command held</h2>
+<p>The command must not run before tracing is on. <code>spawnp()</code> with <code>SPAWN_HOLD</code> creates the process stopped before its first instruction; <code>SIGCONT</code> releases it.</p>
+<pre><code language="language-c" class="language-c">int main(int argc, char **argv)
+{
+    struct inheritance inh;
+    pid_t tl, child;
+    int i, status = 0;
+
+    if (argc &lt; 2) {
+        fprintf(stderr, &#34;usage: msgwait command [arg ...]\n&#34;);
+        return 2;
+    }
+    cycles_per_sec = SYSPAGE_ENTRY(qtime)-&gt;cycles_per_sec;
+    if ((tl = start_tracelogger()) &lt; 0) return 1;
+
+    /* Create the command stopped before its first instruction, so that
+     * tracing is on before it runs. */
+    memset(&amp;inh, 0, sizeof inh);
+    inh.flags = SPAWN_HOLD;
+    child = spawnp(argv[1], 0, NULL, &amp;inh, &amp;argv[1], environ);
+    if (child == -1) {
+        fprintf(stderr, &#34;msgwait: %s: %s\n&#34;, argv[1], strerror(errno));
+        stop_tracelogger(tl);
+        return 127;
+    }
+
+    /* tracelogger needs a moment to set up the kernel&#39;s buffers. */
+    for (i = 0; i &lt; 30 &amp;&amp; arm_kernel() == -1; i++)
+        usleep(100 * 1000);
+    if (i == 30) {
+        fprintf(stderr, &#34;msgwait: TraceEvent: %s (root? instrumented kernel?)\n&#34;, strerror(errno));
+        kill(child, SIGKILL);
+        stop_tracelogger(tl);
+        return 1;
+    }
+
+    kill(child, SIGCONT);                                   /* let it run */
+    while (waitpid(child, &amp;status, 0) == -1 &amp;&amp; errno == EINTR)
+        ;
+    stop_tracelogger(tl);
+    return report(child) == 0 ? WEXITSTATUS(status) : 1;
+}
+</code></pre>
+<p><code>SYSPAGE_ENTRY(qtime)->cycles_per_sec</code> from the system page converts <code>ClockCycles()</code> timestamps to time.</p>
+<h2 is-upgraded>Stop and flush</h2>
+<pre><code language="language-c" class="language-c">static void stop_tracelogger(pid_t tl)
+{
+    TraceEvent(_NTO_TRACE_STOP);   /* also flushes the last, partly filled buffer */
+    usleep(300 * 1000);            /* give tracelogger time to write it out */
+    kill(tl, SIGINT);
+    waitpid(tl, NULL, 0);
+}
+</code></pre>
+<p>Negative : If <code>msgwait</code> stops with &#34;TraceEvent: Operation not permitted&#34;, run it as root. If it says &#34;Function not implemented&#34;, the target does not boot the instrumented kernel.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Read the trace with libtraceparser" duration="10">
+        <p><code>libtraceparser</code> reads <code>.kev</code> files. You register one callback per event class and event type with <code>traceparser_cs()</code>, then <code>traceparser()</code> reads the file and calls them in order. Every callback gets the event header (the CPU is in it), the 32-bit timestamp and the event&#39;s data words.</p>
+<h2 is-upgraded>Keep track of who runs where</h2>
+<p>Message events do not say which thread logged them. The sender of <code>SND_MESSAGE</code> and the receiver of <code>REC_MESSAGE</code> are the threads running on that CPU at that moment, so remember the last <code>THRUNNING</code> of each CPU:</p>
+<pre><code language="language-c" class="language-c">typedef struct { int pid, tid, prio; } runner_t;
+static runner_t running[MAXCPU];
+
+/* THRUNNING: pid, tid, priority, policy (wide mode). Message events do not
+ * say which thread logged them: it is the one running on that CPU. */
+static int on_running(struct traceparser_state *tp, void *ud, unsigned header, unsigned time,
+                      unsigned *d, unsigned n)
+{
+    unsigned cpu = _NTO_TRACE_GETCPU(header);
+    if (cpu &lt; MAXCPU &amp;&amp; n &gt;= 3) {
+        running[cpu].pid = (int)d[0];
+        running[cpu].tid = (int)d[1];
+        running[cpu].prio = (int)d[2];
+    }
+    return 0;
+}
+</code></pre>
+<h2 is-upgraded>Join the three message events</h2>
+<p>A message in flight is identified by the server&#39;s pid and the receive id on the send side, and by the client&#39;s pid and thread id on the reply side. A client thread has at most one message in flight, because <code>MsgSend()</code> blocks.</p>
+<pre><code language="language-c" class="language-c">typedef struct {
+    int srv, rcvid, pid, tid, srv_prio, received;
+    unsigned t_send, t_recv;
+} flight_t;
+
+/* A client thread has at most one message in flight, because MsgSend()
+ * blocks, so (pid, tid) finds it; a newer send replaces an older one that
+ * never got a reply. Returns NULL for threads that are not traced. */
+static flight_t *find_or_add(int pid, int tid)
+{
+    int i;
+    if (!proc(pid)-&gt;traced) return NULL;
+    for (i = 0; i &lt; nmsgs; i++)
+        if (msgs[i].pid == pid &amp;&amp; msgs[i].tid == tid) break;
+    if (i == nmsgs) {
+        if (nmsgs == MAXMSG) return NULL;
+        nmsgs++;
+    }
+    memset(&amp;msgs[i], 0, sizeof msgs[i]);
+    msgs[i].pid = pid;
+    msgs[i].tid = tid;
+    return &amp;msgs[i];
+}
+
+/* SND_MESSAGE (COMM_SMSG): rcvid, server pid. Logged on the client&#39;s CPU. */
+static int on_send(struct traceparser_state *tp, void *ud, unsigned header, unsigned time,
+                   unsigned *d, unsigned n)
+{
+    runner_t *c = &amp;running[_NTO_TRACE_GETCPU(header) % MAXCPU];
+    flight_t *m = n &gt;= 2 ? find_or_add(c-&gt;pid, c-&gt;tid) : NULL;
+    if (!m) return 0;
+    m-&gt;rcvid = (int)d[0];
+    m-&gt;srv = (int)d[1];
+    m-&gt;t_send = time;
+    return 0;
+}
+
+/* REC_MESSAGE (COMM_RMSG): rcvid, server pid. Logged on the server&#39;s CPU. */
+static int on_receive(struct traceparser_state *tp, void *ud, unsigned header, unsigned time,
+                      unsigned *d, unsigned n)
+{
+    runner_t *s = &amp;running[_NTO_TRACE_GETCPU(header) % MAXCPU];
+    flight_t *m = n &gt;= 2 ? find_by_rcvid((int)d[1], (int)d[0]) : NULL;
+    if (!m) return 0;
+    m-&gt;received = 1;
+    m-&gt;t_recv = time;
+    m-&gt;srv_prio = s-&gt;pid == m-&gt;srv ? s-&gt;prio : -1;         /* the server thread runs here */
+    return 0;
+}
+</code></pre>
+<p><code>REPLY_MESSAGE</code> (and <code>MSG_ERROR</code>, when the server answers with <code>MsgError()</code>) carry the client&#39;s thread id and pid. That closes the message:</p>
+<pre><code language="language-c" class="language-c">static double us(unsigned from, unsigned to)
+{
+    return (double)(unsigned)(to - from) * 1e6 / (double)cycles_per_sec;
+}
+
+/* REPLY_MESSAGE (COMM_REPLY), MSG_ERROR (COMM_ERROR): client tid, client pid. */
+static int on_reply(struct traceparser_state *tp, void *ud, unsigned header, unsigned time,
+                    unsigned *d, unsigned n)
+{
+    flight_t *m = n &gt;= 2 ? find_by_client((int)d[1], (int)d[0]) : NULL;
+    proc_info_t *srv;
+    double queued, served;
+    if (!m || !m-&gt;received) return 0;
+    queued = us(m-&gt;t_send, m-&gt;t_recv);
+    served = us(m-&gt;t_recv, time);
+    fprintf(stderr, &#34;%12s[%d:%d] -&gt; %-17s[%d]  queued %9.1f us  served %9.1f us  server prio %d%s\n&#34;,
+            name_of(m-&gt;pid), m-&gt;pid, m-&gt;tid, name_of(m-&gt;srv), m-&gt;srv, queued, served,
+            m-&gt;srv_prio, ud ? &#34;  (MsgError)&#34; : &#34;&#34;);
+    srv = proc(m-&gt;srv);
+    srv-&gt;msgs++;
+    srv-&gt;queued_us += queued;
+    srv-&gt;served_us += served;
+    drop(m);
+    return 0;
+}
+</code></pre>
+<p><code>find_by_rcvid()</code>, <code>find_by_client()</code>, <code>name_of()</code> and <code>drop()</code> are loops as short as <code>find_or_add()</code>; see the <a href="https://github.com/Fuze5k/qtrace/blob/main/codelab/msgwait.c" target="_blank">full program</a>.</p>
+<p>Positive : Timestamps reach the callbacks as the low 32 bits of <code>ClockCycles()</code>. The unsigned subtraction in <code>us()</code> stays correct across one wrap of that counter. For longer traces, extend the timestamps with the <code>_NTO_TRACE_CONTROLTIME</code> events, which carry the high 32 bits.</p>
+<h2 is-upgraded>Names and children</h2>
+<p><code>PROCCREATE_NAME</code> gives a process&#39;s parent, pid and path. Keep the last path component as its name, and mark a new process as traced when its parent is, so <code>msgwait sh -c "..."</code> also follows the commands that the shell starts. A child made by <code>fork()</code> gets only a <code>PROCCREATE</code> event, without a name: it runs its parent&#39;s program, so give it the parent&#39;s name until a name event for <code>exec()</code> replaces it.</p>
+<pre><code language="language-c" class="language-c">/* PROCCREATE: ppid, pid. PROCCREATE_NAME: ppid, pid, path. When tracing
+ * starts the kernel emits PROCCREATE_NAME for every existing process too. */
+static int on_process(struct traceparser_state *tp, void *ud, unsigned header, unsigned time,
+                      unsigned *d, unsigned n)
+{
+    proc_info_t *parent, *p;
+    if (n &lt; 2) return 0;
+    parent = proc((int)d[0]);
+    p = proc((int)d[1]);
+    if (parent-&gt;traced) p-&gt;traced = 1;                     /* follow children */
+    if (ud &amp;&amp; n &gt; 2) {                                     /* keep the basename */
+        const char *s = (const char *)&amp;d[2];
+        size_t len = strnlen(s, (n - 2) * sizeof d[0]), i, from = 0;
+        for (i = 0; i &lt; len; i++)
+            if (s[i] == &#39;/&#39;) from = i + 1;
+        snprintf(p-&gt;name, sizeof p-&gt;name, &#34;%.*s&#34;, (int)(len - from), s + from);
+    } else if (!p-&gt;name[0]) {
+        /* fork() logs no name: the child runs its parent&#39;s program until exec() */
+        memcpy(p-&gt;name, parent-&gt;name, sizeof p-&gt;name);
+    }
+    return 0;
+}
+</code></pre>
+<h2 is-upgraded>Register the callbacks and parse</h2>
+<pre><code language="language-c" class="language-c">static int report(pid_t child)
+{
+    struct traceparser_state *tp = traceparser_init(NULL);
+    int i;
+
+    if (!tp) return -1;
+    proc(child)-&gt;traced = 1;
+    traceparser_cs(tp, NULL, on_running, _NTO_TRACE_THREAD, _NTO_TRACE_THRUNNING);
+    traceparser_cs(tp, NULL, on_process, _NTO_TRACE_PROCESS, _NTO_TRACE_PROCCREATE);
+    traceparser_cs(tp, &#34;name&#34;, on_process, _NTO_TRACE_PROCESS, _NTO_TRACE_PROCCREATE_NAME);
+    traceparser_cs(tp, NULL, on_send, _NTO_TRACE_COMM, _NTO_TRACE_COMM_SMSG);
+    traceparser_cs(tp, NULL, on_receive, _NTO_TRACE_COMM, _NTO_TRACE_COMM_RMSG);
+    traceparser_cs(tp, NULL, on_reply, _NTO_TRACE_COMM, _NTO_TRACE_COMM_REPLY);
+    traceparser_cs(tp, &#34;error&#34;, on_reply, _NTO_TRACE_COMM, _NTO_TRACE_COMM_ERROR);
+    if (traceparser(tp, NULL, KEV) != 0) {
+        fprintf(stderr, &#34;msgwait: cannot parse %s: %s\n&#34;, KEV, strerror(errno));
+        traceparser_destroy(&amp;tp);
+        return -1;
+    }
+    traceparser_destroy(&amp;tp);
+
+    qsort(procs, nprocs, sizeof procs[0], by_total);
+    fprintf(stderr, &#34;\n%-17s %8s %14s %14s\n&#34;, &#34;server&#34;, &#34;messages&#34;, &#34;queued us&#34;, &#34;served us&#34;);
+    for (i = 0; i &lt; nprocs &amp;&amp; procs[i].msgs; i++)
+        fprintf(stderr, &#34;%-17s %8u %14.1f %14.1f\n&#34;, name_of(procs[i].pid), procs[i].msgs,
+                procs[i].queued_us, procs[i].served_us);
+    return 0;
+}
+</code></pre>
+<p>The second argument of <code>traceparser_cs()</code> is passed to the callback as <code>ud</code>. <code>msgwait</code> uses it to tell <code>PROCCREATE</code> from <code>PROCCREATE_NAME</code>, and replies from errors.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Build and run msgwait" duration="5">
+        <ol type="1">
+<li>Build on the host with <code>qcc</code> and link <code>libtraceparser</code>:<pre><code language="language-bash" class="language-bash">qcc -Vgcc_ntoaarch64le -Wall -O2 -o msgwait msgwait.c -ltraceparser
+# macOS: the same command after ~/qtrace/env/qnx
+</code></pre>
+For an x86-64 target use <code>-Vgcc_ntox86_64</code>.</li>
+<li>Copy it to the target, together with <code>libtraceparser.so.1</code> from the SDP: the default image does not include the library.<pre><code language="language-bash" class="language-bash">T=~/qnx800/target/qnx/aarch64le
+ssh -i ~/qnx-vm/id_ed25519 -p 2222 root@127.0.0.1 mkdir -p /data/msgwait
+scp -O -i ~/qnx-vm/id_ed25519 -P 2222 msgwait $T/usr/lib/libtraceparser.so.1 \
+    root@127.0.0.1:/data/msgwait/
+</code></pre>
+</li>
+<li>On the target, trace <code>ls</code>:<pre><code language="language-bash" class="language-bash">cd /data/msgwait
+LD_LIBRARY_PATH=. ./msgwait ls /proc/boot &gt; /dev/null
+</code></pre>
+<pre><code language="language-text" class="language-text">          ls[999446:1] -&gt; procnto-smp-instr[1]  queued      11.0 us  served      19.0 us  server prio 10
+          ls[999446:1] -&gt; procnto-smp-instr[1]  queued       5.0 us  served       6.0 us  server prio 10
+          ls[999446:1] -&gt; procnto-smp-instr[1]  queued       8.0 us  served      90.0 us  server prio 10
+          ls[999446:1] -&gt; procnto-smp-instr[1]  queued       5.0 us  served      89.0 us  server prio 10
+          ls[999446:1] -&gt; devb-virtio      [45063]  queued      17.0 us  served     117.0 us  server prio 10  (MsgError)
+          ls[999446:1] -&gt; procnto-smp-instr[1]  queued      11.0 us  served      22.0 us  server prio 10  (MsgError)
+...
+          ls[999446:1] -&gt; pipe             [122889]  queued      13.0 us  served      21.0 us  server prio 10
+          ls[999446:1] -&gt; procnto-smp-instr[1]  queued       6.0 us  served     176.0 us  server prio 10
+
+server            messages      queued us      served us
+procnto-smp-instr      365         1994.0         6028.1
+devb-virtio              6           79.0          356.0
+pipe                     4           60.0          116.0
+</code></pre>
+<code>msgwait</code> writes its report to standard error after the command ends, as <code>strace</code> does, so the command&#39;s own output can go elsewhere. One <code>ls</code> sends 375 messages. Almost all go to <code>procnto</code>: it is the process manager and the path manager, so loading the program and its libraries (<code>open</code>, <code>mmap</code>) and every path lookup are messages to it. The <code>(MsgError)</code> replies from <code>devb-virtio</code>, the disk driver behind <code>/data</code>, are files that do not exist: the dynamic linker looks for libraries in <code>LD_LIBRARY_PATH</code> first. Every message here was served within a fraction of a millisecond.</li>
+<li>Now a pipeline. <code>wc</code> reads from a pipe that <code>ls</code> fills:<pre><code language="language-bash" class="language-bash">LD_LIBRARY_PATH=. ./msgwait sh -c &#34;ls /proc/boot | wc -l&#34;
+</code></pre>
+<pre><code language="language-text" class="language-text">62
+          sh[1191958:1] -&gt; procnto-smp-instr[1]  queued      15.0 us  served      34.0 us  server prio 10
+          sh[1191958:1] -&gt; procnto-smp-instr[1]  queued      61.0 us  served      16.0 us  server prio 10
+          sh[1191958:1] -&gt; procnto-smp-instr[1]  queued      14.0 us  served     137.0 us  server prio 10
+...
+          wc[1191960:1] -&gt; pipe             [122889]  queued      15.0 us  served   13016.0 us  server prio 10
+          ls[1191959:1] -&gt; pipe             [122889]  queued      20.0 us  served      96.0 us  server prio 10
+          ls[1191959:1] -&gt; pipe             [122889]  queued      29.0 us  served      40.0 us  server prio 10
+          wc[1191960:1] -&gt; pipe             [122889]  queued      19.0 us  served     170.0 us  server prio 10
+...
+
+server            messages      queued us      served us
+procnto-smp-instr      611         9240.9        34295.3
+pipe                    58         1281.1        15885.0
+devb-virtio             23          491.0         1684.0
+</code></pre>
+<code>62</code> is the output of <code>wc</code>. The shell forks one child for each side of the pipe; the children run <code>ls</code> and <code>wc</code> under the pids they were forked with, and <code>msgwait</code> follows them because their parent is traced.The <code>wc</code> line with a <strong>served</strong> time of 13 ms is the answer to &#34;what is <code>wc</code> waiting for&#34;. The message queued for only 15 us, so the pipe server was not busy. It then held the <code>read()</code> for 13 ms because the pipe was empty: it replies only when <code>ls</code> writes, and the <code>ls</code> lines right after it are <code>ls</code> talking to the same pipe server. The time is spent waiting for <code>ls</code>, not in <code>wc</code> and not in the pipe server&#39;s code. The numbers differ a little from run to run.</li>
+</ol>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="See priority inheritance" duration="3">
+        <p>Run the same command at priority 30 with <code>on -p</code>:</p>
+<pre><code language="language-bash" class="language-bash">LD_LIBRARY_PATH=. on -p 30 ./msgwait ls /proc/boot &gt; /dev/null
+</code></pre>
+<pre><code language="language-text" class="language-text">          ls[1110038:1] -&gt; procnto-smp-instr[1]  queued      14.0 us  served      20.0 us  server prio 30
+          ls[1110038:1] -&gt; procnto-smp-instr[1]  queued      10.0 us  served      12.0 us  server prio 30
+          ls[1110038:1] -&gt; procnto-smp-instr[1]  queued       7.0 us  served     112.0 us  server prio 30
+...
+
+server            messages      queued us      served us
+procnto-smp-instr      365         2320.0         6270.1
+devb-virtio              6          101.0          458.0
+pipe                     4           69.0          130.0
+</code></pre>
+<p>The <strong>server prio</strong> column follows the client. All 375 messages were served at priority 30, by <code>procnto</code>, <code>devb-virtio</code> and <code>pipe</code> alike, where the run in the previous step showed 10. A server thread that receives a message takes the priority of the client that sent it. Without this, a low-priority client could keep a server busy while a high-priority client waits behind it.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Going further" duration="2">
+        <p><code>msgwait</code> answers one question with about 300 lines of C. A few directions to take it further:</p>
+<ul>
+<li><strong>Name the operation.</strong> In wide mode the <code>MSG_SENDV</code> kernel-call event carries the first 12 bytes of the message. Its first 16 bits are the message type from <code><sys/iomsg.h></code> (<code>_IO_READ</code>, <code>_IO_WRITE</code>, <code>_IO_CONNECT</code> ...), so you can print <code>read</code> instead of a bare message.</li>
+<li><strong>Map connections to servers. </strong><code>ConnectAttach()</code> kernel-call events tell you which server each connection id leads to, before any message is sent.</li>
+<li><strong>Look inside the server.</strong> Record kernel calls of the server too, and you can see what the server did while your client waited, for example a message of its own to a disk driver.</li>
+</ul>
+<p><a href="https://github.com/Fuze5k/qtrace" target="_blank">qtrace</a> does all of this: it prints every kernel call of a process, names each message (<code>open</code>, <code>read</code>, <code>write</code>, <code>devctl</code>, <code>mmap</code>, <code>spawn</code> ...), follows <code>open()</code> through <code>procnto</code>&#39;s path manager to the server that owns the path, sums the time per server and operation, and writes an HTML timeline you can open on any computer.</p>
+<h2 is-upgraded>What you learned</h2>
+<ul>
+<li>On QNX OS 8.0, most POSIX calls are messages to servers, and the time a call takes is mostly queue time plus the server&#39;s time.</li>
+<li><code>tracelogger -d1</code> with <code>TraceEvent()</code> records only the classes you choose, and <code>SPAWN_HOLD</code> makes sure the first instruction of the traced program is in the trace.</li>
+<li><code>libtraceparser</code> turns a <code>.kev</code> file into callbacks; the send, receive and reply events join on the receive id and the client&#39;s thread.</li>
+<li>A server thread runs at its client&#39;s priority while it serves it.</li>
+</ul>
+<h2 is-upgraded>Further reading</h2>
+<ul>
+<li><a href="https://www.qnx.com/developers/docs/8.0/com.qnx.doc.sat/topic/about.html" target="_blank">System Analysis Toolkit User&#39;s Guide</a></li>
+<li><a href="https://www.qnx.com/developers/docs/8.0/com.qnx.doc.neutrino.lib_ref/topic/t/traceevent.html" target="_blank"><code>TraceEvent()</code></a> and <a href="https://www.qnx.com/developers/docs/8.0/com.qnx.doc.neutrino.lib_ref/topic/t/traceparser.html" target="_blank"><code>traceparser()</code></a></li>
+<li><a href="https://www.qnx.com/developers/docs/8.0/com.qnx.doc.neutrino.sys_arch/topic/ipc.html" target="_blank">Interprocess communication</a> and <a href="https://www.qnx.com/developers/docs/8.0/com.qnx.doc.neutrino.sys_arch/topic/ipc_Priority_inheritance_messages.html" target="_blank">priority inheritance and messages</a> in the System Architecture guide</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/claat-public/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/prettify.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+  <script>
+    
+    navigation.addEventListener("navigate", (event) => {
+    const url = new URL(event.destination.url);
+
+    if (url.pathname == "/") {
+      window.location.href = "https://qnx.github.io/codelabs/";
+    }
+  });
+  </script>
+
+</body>
+</html>

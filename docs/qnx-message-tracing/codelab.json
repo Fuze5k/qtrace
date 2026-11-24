@@ -1,0 +1,24 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "updated": "2026-11-24T03:36:15+02:00",
+  "id": "qnx-message-tracing",
+  "duration": 48,
+  "title": "What Is My QNX Program Waiting For? Trace Message Passing on QNX 8.0",
+  "authors": "Yaroslav Hryhorenko",
+  "summary": "Use the instrumented kernel, TraceEvent() and libtraceparser to see which server answers each message your program sends, how long it queued and how long the server worked.",
+  "source": "codelab/qnx-message-tracing.md",
+  "theme": "",
+  "status": [
+    "draft"
+  ],
+  "category": [
+    "debugging\u0026performance"
+  ],
+  "tags": [
+    "intermediate"
+  ],
+  "feedback": "https://github.com/Fuze5k/qtrace/issues",
+  "url": "qnx-message-tracing"
+}

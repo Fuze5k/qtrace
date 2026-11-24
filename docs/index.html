@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>qtrace — strace for the QNX microkernel</title>
+<style>
+  body { font: 16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; color: #1a1f2e;
+         background: #f5f7fa; margin: 0; }
+  main { max-width: 760px; margin: 0 auto; padding: 48px 24px; }
+  h1 { font-size: 28px; margin: 0 0 8px; }
+  p.lead { margin: 0 0 32px; color: #4a5266; }
+  a.card { display: block; background: #fff; border: 1px solid #dde2ea; border-radius: 8px;
+           padding: 20px 24px; margin-bottom: 16px; color: inherit; text-decoration: none; }
+  a.card:hover { border-color: #8a96ad; }
+  a.card strong { display: block; font-size: 18px; margin-bottom: 4px; color: #0b57d0; }
+  footer { margin-top: 32px; font-size: 14px; color: #4a5266; }
+</style>
+</head>
+<body>
+<main>
+  <h1>qtrace</h1>
+  <p class="lead">strace for the QNX OS 8.0 microkernel: every kernel call of a process, the server behind
+    every message, and why it waited.</p>
+
+  <a class="card" href="qnx-message-tracing/">
+    <strong>Codelab: What Is My QNX Program Waiting For?</strong>
+    Trace message passing on QNX 8.0 with TraceEvent() and libtraceparser, and see how long each message
+    queued, how long the server worked and at which priority.
+  </a>
+
+  <a class="card" href="report/sh-pipeline.html">
+    <strong>Example report: <code>sh -c "ls /proc/boot | wc -l"</code></strong>
+    The HTML report qtrace wrote on QNX 8.0 in QEMU: a timeline of the client threads, the server threads
+    that served them and the messages between them.
+  </a>
+
+  <footer>Source, build instructions and licence (Apache-2.0):
+    <a href="https://github.com/Fuze5k/qtrace">github.com/Fuze5k/qtrace</a></footer>
+</main>
+</body>
+</html>

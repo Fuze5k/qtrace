@@ -23,7 +23,9 @@ the server was busy, or it was slow to reply.
 In this codelab you write `msgwait`, a small C program that runs a command and prints every message the
 command sends:
 
-<!-- OUTPUT: one real line from the msgwait run -->
+```text
+          wc[1191960:1] -> pipe             [122889]  queued      15.0 us  served   13016.0 us  server prio 10
+```
 
 That line says which server answered, how long the message waited before the server picked it up, how long
 the server worked on it, and the priority the server ran at while it did.
@@ -56,10 +58,20 @@ packages you have installed. You need the QEMU target packages (`com.qnx.qnx800.
 `mkqnximage` host package and the virtio drivers; install them with the QNX Software Center if they are
 missing.
 
-1. Open a terminal with the SDP environment:
+1. Open a terminal with the SDP environment. On a Linux host:
 
     ```bash
     source ~/qnx800/qnxsdp-env.sh
+    ```
+
+    The SDP's host tools are built for x86-64 Linux and Windows. On a Mac, install the package
+    "QNX SDP Host Tools (Linux 64-bit)" too and run the tools in an x86-64 Linux container under Docker,
+    as QNX's [docker-mac](https://gitlab.com/qnx/projects/docker-mac) project shows. The `env/qnx` script
+    in the qtrace repository does that for one command: put it in front of each SDP command below.
+
+    ```bash
+    # macOS only
+    git clone https://github.com/Fuze5k/qtrace.git ~/qtrace
     ```
 
 2. Create a directory for the image and an SSH key for root login:
@@ -69,11 +81,12 @@ missing.
     ssh-keygen -t ed25519 -N '' -f ./id_ed25519
     ```
 
-3. Build the image:
+3. Build the image. `--force` lets `mkqnximage` use a directory that is not empty (the key is in it):
 
     ```bash
     mkqnximage --type=qemu --arch=aarch64le --cpu=4 --ram=1G \
-        --hostname=qnxtrace --ssh-ident="$PWD/id_ed25519.pub" --noprompt --build
+        --hostname=qnxtrace --ssh-ident="$PWD/id_ed25519.pub" --noprompt --force --build
+    # macOS: the same command after ~/qtrace/env/qnx
     ```
 
     Use `--arch=x86_64` for an x86-64 image instead.
@@ -85,8 +98,7 @@ missing.
     ```bash
     # Linux
     mkqnximage --run=-h
-    # macOS
-    git clone https://github.com/Fuze5k/qtrace.git ~/qtrace
+    # macOS (about a minute until SSH answers)
     ~/qtrace/env/run-qemu.sh ~/qnx-vm start
     ```
 
@@ -97,7 +109,9 @@ missing.
     uname -a
     ```
 
-    <!-- OUTPUT: paste the real uname -a line from the fresh image -->
+    ```text
+    QNX qnxtrace 8.0.0 2026/10/30-09:09:47EDT QEMU_virt aarch64le
+    ```
 
 Images built by `mkqnximage` boot `procnto-smp-instr`, the instrumented kernel; you can see it in
 `output/build/ifs.build`. Only the instrumented kernel can record events, so if you use another target,
@@ -142,10 +156,12 @@ Before writing code, record a trace with the standard tools and find one message
     tracelogger -w -s 1 -f /tmp/all.kev & sleep 0.3; ls /proc/boot > /dev/null; wait
     ```
 
-2. Print it. `traceprinter` runs on the target; the SDP's Linux host tools have it too:
+2. Print it. `traceprinter` is not in the default image, but the SDP's host tools include it: copy the
+   file to the host and print it there.
 
     ```bash
-    traceprinter -f /tmp/all.kev > /tmp/all.txt
+    scp -O -i ~/qnx-vm/id_ed25519 -P 2222 root@127.0.0.1:/tmp/all.kev .
+    traceprinter -f all.kev > all.txt      # macOS: after ~/qtrace/env/qnx
     ```
 
 3. Look for `SND_MESSAGE` lines. One message from a client (here process 831510) to `procnto` (pid 1)
@@ -424,9 +440,9 @@ static int on_reply(struct traceparser_state *tp, void *ud, unsigned header, uns
     if (!m || !m->received) return 0;
     queued = us(m->t_send, m->t_recv);
     served = us(m->t_recv, time);
-    printf("%12s[%d:%d] -> %-12s[%d]  queued %9.1f us  served %9.1f us  server prio %d%s\n",
-           name_of(m->pid), m->pid, m->tid, name_of(m->srv), m->srv, queued, served,
-           m->srv_prio, ud ? "  (MsgError)" : "");
+    fprintf(stderr, "%12s[%d:%d] -> %-17s[%d]  queued %9.1f us  served %9.1f us  server prio %d%s\n",
+            name_of(m->pid), m->pid, m->tid, name_of(m->srv), m->srv, queued, served,
+            m->srv_prio, ud ? "  (MsgError)" : "");
     srv = proc(m->srv);
     srv->msgs++;
     srv->queued_us += queued;
@@ -448,7 +464,33 @@ stays correct across one wrap of that counter. For longer traces, extend the tim
 
 `PROCCREATE_NAME` gives a process's parent, pid and path. Keep the last path component as its name, and
 mark a new process as traced when its parent is, so `msgwait sh -c "..."` also follows the commands that
-the shell starts.
+the shell starts. A child made by `fork()` gets only a `PROCCREATE` event, without a name: it runs its
+parent's program, so give it the parent's name until a name event for `exec()` replaces it.
+
+```c
+/* PROCCREATE: ppid, pid. PROCCREATE_NAME: ppid, pid, path. When tracing
+ * starts the kernel emits PROCCREATE_NAME for every existing process too. */
+static int on_process(struct traceparser_state *tp, void *ud, unsigned header, unsigned time,
+                      unsigned *d, unsigned n)
+{
+    proc_info_t *parent, *p;
+    if (n < 2) return 0;
+    parent = proc((int)d[0]);
+    p = proc((int)d[1]);
+    if (parent->traced) p->traced = 1;                     /* follow children */
+    if (ud && n > 2) {                                     /* keep the basename */
+        const char *s = (const char *)&d[2];
+        size_t len = strnlen(s, (n - 2) * sizeof d[0]), i, from = 0;
+        for (i = 0; i < len; i++)
+            if (s[i] == '/') from = i + 1;
+        snprintf(p->name, sizeof p->name, "%.*s", (int)(len - from), s + from);
+    } else if (!p->name[0]) {
+        /* fork() logs no name: the child runs its parent's program until exec() */
+        memcpy(p->name, parent->name, sizeof p->name);
+    }
+    return 0;
+}
+```
 
 ### Register the callbacks and parse
 
@@ -475,10 +517,10 @@ static int report(pid_t child)
     traceparser_destroy(&tp);
 
     qsort(procs, nprocs, sizeof procs[0], by_total);
-    printf("\n%-16s %8s %14s %14s\n", "server", "messages", "queued us", "served us");
+    fprintf(stderr, "\n%-17s %8s %14s %14s\n", "server", "messages", "queued us", "served us");
     for (i = 0; i < nprocs && procs[i].msgs; i++)
-        printf("%-16s %8u %14.1f %14.1f\n", procs[i].name, procs[i].msgs,
-               procs[i].queued_us, procs[i].served_us);
+        fprintf(stderr, "%-17s %8u %14.1f %14.1f\n", name_of(procs[i].pid), procs[i].msgs,
+                procs[i].queued_us, procs[i].served_us);
     return 0;
 }
 ```
@@ -493,17 +535,19 @@ Duration: 5:00
 
     ```bash
     qcc -Vgcc_ntoaarch64le -Wall -O2 -o msgwait msgwait.c -ltraceparser
+    # macOS: the same command after ~/qtrace/env/qnx
     ```
 
     For an x86-64 target use `-Vgcc_ntox86_64`.
 
-2. Copy it to the target, together with two files from the SDP that the default image does not include:
-   `libtraceparser.so.1` and the `on` utility, which you need in the last step.
+2. Copy it to the target, together with `libtraceparser.so.1` from the SDP: the default image does not
+   include the library.
 
     ```bash
-    ssh -i ./id_ed25519 -p 2222 root@127.0.0.1 mkdir -p /data/msgwait
-    scp -O -i ./id_ed25519 -P 2222 msgwait $QNX_TARGET/aarch64le/usr/lib/libtraceparser.so.1 \
-        $QNX_TARGET/aarch64le/bin/on root@127.0.0.1:/data/msgwait/
+    T=~/qnx800/target/qnx/aarch64le
+    ssh -i ~/qnx-vm/id_ed25519 -p 2222 root@127.0.0.1 mkdir -p /data/msgwait
+    scp -O -i ~/qnx-vm/id_ed25519 -P 2222 msgwait $T/usr/lib/libtraceparser.so.1 \
+        root@127.0.0.1:/data/msgwait/
     ```
 
 3. On the target, trace `ls`:
@@ -513,10 +557,29 @@ Duration: 5:00
     LD_LIBRARY_PATH=. ./msgwait ls /proc/boot > /dev/null
     ```
 
-    <!-- OUTPUT: paste the real output of this command from the QEMU run before publishing -->
+    ```text
+              ls[999446:1] -> procnto-smp-instr[1]  queued      11.0 us  served      19.0 us  server prio 10
+              ls[999446:1] -> procnto-smp-instr[1]  queued       5.0 us  served       6.0 us  server prio 10
+              ls[999446:1] -> procnto-smp-instr[1]  queued       8.0 us  served      90.0 us  server prio 10
+              ls[999446:1] -> procnto-smp-instr[1]  queued       5.0 us  served      89.0 us  server prio 10
+              ls[999446:1] -> devb-virtio      [45063]  queued      17.0 us  served     117.0 us  server prio 10  (MsgError)
+              ls[999446:1] -> procnto-smp-instr[1]  queued      11.0 us  served      22.0 us  server prio 10  (MsgError)
+    ...
+              ls[999446:1] -> pipe             [122889]  queued      13.0 us  served      21.0 us  server prio 10
+              ls[999446:1] -> procnto-smp-instr[1]  queued       6.0 us  served     176.0 us  server prio 10
 
-    `msgwait` prints its report on standard output after the command ends. Here `ls` prints to
-    `/dev/null`, so only the report is left.
+    server            messages      queued us      served us
+    procnto-smp-instr      365         1994.0         6028.1
+    devb-virtio              6           79.0          356.0
+    pipe                     4           60.0          116.0
+    ```
+
+    `msgwait` writes its report to standard error after the command ends, as `strace` does, so the
+    command's own output can go elsewhere. One `ls` sends 375 messages. Almost all go to `procnto`: it is
+    the process manager and the path manager, so loading the program and its libraries (`open`, `mmap`)
+    and every path lookup are messages to it. The `(MsgError)` replies from `devb-virtio`, the disk
+    driver behind `/data`, are files that do not exist: the dynamic linker looks for libraries in
+    `LD_LIBRARY_PATH` first. Every message here was served within a fraction of a millisecond.
 
 4. Now a pipeline. `wc` reads from a pipe that `ls` fills:
 
@@ -524,11 +587,34 @@ Duration: 5:00
     LD_LIBRARY_PATH=. ./msgwait sh -c "ls /proc/boot | wc -l"
     ```
 
-    <!-- OUTPUT: paste the real output from the QEMU run, then explain the long pipe read -->
+    ```text
+    62
+              sh[1191958:1] -> procnto-smp-instr[1]  queued      15.0 us  served      34.0 us  server prio 10
+              sh[1191958:1] -> procnto-smp-instr[1]  queued      61.0 us  served      16.0 us  server prio 10
+              sh[1191958:1] -> procnto-smp-instr[1]  queued      14.0 us  served     137.0 us  server prio 10
+    ...
+              wc[1191960:1] -> pipe             [122889]  queued      15.0 us  served   13016.0 us  server prio 10
+              ls[1191959:1] -> pipe             [122889]  queued      20.0 us  served      96.0 us  server prio 10
+              ls[1191959:1] -> pipe             [122889]  queued      29.0 us  served      40.0 us  server prio 10
+              wc[1191960:1] -> pipe             [122889]  queued      19.0 us  served     170.0 us  server prio 10
+    ...
 
-    The `wc` line to the `pipe` server with a long **served** time is the answer to "what is `wc` waiting
-    for": the pipe server holds the `read()` until `ls` writes, so the time is spent waiting for `ls`, not
-    in `wc` or in the pipe server's code.
+    server            messages      queued us      served us
+    procnto-smp-instr      611         9240.9        34295.3
+    pipe                    58         1281.1        15885.0
+    devb-virtio             23          491.0         1684.0
+    ```
+
+    `62` is the output of `wc`. The shell forks one child for each side of the pipe; the children run `ls`
+    and `wc` under the pids they were forked with, and `msgwait` follows them because their parent is
+    traced.
+
+    The `wc` line with a **served** time of 13 ms is the answer to "what is `wc` waiting for". The
+    message queued for only 15 us, so the pipe server was not busy. It then held the `read()` for 13 ms
+    because the pipe was empty: it replies only when `ls` writes, and the `ls` lines right after it are `ls`
+    talking to the same pipe server.
+    The time is spent waiting for `ls`, not in `wc` and not in the pipe server's code. The numbers differ a
+    little from run to run.
 
 ## See priority inheritance
 Duration: 3:00
@@ -536,14 +622,24 @@ Duration: 3:00
 Run the same command at priority 30 with `on -p`:
 
 ```bash
-LD_LIBRARY_PATH=. ./on -p 30 ./msgwait ls /proc/boot > /dev/null
+LD_LIBRARY_PATH=. on -p 30 ./msgwait ls /proc/boot > /dev/null
 ```
 
-<!-- OUTPUT: paste the real output from the QEMU run -->
+```text
+          ls[1110038:1] -> procnto-smp-instr[1]  queued      14.0 us  served      20.0 us  server prio 30
+          ls[1110038:1] -> procnto-smp-instr[1]  queued      10.0 us  served      12.0 us  server prio 30
+          ls[1110038:1] -> procnto-smp-instr[1]  queued       7.0 us  served     112.0 us  server prio 30
+...
 
-The **server prio** column follows the client. The `procnto` threads that served `ls` ran at 30, not at the
-priority they had before, because a server thread that receives a message takes the priority of the client
-that sent it. Without this, a low-priority client could keep a server busy while a high-priority client
+server            messages      queued us      served us
+procnto-smp-instr      365         2320.0         6270.1
+devb-virtio              6          101.0          458.0
+pipe                     4           69.0          130.0
+```
+
+The **server prio** column follows the client. All 375 messages were served at priority 30, by
+`procnto`, `devb-virtio` and `pipe` alike, where the run in the previous step showed 10. A server thread
+that receives a message takes the priority of the client that sent it. Without this, a low-priority client could keep a server busy while a high-priority client
 waits behind it.
 
 ## Going further
