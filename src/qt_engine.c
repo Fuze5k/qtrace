@@ -349,6 +349,8 @@ const char *qt_call_describe(const qt_engine_t *e, const qt_call_t *c, char *buf
             static const char *const wh[] = { "SEEK_SET", "SEEK_CUR", "SEEK_END" };
             unsigned w = c->msg[1] & 0xffff;
             snprintf(buf, len, "lseek(%s, %" PRIu32 ", %s)", fd, c->msg[2], w < 3 ? wh[w] : "?");
+        } else if (what && type < 0x100) {
+            snprintf(buf, len, "%s()", what);   /* procnto's own: the server column says where */
         } else if (what) {
             snprintf(buf, len, "%s(%s)", what, fd);
         } else if (type < 0x100) {
@@ -386,7 +388,7 @@ const char *qt_call_describe(const qt_engine_t *e, const qt_call_t *c, char *buf
                     o += (size_t)snprintf(buf + o, len - o, "%scoid=0x%x", nshown ? ", " : "", (unsigned)v);
                 else if (v < 0x10000 || strstr(a->name, "tid") || !strcmp(a->name, "coid"))
                     o += (size_t)snprintf(buf + o, len - o, "%s%s=%" PRId64, nshown ? ", " : "",
-                                          a->name, (int64_t)v);
+                                          a->name, a->words == 1 ? (int64_t)(int32_t)v : (int64_t)v);
                 else
                     o += (size_t)snprintf(buf + o, len - o, "%s%s=0x%" PRIx64, nshown ? ", " : "", a->name, v);
                 nshown++;
@@ -620,14 +622,20 @@ static void on_process(qt_engine_t *e, const qt_ev_t *ev)
     switch (ev->id) {
     case QT_E_PROCCREATE:
     case QT_E_PROCCREATE_NAME:
-        pp = proc_get(e, (int)ev->d[0], 1);
-        p = proc_get(e, (int)ev->d[1], 1);
+        proc_get(e, (int)ev->d[0], 1);
+        p = proc_get(e, (int)ev->d[1], 1);      /* may move e->procs: look pp up after */
+        pp = proc_get(e, (int)ev->d[0], 0);
         p->ppid = (int)ev->d[0];
         p->alive = 1;
         if (e->opts.follow && pp->traced) p->traced = 1;
         if (ev->id == QT_E_PROCCREATE_NAME) {
             ev_string(ev->d, ev->n, 2, name, sizeof name);
             copy_name(p->name, sizeof p->name, basename_of(name));
+        } else if (!p->name[0]) {
+            /* A fork() child, or the short-lived child that loads the new
+             * image during exec() (on QNX 8.0 it opens and maps the program,
+             * then goes away and the parent takes the program's name). */
+            copy_name(p->name, sizeof p->name, pp->name);
         }
         break;
     case QT_E_PROCDESTROY:

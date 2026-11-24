@@ -4,6 +4,7 @@
 #   make qnx             cross-compile for QNX 8.0 (needs qcc: source qnxsdp-env.sh,
 #                        or run through env/qnx on macOS / Apple Silicon)
 #   make demo            the demo programs in demo/, for QNX (like make qnx)
+#   make codelab         msgwait, the program of the codelab in codelab/, for QNX
 #   make gen             regenerate the event tables (needs the SAT event table text)
 #
 # SPDX-License-Identifier: Apache-2.0
@@ -17,7 +18,7 @@ QCFLAGS  ?= -Vgcc_nto$(ARCH) -std=gnu11 -O2 -g -Wall -Wextra -Werror
 CORE     = src/qt_engine.c src/qt_msg.c src/qt_events_gen.c src/qt_report.c src/qt_report_tpl.c
 QNX_SRC  = $(CORE) src/qt_kev.c src/qtrace.c
 
-.PHONY: all test qnx demo gen clean
+.PHONY: all test qnx demo codelab gen clean
 
 all: test
 
@@ -42,6 +43,13 @@ demo: build/$(ARCH)/kcalls
 build/$(ARCH)/kcalls: demo/kcalls.c
 	@mkdir -p build/$(ARCH)
 	$(QCC) $(QCFLAGS) -o $@ demo/kcalls.c
+
+codelab: build/$(ARCH)/msgwait
+
+# The libtraceparser callbacks take arguments they do not all use.
+build/$(ARCH)/msgwait: codelab/msgwait.c
+	@mkdir -p build/$(ARCH)
+	$(QCC) $(QCFLAGS) -Wno-unused-parameter -o $@ codelab/msgwait.c -ltraceparser
 
 SAT_TABLE ?= ../ref/sat/kercall_table_Events.txt
 gen:

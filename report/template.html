@@ -21,7 +21,8 @@ h1 { margin: 0; font-size: 20px; font-weight: 650; }
 h1 small { font-weight: 400; color: var(--muted); font-size: 14px; margin-left: 8px; }
 .meta { color: var(--muted); margin-top: 4px; font-size: 13px; }
 .meta code { color: var(--ink); }
-main { padding: 8px 24px 32px; display: grid; gap: 16px; }
+main { padding: 8px 24px 32px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; }
+.scroll-x { overflow-x: auto; }
 .card { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; }
 .card h2 { margin: 0 0 10px; font-size: 15px; font-weight: 600; }
 .card h2 span { color: var(--muted); font-weight: 400; font-size: 13px; margin-left: 6px; }
@@ -60,11 +61,11 @@ th { color: var(--muted); font-weight: 500; cursor: pointer; user-select: none; 
   <section class="card">
     <h2>Timeline <span>client threads on top, the servers that answered them below; arrows are messages</span></h2>
     <canvas id="tl"></canvas>
-    <div class="hint">Scroll to zoom, drag to pan, double-click to reset. Hover a bar for details, click it to find it in the call log.</div>
+    <div class="hint">Ctrl+scroll or pinch to zoom, drag or Shift+scroll to pan, double-click to reset. Hover a bar for details, click it to find it in the call log.</div>
   </section>
   <section class="card">
     <h2>Where the time went <span>blocked time per server and operation</span></h2>
-    <table id="sum"><thead><tr><th>calls</th><th>errors</th><th>total µs</th><th>avg µs</th><th>max µs</th><th>share</th><th>server</th><th>operation</th></tr></thead><tbody></tbody></table>
+    <div class="scroll-x"><table id="sum"><thead><tr><th>calls</th><th>errors</th><th>total µs</th><th>avg µs</th><th>max µs</th><th>share</th><th>server</th><th>operation</th></tr></thead><tbody></tbody></table></div>
   </section>
   <section class="card">
     <h2>Call log <span id="logcount"></span></h2>
@@ -175,6 +176,18 @@ function size() {
 }
 const X = t => LABEL + (t - view[0]) / (view[1] - view[0]) * (cv.clientWidth - LABEL - 8);
 const Y = i => TOP + i * LH;
+// Axis label: time since the first call, in one unit for the whole axis.
+function tick(r, st) {
+  const [div, unit] = st >= 1e6 ? [1e6, " s"] : st >= 1e3 ? [1e3, " ms"] : [1, " µs"];
+  const digits = Math.max(0, -Math.floor(Math.log10(st / div) + 1e-9));
+  return (r / div).toFixed(digits) + unit;
+}
+// Keep the view inside the trace: no zooming out past it, no panning off it.
+function clamp() {
+  const w = Math.min(view[1] - view[0], full[1] - full[0]);
+  const a = Math.max(full[0], Math.min(view[0], full[1] - w));
+  view = [a, a + w];
+}
 let boxes = [];
 function draw() {
   const W = cv.clientWidth, H = TOP + lanes.length * LH + 8;
@@ -193,9 +206,9 @@ function draw() {
   ctx.fillStyle = css("--muted"); ctx.strokeStyle = css("--line");
   const span_ = view[1] - view[0], step = Math.pow(10, Math.floor(Math.log10(span_ / 6)));
   const st = [1, 2, 5, 10].map(m => m * step).find(s => span_ / s <= 8) || step * 10;
-  for (let t = Math.ceil(view[0] / st) * st; t <= view[1]; t += st) {
-    const x = X(t); ctx.beginPath(); ctx.moveTo(x + .5, TOP - 4); ctx.lineTo(x + .5, H); ctx.stroke();
-    ctx.fillText(fmt(t - full[0]), x + 3, 9);
+  for (let r = Math.ceil((view[0] - full[0]) / st) * st; full[0] + r <= view[1]; r += st) {
+    const x = X(full[0] + r); ctx.beginPath(); ctx.moveTo(x + .5, TOP - 4); ctx.lineTo(x + .5, H); ctx.stroke();
+    ctx.fillText(tick(r, st), x + 3, 9);
   }
   ctx.save(); ctx.beginPath(); ctx.rect(LABEL, 0, W - LABEL, H); ctx.clip();
   boxes = [];
@@ -256,7 +269,7 @@ let drag = null;
 cv.addEventListener("mousemove", e => {
   if (drag) {
     const dt = (e.clientX - drag.x) / (cv.clientWidth - LABEL - 8) * (drag.v[1] - drag.v[0]);
-    view = [drag.v[0] - dt, drag.v[1] - dt]; draw(); return;
+    view = [drag.v[0] - dt, drag.v[1] - dt]; clamp(); draw(); return;
   }
   const i = pick(e);
   if (i !== hover) { hover = i; draw(); }
@@ -279,14 +292,23 @@ window.addEventListener("mouseup", e => {
     }
   }
 });
+// A plain vertical wheel scrolls the page. Ctrl/Cmd+wheel (also what a trackpad
+// pinch sends) zooms around the pointer; Shift+wheel or a sideways swipe pans.
 cv.addEventListener("wheel", e => {
+  const zoom = e.ctrlKey || e.metaKey, pan = e.shiftKey || Math.abs(e.deltaX) > Math.abs(e.deltaY);
+  if (!zoom && !pan) return;
   e.preventDefault();
-  const r = cv.getBoundingClientRect(), x = e.clientX - r.left;
-  const t = view[0] + (x - LABEL) / (cv.clientWidth - LABEL - 8) * (view[1] - view[0]);
-  const k = Math.exp(e.deltaY * 0.0015);
-  view = [t - (t - view[0]) * k, t + (view[1] - t) * k];
-  if (view[1] - view[0] < 0.5) view = [t - .25, t + .25];
-  draw();
+  const r = cv.getBoundingClientRect(), x = e.clientX - r.left, w = cv.clientWidth - LABEL - 8;
+  if (zoom) {
+    const t = view[0] + (x - LABEL) / w * (view[1] - view[0]);
+    const k = Math.exp(Math.sign(e.deltaY) * Math.min(Math.abs(e.deltaY), 50) * 0.006);   // wheel notch or pinch
+    view = [t - (t - view[0]) * k, t + (view[1] - t) * k];
+    if (view[1] - view[0] < 0.5) view = [t - .25, t + .25];
+  } else {
+    const dt = (e.deltaX || e.deltaY) / w * (view[1] - view[0]);
+    view = [view[0] + dt, view[1] + dt];
+  }
+  clamp(); draw();
 }, {passive: false});
 cv.addEventListener("dblclick", () => { view = full.slice(); draw(); });
 window.addEventListener("resize", size);

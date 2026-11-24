@@ -172,6 +172,14 @@ virtual CPUs, built by `env/qnx make qnx demo`:
   `traceprinter` prints `MSG_RECEIVEPULSEV/24` but leaves out the other five
   (kernel calls 61, 62, 98, 99 and 100) altogether.
 
+## Codelab
+
+[`codelab/qnx-message-tracing.md`](codelab/qnx-message-tracing.md) is a step-by-step tutorial in the
+format of the [QNX codelabs](https://qnx.github.io/codelabs/): *What is my QNX program waiting for?*
+It builds [`codelab/msgwait.c`](codelab/msgwait.c), a 300-line tracer that shows how the send, receive and
+reply events of the instrumented kernel fit together, using only `TraceEvent()`, `tracelogger` and
+`libtraceparser` (`env/qnx make codelab`).
+
 ## Usage
 
 ```
@@ -203,6 +211,7 @@ src/qt_report.c       HTML report writer; template in report/template.html
 src/qt_events_gen.*   generated kernel-call and event tables
 tests/                decoder tests on synthetic traces (run on any host)
 demo/kcalls.c         makes kernel calls the SAT event table leaves out
+codelab/              the codelab and its program, msgwait.c
 examples/             real qtrace output from QNX 8.0 in QEMU
 env/                  Docker build environment for the SDP host tools; QEMU runner
 tools/                generators for the tables and the embedded report

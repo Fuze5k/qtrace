@@ -118,7 +118,7 @@ int qt_kev_parse(const char *path, qt_engine_t *e, qt_kev_info_t *info)
     register_all(tp);
     rc = traceparser(tp, NULL, path);
     if (info) {
-        /* VERIFY on SDP: header keyword values are returned as strings. */
+        /* Header keyword values come back as strings (checked on SDP 8.0). */
         snprintf(info->node, sizeof info->node, "%s", info_str(tp, _TRACEPARSER_INFO_NODENAME));
         snprintf(info->release, sizeof info->release, "%s", info_str(tp, _TRACEPARSER_INFO_SYS_RELEASE));
         snprintf(info->machine, sizeof info->machine, "%s", info_str(tp, _TRACEPARSER_INFO_MACHINE));
