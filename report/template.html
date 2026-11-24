@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>qtrace report</title>
+<style>
+:root {
+  --bg: #f7f7f5; --panel: #ffffff; --ink: #1d1f23; --muted: #6b7078; --line: #e3e4e8;
+  --accent: #0b6bcb; --lane: #f0f1f4; --err: #c62828; --sel: #ffb300;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #121417; --panel: #1b1e23; --ink: #e8eaed; --muted: #9aa0a6; --line: #2c3036;
+          --accent: #6ab0ff; --lane: #22262c; --err: #ff6b6b; --sel: #ffd54f; }
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink);
+       font: 14px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+header { padding: 20px 24px 8px; }
+h1 { margin: 0; font-size: 20px; font-weight: 650; }
+h1 small { font-weight: 400; color: var(--muted); font-size: 14px; margin-left: 8px; }
+.meta { color: var(--muted); margin-top: 4px; font-size: 13px; }
+.meta code { color: var(--ink); }
+main { padding: 8px 24px 32px; display: grid; gap: 16px; }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; }
+.card h2 { margin: 0 0 10px; font-size: 15px; font-weight: 600; }
+.card h2 span { color: var(--muted); font-weight: 400; font-size: 13px; margin-left: 6px; }
+.kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
+.kpi .v { font-size: 22px; font-weight: 650; font-variant-numeric: tabular-nums; }
+.kpi .l { color: var(--muted); font-size: 12px; }
+#tl { width: 100%; display: block; cursor: grab; touch-action: none; }
+#tl.drag { cursor: grabbing; }
+.hint { color: var(--muted); font-size: 12px; margin-top: 6px; }
+#tip { position: fixed; pointer-events: none; background: var(--panel); border: 1px solid var(--line);
+       border-radius: 8px; padding: 8px 10px; font-size: 12px; box-shadow: 0 4px 16px rgba(0,0,0,.18);
+       max-width: 420px; display: none; z-index: 10; }
+#tip b { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-weight: 600; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; font-variant-numeric: tabular-nums; }
+th, td { text-align: right; padding: 5px 8px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+th:nth-last-child(-n+2), td:nth-last-child(-n+2) { text-align: left; }
+th { color: var(--muted); font-weight: 500; cursor: pointer; user-select: none; }
+.bar { height: 6px; border-radius: 3px; background: var(--accent); opacity: .75; }
+.sw { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 6px; vertical-align: -1px; }
+.log { max-height: 360px; overflow: auto; font: 12px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace; }
+.log div { white-space: pre; padding: 0 4px; }
+.log div.err { color: var(--err); }
+.log div.hit { background: color-mix(in srgb, var(--sel) 25%, transparent); }
+.filter { margin-bottom: 8px; width: 100%; max-width: 360px; padding: 6px 10px; border-radius: 6px;
+          border: 1px solid var(--line); background: var(--bg); color: var(--ink); }
+@media (max-width: 640px) { header, main { padding-left: 16px; padding-right: 16px; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>qtrace <small id="title"></small></h1>
+  <div class="meta" id="meta"></div>
+</header>
+<main>
+  <section class="card"><div class="kpis" id="kpis"></div></section>
+  <section class="card">
+    <h2>Timeline <span>client threads on top, the servers that answered them below; arrows are messages</span></h2>
+    <canvas id="tl"></canvas>
+    <div class="hint">Scroll to zoom, drag to pan, double-click to reset. Hover a bar for details, click it to find it in the call log.</div>
+  </section>
+  <section class="card">
+    <h2>Where the time went <span>blocked time per server and operation</span></h2>
+    <table id="sum"><thead><tr><th>calls</th><th>errors</th><th>total µs</th><th>avg µs</th><th>max µs</th><th>share</th><th>server</th><th>operation</th></tr></thead><tbody></tbody></table>
+  </section>
+  <section class="card">
+    <h2>Call log <span id="logcount"></span></h2>
+    <input class="filter" id="q" placeholder="Filter, e.g. write, devc-pty, errno" autocomplete="off">
+    <div class="log" id="log"></div>
+  </section>
+</main>
+<div id="tip"></div>
+<script id="data" type="application/json">/*QTRACE_DATA*/</script>
+<script>
+"use strict";
+const D = JSON.parse(document.getElementById("data").textContent);
+const P = D.procs, C = D.calls;   // call: [t0, dur, pid, tid, desc, ret, err, spid, stid, trecv, treply, prio, sprio, kind]
+const pn = pid => (P[pid] || "?");
+const fmt = us => us >= 1e6 ? (us / 1e6).toFixed(3) + " s" : us >= 1e3 ? (us / 1e3).toFixed(2) + " ms" : us.toFixed(1) + " µs";
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"}[c]));
+
+document.getElementById("title").textContent = D.meta.cmd || "";
+document.getElementById("meta").innerHTML =
+  `QNX ${esc(D.meta.release || "8.0")} on <code>${esc(D.meta.node || "?")}</code> (${esc(D.meta.machine || "?")}, ${D.meta.cpus || "?"} CPU) · ` +
+  `${D.meta.events.toLocaleString()} kernel events` + (D.meta.dropped ? ` · <span style="color:var(--err)">${D.meta.dropped} dropped</span>` : "") +
+  ` · captured ${esc(D.meta.date || "")}`;
+
+// Colour per server: stable hues, the kernel itself is grey.
+const servers = [...new Set(C.map(c => c[7]).filter(p => p >= 0))];
+const hue = pid => pid < 0 ? null : (servers.indexOf(pid) * 137.5 + 205) % 360;
+const color = (pid, a) => pid < 0 ? `rgba(128,132,140,${a})` : `hsla(${hue(pid)},70%,52%,${a})`;
+
+// KPIs
+const msgs = C.filter(c => c[7] >= 0), errs = C.filter(c => c[6]);
+const span = C.length ? Math.max(...C.map(c => c[0] + c[1])) - Math.min(...C.map(c => c[0])) : 0;
+const blocked = C.reduce((s, c) => s + c[1], 0);
+const served = msgs.reduce((s, c) => s + (c[10] > c[9] && c[9] > 0 ? c[10] - c[9] : 0), 0);
+const kpis = [
+  [C.length.toLocaleString(), "kernel calls"],
+  [msgs.length.toLocaleString(), "messages to " + servers.length + " servers"],
+  [fmt(blocked), "blocked in the kernel"],
+  [fmt(served), "spent inside servers"],
+  [errs.length.toLocaleString(), "failed calls"],
+  [fmt(span), "traced span"],
+];
+document.getElementById("kpis").innerHTML = kpis.map(k => `<div class="kpi"><div class="v">${k[0]}</div><div class="l">${k[1]}</div></div>`).join("");
+
+// Summary table
+(function summary() {
+  const rows = new Map();
+  for (const c of C) {
+    if (c[13] === "s") continue;
+    const op = c[4].replace(/\(.*$/, ""), srv = c[7] >= 0 ? pn(c[7]) : "(kernel)", k = srv + "\u0000" + op;
+    const r = rows.get(k) || {srv, op, pid: c[7], n: 0, e: 0, t: 0, m: 0};
+    r.n++; r.e += c[6] ? 1 : 0; r.t += c[1]; r.m = Math.max(r.m, c[1]);
+    rows.set(k, r);
+  }
+  const list = [...rows.values()].sort((a, b) => b.t - a.t), max = list.length ? list[0].t : 1;
+  document.querySelector("#sum tbody").innerHTML = list.map(r =>
+    `<tr><td>${r.n}</td><td>${r.e || ""}</td><td>${r.t.toFixed(1)}</td><td>${(r.t / r.n).toFixed(1)}</td><td>${r.m.toFixed(1)}</td>` +
+    `<td style="width:22%"><div class="bar" style="width:${(100 * r.t / max).toFixed(1)}%;background:${color(r.pid, .85)}"></div></td>` +
+    `<td><span class="sw" style="background:${color(r.pid, .85)}"></span>${esc(r.srv)}</td><td>${esc(r.op)}</td></tr>`).join("");
+})();
+
+// Call log
+const logEl = document.getElementById("log");
+function line(c, i) {
+  const ret = c[6] ? `-1 errno ${c[6]}` : c[5];
+  const srv = c[7] >= 0 ? `  -> ${pn(c[7])}[${c[7]}]` + (c[10] > c[9] && c[9] > 0 ? ` queued ${(c[9] - c[0]).toFixed(1)}µs, served ${(c[10] - c[9]).toFixed(1)}µs` : "") : "";
+  return `<div data-i="${i}" class="${c[6] ? "err" : ""}">${(c[0] / 1e6).toFixed(6)} ${esc(pn(c[2]))}[${c[2]}:${c[3]}]${c[13] === "s" ? " (serving)" : ""} ${esc(c[4])} = ${esc(ret)} &lt;${c[1].toFixed(1)}µs&gt;${esc(srv)}</div>`;
+}
+function renderLog(q) {
+  q = (q || "").toLowerCase();
+  const html = [];
+  let n = 0;
+  C.forEach((c, i) => {
+    const l = line(c, i);
+    if (!q || l.toLowerCase().includes(q)) { html.push(l); n++; }
+  });
+  logEl.innerHTML = html.join("");
+  document.getElementById("logcount").textContent = `${n.toLocaleString()} of ${C.length.toLocaleString()} calls`;
+}
+renderLog("");
+document.getElementById("q").addEventListener("input", e => renderLog(e.target.value));
+
+// Timeline
+const cv = document.getElementById("tl"), ctx = cv.getContext("2d"), tip = document.getElementById("tip");
+const laneKey = (pid, tid) => pid + ":" + tid;
+const clientLanes = [], serverLanes = [], laneIdx = new Map();
+for (const c of C) {
+  const k = laneKey(c[2], c[3]);
+  if (!laneIdx.has(k)) { laneIdx.set(k, -1); (c[13] === "s" ? serverLanes : clientLanes).push({pid: c[2], tid: c[3], k}); }
+}
+for (const c of C) if (c[7] >= 0 && c[8] >= 0 && c[9] > 0) {
+  const k = laneKey(c[7], c[8]);
+  if (!laneIdx.has(k)) { laneIdx.set(k, -1); serverLanes.push({pid: c[7], tid: c[8], k}); }
+}
+const lanes = clientLanes.concat(serverLanes);
+lanes.forEach((l, i) => laneIdx.set(l.k, i));
+const LH = 26, TOP = 22, LABEL = 170;
+let t0 = C.length ? Math.min(...C.map(c => c[0])) : 0, t1 = t0 + Math.max(span, 1);
+const full = [t0, t1];
+let view = [t0, t1], hover = -1, sel = -1;
+const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+
+function size() {
+  const dpr = window.devicePixelRatio || 1, w = cv.clientWidth || cv.parentElement.clientWidth;
+  const h = TOP + lanes.length * LH + 8;
+  cv.style.height = h + "px"; cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr);
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  draw();
+}
+const X = t => LABEL + (t - view[0]) / (view[1] - view[0]) * (cv.clientWidth - LABEL - 8);
+const Y = i => TOP + i * LH;
+let boxes = [];
+function draw() {
+  const W = cv.clientWidth, H = TOP + lanes.length * LH + 8;
+  ctx.clearRect(0, 0, W, H);
+  ctx.font = "12px system-ui, sans-serif"; ctx.textBaseline = "middle";
+  lanes.forEach((l, i) => {
+    ctx.fillStyle = i % 2 ? "transparent" : css("--lane"); ctx.fillRect(0, Y(i), W, LH);
+    ctx.fillStyle = i < clientLanes.length ? css("--ink") : css("--muted");
+    ctx.fillText(`${pn(l.pid)} ${l.pid}:${l.tid}`.slice(0, 26), 8, Y(i) + LH / 2);
+  });
+  if (serverLanes.length && clientLanes.length) {
+    ctx.strokeStyle = css("--line"); ctx.beginPath();
+    ctx.moveTo(0, Y(clientLanes.length) + .5); ctx.lineTo(W, Y(clientLanes.length) + .5); ctx.stroke();
+  }
+  // time axis
+  ctx.fillStyle = css("--muted"); ctx.strokeStyle = css("--line");
+  const span_ = view[1] - view[0], step = Math.pow(10, Math.floor(Math.log10(span_ / 6)));
+  const st = [1, 2, 5, 10].map(m => m * step).find(s => span_ / s <= 8) || step * 10;
+  for (let t = Math.ceil(view[0] / st) * st; t <= view[1]; t += st) {
+    const x = X(t); ctx.beginPath(); ctx.moveTo(x + .5, TOP - 4); ctx.lineTo(x + .5, H); ctx.stroke();
+    ctx.fillText(fmt(t - full[0]), x + 3, 9);
+  }
+  ctx.save(); ctx.beginPath(); ctx.rect(LABEL, 0, W - LABEL, H); ctx.clip();
+  boxes = [];
+  C.forEach((c, i) => {
+    const li = laneIdx.get(laneKey(c[2], c[3]));
+    const x0 = X(c[0]), x1 = Math.max(X(c[0] + c[1]), x0 + 1.5);
+    if (x1 < LABEL || x0 > W) return;
+    const y = Y(li) + 5, h = LH - 10;
+    ctx.fillStyle = color(c[7], c[13] === "s" ? .55 : .8);
+    ctx.fillRect(x0, y, x1 - x0, h);
+    if (c[6]) { ctx.fillStyle = css("--err"); ctx.fillRect(x0, y + h - 3, x1 - x0, 3); }
+    boxes.push([x0, y, x1, y + h, i]);
+    if (c[7] >= 0 && c[8] >= 0 && c[9] > 0 && c[10] >= c[9]) {   // server side + arrows
+      const si = laneIdx.get(laneKey(c[7], c[8]));
+      if (si === undefined) return;
+      const sx0 = X(c[9]), sx1 = Math.max(X(c[10]), sx0 + 1.5), sy = Y(si) + 7, sh = LH - 14;
+      ctx.fillStyle = color(c[7], .35); ctx.fillRect(sx0, sy, sx1 - sx0, sh);
+      boxes.push([sx0, sy, sx1, sy + sh, i]);
+      if (i === hover || i === sel || x1 - x0 > 6) {
+        ctx.strokeStyle = color(c[7], i === hover || i === sel ? 1 : .5); ctx.lineWidth = i === hover || i === sel ? 1.6 : 1;
+        ctx.beginPath(); ctx.moveTo(x0, y + h); ctx.lineTo(sx0, sy); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(sx1, sy); ctx.lineTo(x1, y + h); ctx.stroke();
+        ctx.lineWidth = 1;
+      }
+    }
+    if (i === sel) { ctx.strokeStyle = css("--sel"); ctx.lineWidth = 2; ctx.strokeRect(x0 - 1, y - 1, x1 - x0 + 2, h + 2); ctx.lineWidth = 1; }
+    if (x1 - x0 > 60) {
+      ctx.fillStyle = "#fff"; ctx.save(); ctx.beginPath(); ctx.rect(x0, y, x1 - x0, h); ctx.clip();
+      ctx.fillText(c[4], x0 + 4, y + h / 2); ctx.restore();
+    }
+  });
+  ctx.restore();
+}
+function pick(e) {
+  const r = cv.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top;
+  for (let j = boxes.length - 1; j >= 0; j--) {
+    const b = boxes[j];
+    if (x >= b[0] - 2 && x <= b[2] + 2 && y >= b[1] && y <= b[3]) return b[4];
+  }
+  return -1;
+}
+function showTip(e, i) {
+  if (i < 0) { tip.style.display = "none"; return; }
+  const c = C[i];
+  let h = `<b>${esc(c[4])}</b> = ${c[6] ? "-1, errno " + c[6] : esc(c[5])}<br>${esc(pn(c[2]))} pid ${c[2]} tid ${c[3]}` +
+          (c[11] >= 0 ? `, prio ${c[11]}` : "") + `<br>blocked ${fmt(c[1])}`;
+  if (c[7] >= 0) {
+    h += `<br>server <b>${esc(pn(c[7]))}</b> pid ${c[7]}` + (c[8] >= 0 ? ` tid ${c[8]}` : "");
+    if (c[9] > 0 && c[10] >= c[9]) h += `<br>queued ${fmt(c[9] - c[0])} · served ${fmt(c[10] - c[9])}`;
+    if (c[12] >= 0) h += `<br>server ran at prio ${c[12]}` + (c[11] >= 0 && c[12] === c[11] ? " (inherited from client)" : "");
+  }
+  tip.innerHTML = h; tip.style.display = "block";
+  const tw = tip.offsetWidth, th = tip.offsetHeight;
+  tip.style.left = Math.min(e.clientX + 14, window.innerWidth - tw - 8) + "px";
+  tip.style.top = Math.min(e.clientY + 14, window.innerHeight - th - 8) + "px";
+}
+let drag = null;
+cv.addEventListener("mousemove", e => {
+  if (drag) {
+    const dt = (e.clientX - drag.x) / (cv.clientWidth - LABEL - 8) * (drag.v[1] - drag.v[0]);
+    view = [drag.v[0] - dt, drag.v[1] - dt]; draw(); return;
+  }
+  const i = pick(e);
+  if (i !== hover) { hover = i; draw(); }
+  showTip(e, i);
+});
+cv.addEventListener("mouseleave", () => { hover = -1; tip.style.display = "none"; draw(); });
+cv.addEventListener("mousedown", e => { drag = {x: e.clientX, v: view.slice(), moved: false}; cv.classList.add("drag"); });
+window.addEventListener("mouseup", e => {
+  if (!drag) return;
+  const click = Math.abs(e.clientX - drag.x) < 3;
+  drag = null; cv.classList.remove("drag");
+  if (click) {
+    const i = pick(e);
+    sel = i; draw();
+    if (i >= 0) {
+      document.getElementById("q").value = ""; renderLog("");
+      const row = logEl.querySelector(`[data-i="${i}"]`);
+      logEl.querySelectorAll(".hit").forEach(n => n.classList.remove("hit"));
+      if (row) { row.classList.add("hit"); logEl.scrollTop = row.offsetTop - logEl.clientHeight / 2; }
+    }
+  }
+});
+cv.addEventListener("wheel", e => {
+  e.preventDefault();
+  const r = cv.getBoundingClientRect(), x = e.clientX - r.left;
+  const t = view[0] + (x - LABEL) / (cv.clientWidth - LABEL - 8) * (view[1] - view[0]);
+  const k = Math.exp(e.deltaY * 0.0015);
+  view = [t - (t - view[0]) * k, t + (view[1] - t) * k];
+  if (view[1] - view[0] < 0.5) view = [t - .25, t + .25];
+  draw();
+}, {passive: false});
+cv.addEventListener("dblclick", () => { view = full.slice(); draw(); });
+window.addEventListener("resize", size);
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change", draw);
+size();
+</script>
+</body>
+</html>

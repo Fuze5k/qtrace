@@ -1,0 +1,27 @@
+#!/bin/sh
+# Run a command with the QNX SDP 8.0 Linux host tools on macOS (or any host
+# with Docker): an x86-64 Ubuntu container with ~/qnx800 and the current
+# directory mounted, and qnxsdp-env.sh sourced.
+#
+#   env/qnx make qnx
+#   env/qnx qcc --version
+#
+# SPDX-License-Identifier: Apache-2.0
+set -eu
+SDP="${QNX_SDP:-$HOME/qnx800}"
+IMAGE="${QTRACE_ENV_IMAGE:-qtrace-qnx800-env}"
+if [ ! -f "$SDP/qnxsdp-env.sh" ]; then
+    echo "env/qnx: no QNX SDP 8.0 in $SDP (install it with QNX Software Center," >&2
+    echo "         including 'QNX SDP Host Tools (Linux 64-bit)')" >&2
+    exit 1
+fi
+if ! docker image inspect "$IMAGE" >/dev/null 2>&1; then
+    here="$(cd "$(dirname "$0")" && pwd)"
+    docker build -t "$IMAGE" --platform linux/amd64 \
+        --build-arg USER_NAME="$(id -un)" --build-arg USER_ID="$(id -u)" --build-arg GROUP_ID="$(id -g)" \
+        "$here" >&2
+fi
+exec docker run --rm -i --platform linux/amd64 \
+    -v "$SDP:$SDP" -v "$HOME/.qnx:$HOME/.qnx" -v "$PWD:$PWD" -w "$PWD" \
+    -e HOME="$HOME" -e QNX_SDP="$SDP" \
+    "$IMAGE" bash -c '. "$QNX_SDP/qnxsdp-env.sh" >/dev/null && exec "$@"' qnx "$@"
