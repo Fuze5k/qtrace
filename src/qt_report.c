@@ -40,7 +40,7 @@ static double rel(const qt_engine_t *e, uint64_t t)
 int qt_report_write(const qt_engine_t *e, const qt_report_meta_t *m, FILE *f)
 {
     unsigned i, n = qt_engine_ncalls(e), first = 1, np = 0;
-    char desc[256];
+    char desc[256], res[48];
     int *pids;
 
     fputs(qt_report_head, f);
@@ -76,8 +76,10 @@ int qt_report_write(const qt_engine_t *e, const qt_report_meta_t *m, FILE *f)
         qt_call_describe(e, c, desc, sizeof desc);
         fprintf(f, "%s[%.3f,%.3f,%d,%d,", i ? ",\n" : "", rel(e, start), dur, c->pid, c->tid);
         json_str(f, desc);
-        fprintf(f, ",%lld,%d,%d,%d,%.3f,%.3f,%d,%d,\"%s\"]",
-                (long long)c->ret, c->intr ? 4 /* EINTR */ : c->err, c->srv_pid, c->srv_tid,
+        fputc(',', f);
+        json_str(f, qt_call_result(c, res, sizeof res));
+        fprintf(f, ",%d,%d,%d,%.3f,%.3f,%d,%d,\"%s\"]",
+                c->intr ? 4 /* EINTR */ : c->err, c->srv_pid, c->srv_tid,
                 rel(e, c->t_recv), rel(e, c->t_reply), c->prio, c->srv_prio,
                 c->parent >= 0 ? "s" : "c");
     }

@@ -281,6 +281,49 @@ static void fmt_fd(char *buf, size_t len, int coid)
         snprintf(buf, len, "fd %d", coid);
 }
 
+#define QT_PROCNTO_PID 1
+
+/* Name of the message a MsgSend() carries. Types below 0x100 are procnto's own
+ * messages only when procnto gets them: a server with its own protocol may use
+ * the same numbers. */
+static const char *msg_name(const qt_call_t *c)
+{
+    if ((c->msg[0] & 0xffff) >= 0x100) return qt_msg_name(c->msg[0]);
+    if (c->srv_pid == QT_PROCNTO_PID || (uint32_t)c->coid == QT_SIDE_CHANNEL) return qt_sysmsg_name(c->msg[0]);
+    return NULL;
+}
+
+static int is_connect(const qt_call_t *c)
+{
+    return is_msgsend(c->k) && c->nmsg && (c->msg[0] & 0xffff) == QT_IO_CONNECT;
+}
+
+/* A connect that procnto's path manager answers with "ask these servers" returns a
+ * status with _IO_CONNECT_RET_FLAG set, e.g. 0x800b0000 (RET_LINK | RET_UMASK |
+ * RET_CHROOT), not a file descriptor. */
+static int is_redirect(const qt_call_t *c)
+{
+    return is_connect(c) && !c->err && ((uint64_t)c->ret & 0x80000000u);
+}
+
+static char *dup_str(const char *s)
+{
+    size_t n = strlen(s) + 1;
+    char *d = malloc(n);
+    if (!d) { perror("qtrace"); exit(1); }
+    return memcpy(d, s, n);
+}
+
+const char *qt_call_result(const qt_call_t *c, char *buf, size_t len)
+{
+    if (!c->done) snprintf(buf, len, "? <unfinished>");
+    else if (c->intr) snprintf(buf, len, "-1 EINTR");
+    else if (c->err) snprintf(buf, len, "-1 errno %d (%s)", c->err, strerror(c->err));
+    else if (is_redirect(c)) snprintf(buf, len, "redirect 0x%" PRIx64, (uint64_t)c->ret);
+    else snprintf(buf, len, "%" PRId64, c->ret);
+    return buf;
+}
+
 const char *qt_call_describe(const qt_engine_t *e, const qt_call_t *c, char *buf, size_t len)
 {
     char fd[32], tmp[64];
@@ -292,9 +335,11 @@ const char *qt_call_describe(const qt_engine_t *e, const qt_call_t *c, char *buf
         uint32_t m0 = c->msg[0];
         uint16_t type = (uint16_t)(m0 & 0xffff);
         fmt_fd(fd, sizeof fd, c->coid);
-        what = qt_msg_name(m0);
+        what = msg_name(c);
         if (type == QT_IO_CONNECT) {
-            snprintf(buf, len, "%s(\"%s\") on %s", what, c->path ? c->path : "?", fd);
+            const char *ft = c->nmsg >= 2 ? qt_ftype_name(c->msg[1]) : NULL;
+            snprintf(buf, len, "%s(\"%s\"%s%s) on %s", what, c->path ? c->path : "?",
+                     ft ? ", " : "", ft ? ft : "", fd);
         } else if ((type == QT_IO_READ || type == QT_IO_WRITE) && c->nmsg >= 2) {
             snprintf(buf, len, "%s(%s, %" PRIu32 " bytes)", what, fd, c->msg[1]);
         } else if (type == QT_IO_DEVCTL && c->nmsg >= 2) {
@@ -307,7 +352,8 @@ const char *qt_call_describe(const qt_engine_t *e, const qt_call_t *c, char *buf
         } else if (what) {
             snprintf(buf, len, "%s(%s)", what, fd);
         } else if (type < 0x100) {
-            snprintf(buf, len, "MsgSend(%s, sys msg 0x%04x)", fd, (unsigned)type);
+            snprintf(buf, len, "MsgSend(%s, %smsg 0x%04x)", fd,
+                     c->srv_pid == QT_PROCNTO_PID ? "procnto " : "", (unsigned)type);
         } else {
             snprintf(buf, len, "MsgSend(%s, msg 0x%04x/0x%04x)", fd, (unsigned)type, (unsigned)(m0 >> 16));
         }
@@ -336,6 +382,8 @@ const char *qt_call_describe(const qt_engine_t *e, const qt_call_t *c, char *buf
                 if (!strcmp(a->name, "pid") && v)
                     o += (size_t)snprintf(buf + o, len - o, "%spid=%d (%s)", nshown ? ", " : "",
                                           (int)v, qt_engine_pname(e, (int)v));
+                else if (!strcmp(a->name, "coid") && v >= QT_SIDE_CHANNEL && v <= 0xffffffffu)
+                    o += (size_t)snprintf(buf + o, len - o, "%scoid=0x%x", nshown ? ", " : "", (unsigned)v);
                 else if (v < 0x10000 || strstr(a->name, "tid") || !strcmp(a->name, "coid"))
                     o += (size_t)snprintf(buf + o, len - o, "%s%s=%" PRId64, nshown ? ", " : "",
                                           a->name, (int64_t)v);
@@ -362,10 +410,7 @@ static void print_call(qt_engine_t *e, const qt_call_t *c)
     rel = qt_engine_us(e, (c->t0 ? c->t0 : c->t1) - e->t0) / 1e6;
     qt_call_describe(e, c, desc, sizeof desc);
 
-    if (!c->done) snprintf(ret, sizeof ret, "? <unfinished>");
-    else if (c->intr) snprintf(ret, sizeof ret, "-1 EINTR");
-    else if (c->err) snprintf(ret, sizeof ret, "-1 errno %d (%s)", c->err, strerror(c->err));
-    else snprintf(ret, sizeof ret, "%" PRId64, c->ret);
+    qt_call_result(c, ret, sizeof ret);
 
     if (c->srv_pid >= 0) {
         size_t o = (size_t)snprintf(srv, sizeof srv, "  -> %s[%d]", qt_engine_pname(e, c->srv_pid), c->srv_pid);
@@ -436,8 +481,16 @@ static void on_kenter(qt_engine_t *e, const qt_ev_t *ev)
             if (kd_arg(kd, ev->d, ev->n, nm, &v)) { c->msg[i] = (uint32_t)v; c->nmsg = i + 1; }
             else if (i == 0 && kd_arg(kd, ev->d, ev->n, "msg", &v)) { c->msg[0] = (uint32_t)v; c->nmsg = 1; }
         }
-        if (c->nmsg && (c->msg[0] & 0xffff) == QT_IO_CONNECT && t->path)
-            c->path = t->path, t->path = NULL;
+    }
+    /* After procnto's path manager redirects a connect, the C library asks each
+     * server on the list in turn - ConnectAttach(), the same io_connect message,
+     * ConnectDetach() - so those connects carry the path procnto logged. A new
+     * connect to the path manager or any other call ends the walk. */
+    if (t->path) {
+        if (is_connect(c) && (uint32_t)c->coid != QT_SIDE_CHANNEL)
+            c->path = dup_str(t->path);
+        else if (ev->id != QT_K_CONNECT_ATTACH && ev->id != QT_K_CONNECT_DETACH)
+            free(t->path), t->path = NULL;
     }
 }
 
@@ -603,17 +656,13 @@ static void on_system(qt_engine_t *e, const qt_ev_t *ev)
     ev_string(ev->d, ev->n, 2, path, sizeof path);
     free(t->path);
     t->path = malloc(strlen(path) + 2);
-    if (!t->path) return;
+    if (!t->path) { perror("qtrace"); exit(1); }
     snprintf(t->path, strlen(path) + 2, "%s%s", path[0] == '/' ? "" : "/", path);
     /* procnto logs the path while it handles the client's io_connect message;
-     * the same path is then sent to the server that owns it. */
+     * the same path is then sent to the servers that own it (see on_kenter). */
     if (t->cur >= 0) {
         qt_call_t *c = &e->calls[t->cur];
-        if (is_msgsend(c->k) && c->nmsg && (c->msg[0] & 0xffff) == QT_IO_CONNECT && !c->path) {
-            size_t n = strlen(t->path) + 1;
-            c->path = malloc(n);
-            if (c->path) memcpy(c->path, t->path, n);
-        }
+        if (is_connect(c) && !c->path) c->path = dup_str(t->path);
     }
 }
 
@@ -748,7 +797,7 @@ void qt_engine_summary(const qt_engine_t *e, FILE *f)
         if (!c->done || !c->t0 || c->parent >= 0) continue;
         us = qt_engine_us(e, c->t1 - c->t0);
         if (is_msgsend(c->k) && c->nmsg) {
-            const char *n = qt_msg_name(c->msg[0]);
+            const char *n = msg_name(c);
             if (n) snprintf(op, sizeof op, "%s", n);
             else snprintf(op, sizeof op, "msg 0x%04x", (unsigned)(c->msg[0] & 0xffff));
         } else {

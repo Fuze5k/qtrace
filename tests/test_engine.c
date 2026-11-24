@@ -74,7 +74,9 @@ int main(void)
     ev_str(0, QT_E_PROCCREATE_NAME, 1, APP, "data/home/qnxuser/demo");
     TH(0, THRUNNING, APP, 1, 10);
 
-    /* open("/etc/hosts"): resolve through procnto, attach, connect to devb */
+    /* open("/etc/hosts"): procnto's path manager answers with a redirect to two
+     * servers; the C library asks procnto (ENOENT), then devb-virtio. The path
+     * that procnto logged must reach both connects (as on QNX 8.0 in QEMU). */
     SEND64(0, 0x40000000u, (QT_IO_CONNECT_OPEN << 16) | QT_IO_CONNECT, 0, 0);
     ev(0, QT_CLS_EVENT, QT_E_COMM_SMSG, 0, 2, 0x11u, PROCNTO);
     TH(0, THREPLY, APP, 1, 10);
@@ -84,7 +86,20 @@ int main(void)
     ev(0, QT_CLS_EVENT, QT_E_COMM_REPLY, 0, 2, 1u, APP);
     TH(0, THREADY, APP, 1, 10);
     TH(0, THRUNNING, APP, 1, 10);
-    SENDRET64(0, 0u);
+    SENDRET64(0, 0x800b0000u);
+    ev(0, QT_CLS_KENTER, QT_K_CONNECT_ATTACH, 0, 5, 0u, PROCNTO, 1u, 0u, 0u);
+    ev(0, QT_CLS_KEXIT, QT_K_CONNECT_ATTACH, 0, 2, 3u, 0u);
+    SEND64(0, 3u, (QT_IO_CONNECT_OPEN << 16) | QT_IO_CONNECT, 0, 0);
+    ev(0, QT_CLS_EVENT, QT_E_COMM_SMSG, 0, 2, 0x13u, PROCNTO);
+    TH(0, THREPLY, APP, 1, 10);
+    TH(0, THRUNNING, PROCNTO, 7, 10);
+    ev(0, QT_CLS_EVENT, QT_E_COMM_RMSG, 0, 2, 0x13u, PROCNTO);
+    ev(0, QT_CLS_EVENT, QT_E_COMM_ERROR, 0, 2, 1u, APP);
+    TH(0, THREADY, APP, 1, 10);
+    TH(0, THRUNNING, APP, 1, 10);
+    ev(0, QT_CLS_KEXIT, QT_K_MSG_SENDV, 1, 2, 0xffffffffu, 2u);
+    ev(0, QT_CLS_KENTER, QT_K_CONNECT_DETACH, 0, 2, 3u, 0u);
+    ev(0, QT_CLS_KEXIT, QT_K_CONNECT_DETACH, 0, 2, 0u, 0u);
     ev(0, QT_CLS_KENTER, QT_K_CONNECT_ATTACH, 0, 5, 0u, FS, 1u, 0u, 0u);
     ev(0, QT_CLS_KEXIT, QT_K_CONNECT_ATTACH, 0, 2, 3u, 0u);
     SEND64(0, 3u, (QT_IO_CONNECT_OPEN << 16) | QT_IO_CONNECT, 0, 0);

@@ -1,0 +1,1528 @@
+  0.003455 sh[671766:1] SysCpupageGet(index=2) = -12288 <4.0us>
+  0.003501 sh[671766:1] sysconf(coid 0x40000000) = 0 <391.0us>  -> procnto[1] queued 129.0us, served 106.0us, prio 10
+  0.003961 sh[671766:1] sysconf(coid 0x40000000) = 0 <142.0us>  -> procnto[1] queued 17.0us, served 97.0us, prio 10
+  0.004111 sh[671766:1] mmap(coid 0x40000000) = 0 <241.0us>  -> procnto[1] queued 6.0us, served 215.0us, prio 10
+  0.004377 sh[671766:1] combine("/data/qtrace/libc.so.6") on coid 0x40000000 = redirect 0x800b0000 <127.0us>  -> procnto[1] queued 8.0us, served 98.0us, prio 10
+  0.004533 sh[671766:1] ConnectAttach(pid=45063 (devb-virtio), chid=3, index=0, flags=0) = 4 <16.0us>
+  0.004560 sh[671766:1] combine("/data/qtrace/libc.so.6") on fd 4 = -1 errno 2 (No such file or directory) <274.0us>  -> devb-virtio[45063] queued 15.0us, served 216.0us, prio 10
+  0.004850 sh[671766:1] ConnectDetach(coid=4) = 0 <9.0us>
+  0.004862 sh[671766:1] ConnectAttach(pid=1 (procnto), chid=1, index=0, flags=0) = 4 <6.0us>
+  0.004872 sh[671766:1] combine("/data/qtrace/libc.so.6") on fd 4 = -1 errno 2 (No such file or directory) <53.0us>  -> procnto[1] queued 10.0us, served 21.0us, prio 10
+  0.004949 sh[671766:1] ConnectDetach(coid=4) = 0 <4.0us>
+  0.004959 sh[671766:1] ConnectAttach(pid=1 (procnto), chid=1, index=0, flags=0) = 4 <13.0us>
+  0.004985 sh[671766:1] combine("/data/qtrace/libc.so.6") on fd 4 = -1 errno 2 (No such file or directory) <59.0us>  -> procnto[1] queued 20.0us, served 25.0us, prio 10
+  0.005050 sh[671766:1] ConnectDetach(coid=4) = 0 <1.0us>
+  0.005065 sh[671766:1] combine("/proc/boot/libc.so.6") on coid 0x40000000 = redirect 0x800b0000 <44.0us>  -> procnto[1] queued 8.0us, served 18.0us, prio 10
+  0.005115 sh[671766:1] ConnectAttach(pid=1 (procnto), chid=1, index=0, flags=0) = 4 <4.0us>
+  0.005122 sh[671766:1] combine("/proc/boot/libc.so.6") on fd 4 = -1 errno 2 (No such file or directory) <32.0us>  -> procnto[1] queued 6.0us, served 10.0us, prio 10
+  0.005157 sh[671766:1] ConnectDetach(coid=4) = 0 <3.0us>
+  0.005163 sh[671766:1] ConnectAttach(pid=1 (procnto), chid=1, index=0, flags=0) = 4 <3.0us>
+  0.005168 sh[671766:1] combine("/proc/boot/libc.so.6") on fd 4 = 3 <78.0us>  -> procnto[1] queued 6.0us, served 55.0us, prio 10
+  0.005253 sh[671766:1] read(fd 4, 64 bytes) = 64 <30.0us>  -> procnto[1] queued 6.0us, served 12.0us, prio 10
+  0.005299 sh[671766:1] read(fd 4, 64 bytes) = 64 <32.0us>  -> procnto[1] queued 6.0us, served 7.0us, prio 10
+  0.005337 sh[671766:1] read(fd 4, 392 bytes) = 392 <33.0us>  -> procnto[1] queued 5.0us, served 7.0us, prio 10
+  0.005379 sh[671766:1] mmap(coid 0x40000000) = 0 <45.0us>  -> procnto[1] queued 7.0us, served 23.0us, prio 10
+  0.005430 sh[671766:1] mmap(coid 0x40000000) = 0 <555.0us>  -> procnto[1] queued 16.0us, served 518.0us, prio 10
+  0.005990 sh[671766:1] mmap(coid 0x40000000) = 0 <85.0us>  -> procnto[1] queued 6.0us, served 58.0us, prio 10
+  0.006079 sh[671766:1] mmap(coid 0x40000000) = 0 <70.0us>  -> procnto[1] queued 6.0us, served 38.0us, prio 10
+  0.006185 sh[671766:1] mmap(coid 0x40000000) = 0 <72.0us>  -> procnto[1] queued 6.0us, served 52.0us, prio 10
+  0.006263 sh[671766:1] read(fd 4, 16384 bytes) = 16384 <46.0us>  -> procnto[1] queued 6.0us, served 19.0us, prio 10
+  0.006345 sh[671766:1] close(fd 4) = 0 <50.0us>  -> procnto[1] queued 6.0us, served 23.0us, prio 10
+  0.006399 sh[671766:1] ConnectDetach(coid=4) = 0 <3.0us>
+  0.006414 sh[671766:1] mmap(coid 0x40000000) = 0 <108.0us>  -> procnto[1] queued 6.0us, served 79.0us, prio 10
+  0.006534 sh[671766:1] combine("/data/qtrace/libgcc_s.so.1") on coid 0x40000000 = redirect 0x800b0000 <47.0us>  -> procnto[1] queued 9.0us, served 16.0us, prio 10
+  0.006586 sh[671766:1] ConnectAttach(pid=45063 (devb-virtio), chid=3, index=0, flags=0) = 4 <7.0us>
+  0.006596 sh[671766:1] combine("/data/qtrace/libgcc_s.so.1") on fd 4 = -1 errno 2 (No such file or directory) <111.0us>  -> devb-virtio[45063] queued 17.0us, served 68.0us, prio 10
+  0.006716 sh[671766:1] ConnectDetach(coid=4) = 0 <4.0us>
+  0.006723 sh[671766:1] ConnectAttach(pid=1 (procnto), chid=1, index=0, flags=0) = 4 <6.0us>
+  0.006732 sh[671766:1] combine("/data/qtrace/libgcc_s.so.1") on fd 4 = -1 errno 2 (No such file or directory) <52.0us>  -> procnto[1] queued 10.0us, served 12.0us, prio 10
+  0.006799 sh[671766:1] ConnectDetach(coid=4) = 0 <5.0us>
+  0.006807 sh[671766:1] ConnectAttach(pid=1 (procnto), chid=1, index=0, flags=0) = 4 <7.0us>
+  0.006819 sh[671766:1] combine("/data/qtrace/libgcc_s.so.1") on fd 4 = -1 errno 2 (No such file or directory) <54.0us>  -> procnto[1] queued 13.0us, served 14.0us, prio 10
+  0.006897 sh[671766:1] ConnectDetach(coid=4) = 0 <2.0us>
+  0.006910 sh[671766:1] combine("/proc/boot/libgcc_s.so.1") on coid 0x40000000 = redirect 0x800b0000 <39.0us>  -> procnto[1] queued 6.0us, served 15.0us, prio 10
+  0.006955 sh[671766:1] ConnectAttach(pid=1 (procnto), chid=1, index=0, flags=0) = 4 <3.0us>
+  0.006964 sh[671766:1] combine("/proc/boot/libgcc_s.so.1") on fd 4 = -1 errno 2 (No such file or directory) <35.0us>  -> procnto[1] queued 10.0us, served 9.0us, prio 10
+  0.007006 sh[671766:1] ConnectDetach(coid=4) = 0 <2.0us>
+  0.007011 sh[671766:1] ConnectAttach(pid=1 (procnto), chid=1, index=0, flags=0) = 4 <3.0us>
+  0.007021 sh[671766:1] combine("/proc/boot/libgcc_s.so.1") on fd 4 = 3 <68.0us>  -> procnto[1] queued 5.0us, served 36.0us, prio 10
+  0.007099 sh[671766:1] read(fd 4, 64 bytes) = 64 <40.0us>  -> procnto[1] queued 7.0us, served 11.0us, prio 10
+  0.007149 sh[671766:1] read(fd 4, 64 bytes) = 64 <30.0us>  -> procnto[1] queued 6.0us, served 8.0us, prio 10
+  0.007184 sh[671766:1] read(fd 4, 448 bytes) = 448 <33.0us>  -> procnto[1] queued 10.0us, served 8.0us, prio 10
+  0.007222 sh[671766:1] mmap(coid 0x40000000) = 0 <41.0us>  -> procnto[1] queued 5.0us, served 19.0us, prio 10
+  0.007271 sh[671766:1] mmap(coid 0x40000000) = 0 <70.0us>  -> procnto[1] queued 6.0us, served 49.0us, prio 10
+  0.007345 sh[671766:1] mmap(coid 0x40000000) = 0 <56.0us>  -> procnto[1] queued 5.0us, served 35.0us, prio 10
+  0.007406 sh[671766:1] mmap(coid 0x40000000) = 0 <69.0us>  -> procnto[1] queued 6.0us, served 41.0us, prio 10
+  0.007479 sh[671766:1] read(fd 4, 4096 bytes) = 4096 <50.0us>  -> procnto[1] queued 13.0us, served 13.0us, prio 10
+  0.007556 sh[671766:1] close(fd 4) = 0 <41.0us>  -> procnto[1] queued 10.0us, served 14.0us, prio 10
+  0.007619 sh[671766:1] ConnectDetach(coid=4) = 0 <4.0us>
+  0.008030 sh[671766:1] SysCpupageGet(index=2) = -12288 <1.0us>
+  0.008101 sh[671766:1] sysconf(coid 0x40000000) = 0 <44.0us>  -> procnto[1] queued 8.0us, served 13.0us, prio 10
+  0.008159 sh[671766:1] SysCpupageSet(index=1, value=0x3f3b95b0) = 0 <1.0us>
+  0.008196 sh[671766:1] mprotect(coid 0x40000000) = 0 <61.0us>  -> procnto[1] queued 6.0us, served 28.0us, prio 10
+  0.008269 sh[671766:1] mprotect(coid 0x40000000) = 0 <56.0us>  -> procnto[1] queued 8.0us, served 35.0us, prio 10
+  0.008331 sh[671766:1] mprotect(coid 0x40000000) = 0 <62.0us>  -> procnto[1] queued 10.0us, served 36.0us, prio 10
+  0.008398 sh[671766:1] mprotect(coid 0x40000000) = 0 <54.0us>  -> procnto[1] queued 6.0us, served 21.0us, prio 10
+  0.008461 sh[671766:1] SysCpupageGet(index=1) = 1060869552 <1.0us>
+  0.008468 sh[671766:1] madvise(coid 0x40000000) = 0 <38.0us>  -> procnto[1] queued 6.0us, served 10.0us, prio 10
+  0.008577 sh[671766:1] SignalAction(pid=0, sigstub_p=0x533f3343e8, signo=2, act->sa_handler_p=1) = 0 <23.0us>
+  0.008621 sh[671766:1] SignalAction(pid=0, sigstub_p=0x533f3343e8, signo=2, act->sa_handler_p=0x3061f9bd40) = 0 <7.0us>
+  0.008631 sh[671766:1] SignalAction(pid=0, sigstub_p=0x533f3343e8, signo=3, act->sa_handler_p=1) = 0 <2.0us>
+  0.008635 sh[671766:1] SignalAction(pid=0, sigstub_p=0x533f3343e8, signo=3, act->sa_handler_p=0x3061f9bd40) = 0 <1.0us>
+  0.008638 sh[671766:1] SignalAction(pid=0, sigstub_p=0x533f3343e8, signo=15, act->sa_handler_p=1) = 0 <1.0us>
+  0.008641 sh[671766:1] SignalAction(pid=0, sigstub_p=0x533f3343e8, signo=15, act->sa_handler_p=0x3061f9bd40) = 0 <1.0us>
+  0.008644 sh[671766:1] SignalAction(pid=0, sigstub_p=0x533f3343e8, signo=1, act->sa_handler_p=1) = 0 <1.0us>
+  0.008647 sh[671766:1] SignalAction(pid=0, sigstub_p=0x533f3343e8, signo=1, act->sa_handler_p=0x3061f9bd40) = 0 <1.0us>
+  0.008685 sh[671766:1] sysconf(coid 0x40000000) = 0 <39.0us>  -> procnto[1] queued 6.0us, served 8.0us, prio 10
+  0.008729 sh[671766:1] sysconf(coid 0x40000000) = 0 <30.0us>  -> procnto[1] queued 5.0us, served 7.0us, prio 10
+  0.008883 sh[671766:1] combine("/.") on coid 0x40000000 = redirect 0x800b0000 <57.0us>  -> procnto[1] queued 6.0us, served 16.0us, prio 10
+  0.008956 sh[671766:1] ConnectAttach(pid=45063 (devb-virtio), chid=3, index=0x40000000, flags=0) = 1073741825 <11.0us>
+  0.008972 sh[671766:1] combine("/.") on coid 0x40000001 = 0 <114.0us>  -> devb-virtio[45063] queued 18.0us, served 68.0us, prio 10
+  0.009098 sh[671766:1] ConnectDetach(coid=0x40000001) = 0 <5.0us>
+  0.009122 sh[671766:1] proc_getsetid(coid 0x40000000) = 0 <58.0us>  -> procnto[1] queued 13.0us, served 16.0us, prio 10
+  0.009324 sh[671766:1] mmap(coid 0x40000000) = 0 <100.0us>  -> procnto[1] queued 8.0us, served 76.0us, prio 10
+  0.009466 sh[671766:1] SignalProcmask(pid=0, tid=0, how=0, sig_blocked->bits[0]=0) = 0 <34.0us>
+  0.009522 sh[671766:1] SignalProcmask(pid=0, tid=0, how=2, sig_blocked->bits[0]=0) = 0 <8.0us>
+  0.009853 sh[671766:1] ConnectClientInfo(scoid=0xffffffff, ngroups=0) = 0 <3.0us>
+  0.009864 sh[671766:1] ConnectClientInfo(scoid=0xffffffff, ngroups=0) = 0 <1.0us>
+  0.009868 sh[671766:1] ConnectClientInfo(scoid=0xffffffff, ngroups=0) = 0 <1.0us>
+  0.009872 sh[671766:1] ConnectClientInfo(scoid=0xffffffff, ngroups=0) = 0 <0.0us>
+  0.009881 sh[671766:1] fstat(fd 0) = 3 <99.0us>  -> pipe[122889] queued 16.0us, served 44.0us, prio 10
+  0.010004 sh[671766:1] sysconf(coid 0x40000000) = 0 <46.0us>  -> procnto[1] queued 10.0us, served 13.0us, prio 10
+  0.010058 sh[671766:1] SignalProcmask(pid=0, tid=0, how=2, sig_blocked->bits[0]=0) = 0 <2.0us>
+  0.010065 sh[671766:1] SignalAction(pid=0, sigstub_p=0x533f3343e8, signo=18, act->sa_handler_p=1) = 0 <4.0us>
+  0.010072 sh[671766:1] SignalAction(pid=0, sigstub_p=0x533f3343e8, signo=18, act->sa_handler_p=0x3061f9bd40) = 0 <2.0us>
+  0.010125 sh[671766:1] sysconf(coid 0x40000000) = 0 <38.0us>  -> procnto[1] queued 6.0us, served 7.0us, prio 10
+  0.010192 sh[671766:1] SyncCreate(type=0, sync_p=0x533f3b4a00, count=0, owner=0) = 0 <3.0us>
+  0.010207 sh[671766:1] SyncCreate(type=0, sync_p=0x533f3b4a08, count=0, owner=0) = 0 <1.0us>
+  0.010211 sh[671766:1] SyncCreate(type=0, sync_p=0x533f3b4a10, count=0, owner=0) = 0 <0.0us>
+  0.010213 sh[671766:1] SyncCreate(type=0, sync_p=0x533f3b4a18, count=0, owner=0) = 0 <1.0us>
+  0.010216 sh[671766:1] SyncCreate(type=0, sync_p=0x533f3b4a20, count=0, owner=0) = 0 <1.0us>
+  0.010271 sh[671766:1] ConnectServerInfo(pid=0, coid=0) = 0 <27.0us>
+  0.010318 sh[671766:1] sysconf(coid 0x40000000) = 0 <31.0us>  -> procnto[1] queued 6.0us, served 7.0us, prio 10
+  0.010356 sh[671766:1] ConnectAttach(pid=122889 (pipe), chid=1, index=10, flags=65) = 10 <15.0us>
+  0.010375 sh[671766:1] dup(fd 10) = 0 <73.0us>  -> pipe[122889] queued 14.0us, served 34.0us, prio 10
+  0.010471 sh[671766:1] ConnectFlags(pid=0, coid=10, masks=1, bits=0) = 193 <3.0us>
+  0.010489 sh[671766:1] close(fd 0) = 0 <78.0us>  -> pipe[122889] queued 16.0us, served 33.0us, prio 10
+  0.010576 sh[671766:1] ConnectDetach(coid=0) = 0 <32.0us>
+  0.010629 sh[671766:1] ConnectFlags(pid=0, coid=10, masks=1, bits=1) = 192 <2.0us>
+  0.010638 sh[671766:1] ConnectServerInfo(pid=0, coid=10) = 10 <5.0us>
+  0.010650 sh[671766:1] sysconf(coid 0x40000000) = 0 <36.0us>  -> procnto[1] queued 10.0us, served 11.0us, prio 10
+  0.010693 sh[671766:1] close(fd 0) = -1 errno 9 (Bad file descriptor) <2.0us>
+  0.010699 sh[671766:1] ConnectAttach(pid=0, chid=10, index=0, flags=32832) = 0 <8.0us>
+  0.010711 sh[671766:1] dup(fd 0) = 0 <79.0us>  -> pipe[122889] queued 12.0us, served 21.0us, prio 10
+  0.010803 sh[671766:1] ConnectFlags(pid=0, coid=0, masks=1, bits=0) = 192 <3.0us>
+  0.010814 sh[671766:1] ConnectServerInfo(pid=0, coid=1) = 1 <4.0us>
+  0.010825 sh[671766:1] sysconf(coid 0x40000000) = 0 <46.0us>  -> procnto[1] queued 11.0us, served 12.0us, prio 10
+  0.010875 sh[671766:1] ConnectAttach(pid=122889 (pipe), chid=1, index=10, flags=65) = 11 <10.0us>
+  0.010889 sh[671766:1] dup(fd 11) = 0 <74.0us>  -> pipe[122889] queued 14.0us, served 28.0us, prio 10
+  0.011072 sh[671766:1] ConnectFlags(pid=0, coid=11, masks=1, bits=0) = 193 <4.0us>
+  0.011083 sh[671766:1] close(fd 1) = 0 <72.0us>  -> pipe[122889] queued 18.0us, served 34.0us, prio 10
+  0.011163 sh[671766:1] ConnectDetach(coid=1) = 0 <15.0us>
+  0.011183 sh[671766:1] ConnectFlags(pid=0, coid=11, masks=1, bits=1) = 192 <2.0us>
+  0.011195 sh[671766:1] open("/", pipe) on coid 0x40000000 = redirect 0x800b0000 <66.0us>  -> procnto[1] queued 21.0us, served 20.0us, prio 10
+  0.011266 sh[671766:1] ConnectAttach(pid=122889 (pipe), chid=1, index=0, flags=64) = 1 <5.0us>
+  0.011274 sh[671766:1] open("/", pipe) on fd 1 = 0 <167.0us>  -> pipe[122889] queued 13.0us, served 125.0us, prio 10
+  0.011451 sh[671766:1] ConnectServerInfo(pid=0, coid=1) = 1 <5.0us>
+  0.011459 sh[671766:1] ConnectAttach(pid=122889 (pipe), chid=1, index=0, flags=65) = 4 <5.0us>
+  0.011468 sh[671766:1] openfd(fd 4) = 0 <77.0us>  -> pipe[122889] queued 17.0us, served 36.0us, prio 10
+  0.011553 sh[671766:1] ConnectFlags(pid=0, coid=4, masks=1, bits=0) = 193 <2.0us>
+  0.011561 sh[671766:1] ConnectServerInfo(pid=0, coid=1) = 1 <3.0us>
+  0.011570 sh[671766:1] sysconf(coid 0x40000000) = 0 <50.0us>  -> procnto[1] queued 9.0us, served 11.0us, prio 10
+  0.011635 sh[671766:1] ConnectAttach(pid=122889 (pipe), chid=1, index=10, flags=65) = 12 <8.0us>
+  0.011647 sh[671766:1] dup(fd 12) = 0 <82.0us>  -> pipe[122889] queued 19.0us, served 26.0us, prio 10
+  0.011740 sh[671766:1] ConnectFlags(pid=0, coid=12, masks=1, bits=0) = 193 <3.0us>
+  0.011751 sh[671766:1] close(fd 1) = 0 <84.0us>  -> pipe[122889] queued 22.0us, served 31.0us, prio 10
+  0.011843 sh[671766:1] ConnectDetach(coid=1) = 0 <14.0us>
+  0.011864 sh[671766:1] ConnectFlags(pid=0, coid=12, masks=1, bits=1) = 192 <2.0us>
+  0.011872 sh[671766:1] ConnectServerInfo(pid=0, coid=4) = 4 <4.0us>
+  0.011885 sh[671766:1] sysconf(coid 0x40000000) = 0 <38.0us>  -> procnto[1] queued 11.0us, served 11.0us, prio 10
+  0.011927 sh[671766:1] ConnectAttach(pid=122889 (pipe), chid=1, index=10, flags=65) = 13 <5.0us>
+  0.011936 sh[671766:1] dup(fd 13) = 0 <61.0us>  -> pipe[122889] queued 13.0us, served 21.0us, prio 10
+  0.012005 sh[671766:1] ConnectFlags(pid=0, coid=13, masks=1, bits=0) = 193 <2.0us>
+  0.012012 sh[671766:1] close(fd 4) = 0 <68.0us>  -> pipe[122889] queued 16.0us, served 25.0us, prio 10
+  0.012089 sh[671766:1] ConnectDetach(coid=4) = 0 <14.0us>
+  0.012109 sh[671766:1] ConnectFlags(pid=0, coid=13, masks=1, bits=1) = 192 <2.0us>
+  0.012117 sh[671766:1] ConnectServerInfo(pid=0, coid=13) = 13 <3.0us>
+  0.012126 sh[671766:1] sysconf(coid 0x40000000) = 0 <43.0us>  -> procnto[1] queued 18.0us, served 11.0us, prio 10
+  0.012180 sh[671766:1] close(fd 1) = -1 errno 9 (Bad file descriptor) <2.0us>
+  0.012186 sh[671766:1] ConnectAttach(pid=0, chid=13, index=1, flags=32832) = 1 <5.0us>
+  0.012194 sh[671766:1] dup(fd 1) = 0 <56.0us>  -> pipe[122889] queued 13.0us, served 20.0us, prio 10
+  0.012272 sh[671766:1] ConnectFlags(pid=0, coid=1, masks=1, bits=0) = 192 <10.0us>
+  0.012297 sh[671766:1] SignalProcmask(pid=0, tid=0, how=0, sig_blocked->bits[0]=0x20000) = 0 <3.0us>
+  0.012330 sh[671766:1] fork(coid 0x40000000) = 671767 <2003.0us>  -> procnto[1] queued 12.0us, served 1948.0us, prio 10
+  0.013226 ls[671767:1] ConnectServerInfo(pid=671766 (sh), coid=0) = 0 <6.0us>
+  0.013237 ls[671767:1] ConnectAttach(pid=122889 (pipe), chid=1, index=0, flags=64) = 0 <10.0us>
+  0.013251 ls[671767:1] dup(fd 0) = 0 <84.0us>  -> pipe[122889] queued 20.0us, served 40.0us, prio 10
+  0.013344 ls[671767:1] ConnectServerInfo(pid=671766 (sh), coid=1) = 1 <5.0us>
+  0.013352 ls[671767:1] ConnectAttach(pid=122889 (pipe), chid=1, index=1, flags=64) = 1 <9.0us>
+  0.013364 ls[671767:1] dup(fd 1) = 0 <75.0us>  -> pipe[122889] queued 15.0us, served 27.0us, prio 10
+  0.013446 ls[671767:1] ConnectServerInfo(pid=671766 (sh), coid=2) = 2 <5.0us>
+  0.013453 ls[671767:1] ConnectAttach(pid=122889 (pipe), chid=1, index=2, flags=64) = 2 <5.0us>
+  0.013460 ls[671767:1] dup(fd 2) = 0 <80.0us>  -> pipe[122889] queued 16.0us, served 31.0us, prio 10
+  0.013547 ls[671767:1] ConnectServerInfo(pid=671766 (sh), coid=3) = 3 <5.0us>
+  0.013554 ls[671767:1] ConnectAttach(pid=45063 (devb-virtio), chid=3, index=3, flags=0) = 3 <5.0us>
+  0.013562 ls[671767:1] dup(fd 3) = 0 <84.0us>  -> devb-virtio[45063] queued 15.0us, served 42.0us, prio 10
+  0.013654 ls[671767:1] ConnectServerInfo(pid=671766 (sh), coid=4) = 10 <6.0us>
+  0.013663 ls[671767:1] ConnectAttach(pid=122889 (pipe), chid=1, index=10, flags=65) = 10 <11.0us>
+  0.013676 ls[671767:1] dup(fd 10) = 0 <66.0us>  -> pipe[122889] queued 15.0us, served 24.0us, prio 10
+  0.013749 ls[671767:1] ConnectServerInfo(pid=671766 (sh), coid=11) = 11 <4.0us>
+  0.013756 ls[671767:1] ConnectAttach(pid=122889 (pipe), chid=1, index=11, flags=65) = 11 <8.0us>
+  0.013766 ls[671767:1] dup(fd 11) = 0 <73.0us>  -> pipe[122889] queued 22.0us, served 24.0us, prio 10
+  0.013845 ls[671767:1] ConnectServerInfo(pid=671766 (sh), coid=12) = 12 <5.0us>
+  0.013856 ls[671767:1] ConnectAttach(pid=122889 (pipe), chid=1, index=12, flags=65) = 12 <10.0us>
+  0.013869 ls[671767:1] dup(fd 12) = 0 <95.0us>  -> pipe[122889] queued 16.0us, served 53.0us, prio 10
+  0.013972 ls[671767:1] ConnectServerInfo(pid=671766 (sh), coid=13) = 13 <5.0us>
+  0.013980 ls[671767:1] ConnectAttach(pid=122889 (pipe), chid=1, index=13, flags=65) = 13 <12.0us>
+  0.013994 ls[671767:1] dup(fd 13) = 0 <64.0us>  -> pipe[122889] queued 16.0us, served 24.0us, prio 10
+  0.014065 ls[671767:1] ConnectServerInfo(pid=671766 (sh), coid=14) = 1073741824 <5.0us>
+  0.014089 ls[671767:1] ThreadCtl(cmd=10, data_p=0xffffff8083add4b0) = 0 <8.0us>
+  0.014108 ls[671767:1] spawn(coid 0x40000000) = 0 <227.0us>  -> procnto[1] queued 9.0us, served 193.0us, prio 10
+  0.014355 ls[671767:1] SyncCreate(type=0, sync_p=0x533f3b42d0, count=0x80000000, owner=0x40160001) = 0 <4.0us>
+  0.014364 ls[671767:1] SyncCreate(type=0, sync_p=0x533f3b9638, count=1, owner=0x40160001) = 0 <0.0us>
+  0.014366 sh[671766:1] SignalProcmask(pid=0, tid=0, how=2, sig_blocked->bits[0]=0) = 0 <3.0us>
+  0.014367 ls[671767:1] SyncCreate(type=0, sync_p=0x533f3b42d8, count=0x80000000, owner=0x40160001) = 0 <1.0us>
+  0.014375 sh[671766:1] ConnectServerInfo(pid=0, coid=12) = 12 <17.0us>
+  0.014375 ls[671767:1] close(fd 12) = 0 <113.0us>  -> pipe[122889] queued 24.0us, served 48.0us, prio 10
+  0.014421 sh[671766:1] sysconf(coid 0x40000000) = 0 <55.0us>  -> procnto[1] queued 12.0us, served 13.0us, prio 10
+  0.014485 sh[671766:1] close(fd 0) = 0 <83.0us>  -> pipe[122889] queued 17.0us, served 42.0us, prio 10
+  0.014497 ls[671767:1] ConnectDetach(coid=12) = 0 <19.0us>
+  0.014526 ls[671767:1] SignalProcmask(pid=0, tid=0, how=2, sig_blocked->bits[0]=0) = 0 <3.0us>
+  0.014545 ls[671767:1] close(fd 10) = 0 <71.0us>  -> pipe[122889] queued 18.0us, served 22.0us, prio 10
+  0.014578 sh[671766:1] ConnectAttach(pid=0, chid=12, index=0, flags=32832) = 0 <21.0us>
+  0.014607 sh[671766:1] dup(fd 0) = 0 <199.0us>  -> pipe[122889] queued 20.0us, served 151.0us, prio 10
+  0.014628 ls[671767:1] ConnectDetach(coid=10) = 0 <13.0us>
+  0.014647 ls[671767:1] close(fd 11) = 0 <128.0us>  -> pipe[122889] queued 83.0us, served 24.0us, prio 10
+  0.014814 sh[671766:1] ConnectFlags(pid=0, coid=0, masks=1, bits=0) = 192 <3.0us>
+  0.014832 ls[671767:1] ConnectDetach(coid=11) = 0 <225.0us>
+  0.014835 sh[671766:1] close(fd 12) = 0 <109.0us>  -> pipe[122889] queued 17.0us, served 30.0us, prio 10
+  0.014959 sh[671766:1] ConnectDetach(coid=12) = 0 <223.0us>
+  0.015122 ls[671767:1] SignalProcmask(pid=0, tid=0, how=0, sig_blocked->bits[0]=0x20000) = 0 <4.0us>
+  0.015136 ls[671767:1] SignalProcmask(pid=0, tid=0, how=2, sig_blocked->bits[0]=0) = 0 <1.0us>
+  0.015145 ls[671767:1] SignalProcmask(pid=0, tid=0, how=0, sig_blocked->bits[0]=0x20000) = 0 <1.0us>
+  0.015161 ls[671767:1] combine("/proc/boot/ls") on coid 0x40000000 = redirect 0x800b0000 <88.0us>  -> procnto[1] queued 16.0us, served 38.0us, prio 10
+  0.015191 sh[671766:1] close(fd 13) = 0 <309.0us>  -> pipe[122889] queued 23.0us, served 253.0us, prio 10
+  0.015255 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <7.0us>
+  0.015265 ls[671767:1] combine("/proc/boot/ls") on coid 0x40000001 = -1 errno 2 (No such file or directory) <47.0us>  -> procnto[1] queued 6.0us, served 23.0us, prio 10
+  0.015317 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <5.0us>
+  0.015327 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <3.0us>
+  0.015335 ls[671767:1] combine("/proc/boot/ls") on coid 0x40000001 = redirect 0x80010000 <56.0us>  -> procnto[1] queued 10.0us, served 25.0us, prio 10
+  0.015406 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <3.0us>
+  0.015426 ls[671767:1] combine("/proc/boot/toybox") on coid 0x40000000 = redirect 0x800b0000 <51.0us>  -> procnto[1] queued 11.0us, served 20.0us, prio 10
+  0.015501 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <10.0us>
+  0.015510 sh[671766:1] ConnectDetach(coid=13) = 0 <36.0us>
+  0.015516 ls[671767:1] combine("/proc/boot/toybox") on coid 0x40000001 = -1 errno 2 (No such file or directory) <68.0us>  -> procnto[1] queued 5.0us, served 17.0us, prio 10
+  0.015581 sh[671766:1] ConnectServerInfo(pid=0, coid=11) = 11 <10.0us>
+  0.015590 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.015603 sh[671766:1] sysconf(coid 0x40000000) = 0 <115.0us>  -> procnto[1] queued 63.0us, served 16.0us, prio 10
+  0.015610 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <7.0us>
+  0.015623 ls[671767:1] combine("/proc/boot/toybox") on coid 0x40000001 = 3 <170.0us>  -> procnto[1] queued 58.0us, served 77.0us, prio 10
+  0.015729 sh[671766:1] close(fd 1) = 0 <124.0us>  -> pipe[122889] queued 73.0us, served 23.0us, prio 10
+  0.015808 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <6.0us>
+  0.015826 ls[671767:1] combine("/proc/boot/ls") on coid 0x40000000 = redirect 0x800b0000 <75.0us>  -> procnto[1] queued 14.0us, served 38.0us, prio 10
+  0.015874 sh[671766:1] ConnectAttach(pid=0, chid=11, index=1, flags=32832) = 1 <22.0us>
+  0.015901 sh[671766:1] dup(fd 1) = 0 <89.0us>  -> pipe[122889] queued 20.0us, served 42.0us, prio 10
+  0.015911 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <7.0us>
+  0.015926 ls[671767:1] combine("/proc/boot/ls") on coid 0x40000001 = -1 errno 2 (No such file or directory) <64.0us>  -> procnto[1] queued 22.0us, served 26.0us, prio 10
+  0.015996 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <3.0us>
+  0.016008 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <5.0us>
+  0.016009 sh[671766:1] ConnectFlags(pid=0, coid=1, masks=1, bits=0) = 192 <4.0us>
+  0.016018 ls[671767:1] combine("/proc/boot/ls") on coid 0x40000001 = redirect 0x80010000 <36.0us>  -> procnto[1] queued 9.0us, served 17.0us, prio 10
+  0.016026 sh[671766:1] close(fd 11) = 0 <72.0us>  -> pipe[122889] queued 22.0us, served 30.0us, prio 10
+  0.016061 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.016067 ls[671767:1] combine("/proc/boot/toybox") on coid 0x40000000 = redirect 0x800b0000 <33.0us>  -> procnto[1] queued 5.0us, served 19.0us, prio 10
+  0.016103 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <4.0us>
+  0.016106 sh[671766:1] ConnectDetach(coid=11) = 0 <11.0us>
+  0.016109 ls[671767:1] combine("/proc/boot/toybox") on coid 0x40000001 = -1 errno 2 (No such file or directory) <40.0us>  -> procnto[1] queued 6.0us, served 7.0us, prio 10
+  0.016126 sh[671766:1] SignalProcmask(pid=0, tid=0, how=0, sig_blocked->bits[0]=0x20000) = 0 <3.0us>
+  0.016150 sh[671766:1] fork(coid 0x40000000) = 671768 <1555.0us>  -> procnto[1] queued 10.0us, served 1503.0us, prio 10
+  0.016160 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <5.0us>
+  0.016168 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <7.0us>
+  0.016183 ls[671767:1] combine("/proc/boot/toybox") on coid 0x40000001 = 0 <71.0us>  -> procnto[1] queued 10.0us, served 51.0us, prio 10
+  0.016258 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <3.0us>
+  0.016277 ls[671767:1] SignalProcmask(pid=0, tid=0, how=2, sig_blocked->bits[0]=0) = 0 <2.0us>
+  0.016304 ls[671767:1] SignalProcmask(pid=0, tid=0, how=0, sig_blocked->bits[0]=0x20000) = 0 <1.0us>
+  0.016314 ls[671767:1] SignalProcmask(pid=0, tid=0, how=2, sig_blocked->bits[0]=0) = 0 <1.0us>
+  0.016345 ls[671767:1] SignalAction(pid=0, sigstub_p=0x533f3343e8, signo=1, act->sa_handler_p=0) = 0 <6.0us>
+  0.016355 ls[671767:1] SignalAction(pid=0, sigstub_p=0x533f3343e8, signo=2, act->sa_handler_p=0) = 0 <1.0us>
+  0.016358 ls[671767:1] SignalAction(pid=0, sigstub_p=0x533f3343e8, signo=3, act->sa_handler_p=0) = 0 <1.0us>
+  0.016361 ls[671767:1] SignalAction(pid=0, sigstub_p=0x533f3343e8, signo=15, act->sa_handler_p=0) = 0 <1.0us>
+  0.016364 ls[671767:1] SignalAction(pid=0, sigstub_p=0x533f3343e8, signo=18, act->sa_handler_p=0) = 0 <4.0us>
+  0.016375 ls[671767:1] sysconf(coid 0x40000000) = 0 <32.0us>  -> procnto[1] queued 6.0us, served 10.0us, prio 10
+  0.016419 ls[671767:1] spawn(coid 0x40000000) = 1073741824 <3078.0us>  -> procnto[1] queued 8.0us, served 3049.0us, prio 10
+  0.016575 ?[671769:1] combine("/proc/boot/ls") on coid 0x40000000 = redirect 0x800b0000 <52.0us>  -> procnto[1] queued 12.0us, served 20.0us, prio 10
+  0.016634 ?[671769:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <6.0us>
+  0.016643 ?[671769:1] combine("/proc/boot/ls") on coid 0x40000001 = -1 errno 2 (No such file or directory) <27.0us>  -> procnto[1] queued 5.0us, served 10.0us, prio 10
+  0.016675 ?[671769:1] ConnectDetach(coid=0x40000001) = 0 <3.0us>
+  0.016681 ?[671769:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <4.0us>
+  0.016688 ?[671769:1] combine("/proc/boot/ls") on coid 0x40000001 = redirect 0x80010000 <43.0us>  -> procnto[1] queued 5.0us, served 15.0us, prio 10
+  0.016734 ?[671769:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.016743 ?[671769:1] combine("/proc/boot/toybox") on coid 0x40000000 = redirect 0x800b0000 <48.0us>  -> procnto[1] queued 11.0us, served 12.0us, prio 10
+  0.016795 ?[671769:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <11.0us>
+  0.016811 ?[671769:1] combine("/proc/boot/toybox") on coid 0x40000001 = -1 errno 2 (No such file or directory) <48.0us>  -> procnto[1] queued 11.0us, served 20.0us, prio 10
+  0.016842 wc[671768:1] ConnectServerInfo(pid=671766 (sh), coid=0) = 0 <5.0us>
+  0.016851 wc[671768:1] ConnectAttach(pid=122889 (pipe), chid=1, index=0, flags=64) = 0 <8.0us>
+  0.016862 wc[671768:1] dup(fd 0) = 0 <81.0us>  -> pipe[122889] queued 16.0us, served 33.0us, prio 10
+  0.016868 ?[671769:1] ConnectDetach(coid=0x40000001) = 0 <3.0us>
+  0.016873 ?[671769:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <5.0us>
+  0.016881 ?[671769:1] combine("/proc/boot/toybox") on coid 0x40000001 = 3 <80.0us>  -> procnto[1] queued 9.0us, served 46.0us, prio 10
+  0.016963 wc[671768:1] ConnectServerInfo(pid=671766 (sh), coid=1) = 1 <6.0us>
+  0.016973 wc[671768:1] ConnectAttach(pid=122889 (pipe), chid=1, index=1, flags=64) = 1 <5.0us>
+  0.016975 ?[671769:1] ConnectServerInfo(pid=671769 (?), coid=0x40000001) = 1073741825 <6.0us>
+  0.016981 wc[671768:1] dup(fd 1) = 0 <86.0us>  -> pipe[122889] queued 16.0us, served 32.0us, prio 10
+  0.017003 ?[671769:1] read(coid 0x40000001, 64 bytes) = 64 <57.0us>  -> procnto[1] queued 12.0us, served 22.0us, prio 10
+  0.017075 ?[671769:1] read(coid 0x40000001, 560 bytes) = 560 <43.0us>  -> procnto[1] queued 6.0us, served 8.0us, prio 10
+  0.017076 wc[671768:1] ConnectServerInfo(pid=671766 (sh), coid=2) = 2 <4.0us>
+  0.017108 wc[671768:1] ConnectAttach(pid=122889 (pipe), chid=1, index=2, flags=64) = 2 <7.0us>
+  0.017120 wc[671768:1] dup(fd 2) = 0 <107.0us>  -> pipe[122889] queued 18.0us, served 41.0us, prio 10
+  0.017124 ?[671769:1] mmap(coid 0x40000000) = 0 <54.0us>  -> procnto[1] queued 6.0us, served 18.0us, prio 10
+  0.017193 ?[671769:1] mmap(coid 0x40000000) = 0 <134.0us>  -> procnto[1] queued 27.0us, served 64.0us, prio 10
+  0.017236 wc[671768:1] ConnectServerInfo(pid=671766 (sh), coid=3) = 3 <6.0us>
+  0.017246 wc[671768:1] ConnectAttach(pid=45063 (devb-virtio), chid=3, index=3, flags=0) = 3 <6.0us>
+  0.017255 wc[671768:1] dup(fd 3) = 0 <115.0us>  -> devb-virtio[45063] queued 25.0us, served 53.0us, prio 10
+  0.017343 ?[671769:1] mmap(coid 0x40000000) = 0 <152.0us>  -> procnto[1] queued 24.0us, served 63.0us, prio 10
+  0.017379 wc[671768:1] ConnectServerInfo(pid=671766 (sh), coid=4) = 10 <5.0us>
+  0.017386 wc[671768:1] ConnectAttach(pid=122889 (pipe), chid=1, index=10, flags=65) = 10 <9.0us>
+  0.017398 wc[671768:1] dup(fd 10) = 0 <152.0us>  -> pipe[122889] queued 15.0us, served 113.0us, prio 10
+  0.017509 ?[671769:1] mmap(coid 0x40000000) = 0 <60.0us>  -> procnto[1] queued 7.0us, served 36.0us, prio 10
+  0.017560 wc[671768:1] ConnectServerInfo(pid=671766 (sh), coid=11) = 1073741824 <6.0us>
+  0.017576 ?[671769:1] read(coid 0x40000001, 32 bytes) = 32 <56.0us>  -> procnto[1] queued 10.0us, served 13.0us, prio 10
+  0.017584 wc[671768:1] ThreadCtl(cmd=10, data_p=0xffffff8083add4b0) = 0 <5.0us>
+  0.017593 wc[671768:1] spawn(coid 0x40000000) = 0 <126.0us>  -> procnto[1] queued 24.0us, served 73.0us, prio 10
+  0.017638 ?[671769:1] read(coid 0x40000001, 28 bytes) = 28 <47.0us>  -> procnto[1] queued 5.0us, served 9.0us, prio 10
+  0.017703 ?[671769:1] combine("/proc/boot/ldqnx-64.so.2") on coid 0x40000000 = redirect 0x800b0000 <96.0us>  -> procnto[1] queued 27.0us, served 34.0us, prio 10
+  0.017732 wc[671768:1] SyncCreate(type=0, sync_p=0x533f3b42d0, count=0x80000000, owner=0x40160001) = 0 <2.0us>
+  0.017740 wc[671768:1] SyncCreate(type=0, sync_p=0x533f3b9638, count=1, owner=0x40160001) = 0 <1.0us>
+  0.017741 sh[671766:1] close(fd 0) = 0 <92.0us>  -> pipe[122889] queued 19.0us, served 52.0us, prio 10
+  0.017746 wc[671768:1] SyncCreate(type=0, sync_p=0x533f3b42d8, count=0x80000000, owner=0x40160001) = 0 <0.0us>
+  0.017755 wc[671768:1] SignalProcmask(pid=0, tid=0, how=2, sig_blocked->bits[0]=0) = 0 <1.0us>
+  0.017760 wc[671768:1] close(fd 10) = 0 <83.0us>  -> pipe[122889] queued 16.0us, served 36.0us, prio 10
+  0.017817 ?[671769:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741826 <9.0us>
+  0.017830 ?[671769:1] combine("/proc/boot/ldqnx-64.so.2") on coid 0x40000002 = -1 errno 2 (No such file or directory) <47.0us>  -> procnto[1] queued 10.0us, served 15.0us, prio 10
+  0.017842 sh[671766:1] ConnectDetach(coid=0) = 0 <25.0us>
+  0.017853 wc[671768:1] ConnectDetach(coid=10) = 0 <65.0us>
+  0.017888 ?[671769:1] ConnectDetach(coid=0x40000002) = 0 <4.0us>
+  0.017895 ?[671769:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741826 <7.0us>
+  0.017907 ?[671769:1] combine("/proc/boot/ldqnx-64.so.2") on coid 0x40000002 = 3 <132.0us>  -> procnto[1] queued 19.0us, served 38.0us, prio 10
+  0.017910 sh[671766:1] SignalSuspend(sig_blocked->bits[0]=0, sig_blocked->bits[1]=0) = -1 errno 4 (Interrupted function call) <39442.0us>
+  0.017950 wc[671768:1] SignalProcmask(pid=0, tid=0, how=0, sig_blocked->bits[0]=0x20000) = 0 <3.0us>
+  0.017958 wc[671768:1] SignalProcmask(pid=0, tid=0, how=2, sig_blocked->bits[0]=0) = 0 <1.0us>
+  0.017964 wc[671768:1] SignalProcmask(pid=0, tid=0, how=0, sig_blocked->bits[0]=0x20000) = 0 <1.0us>
+  0.017979 wc[671768:1] combine("/proc/boot/wc") on coid 0x40000000 = redirect 0x800b0000 <117.0us>  -> procnto[1] queued 13.0us, served 20.0us, prio 10
+  0.018050 ?[671769:1] read(coid 0x40000002, 64 bytes) = 64 <47.0us>  -> procnto[1] queued 11.0us, served 13.0us, prio 10
+  0.018107 wc[671768:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <7.0us>
+  0.018109 ?[671769:1] read(coid 0x40000002, 448 bytes) = 448 <46.0us>  -> procnto[1] queued 11.0us, served 14.0us, prio 10
+  0.018118 wc[671768:1] combine("/proc/boot/wc") on coid 0x40000001 = -1 errno 2 (No such file or directory) <66.0us>  -> procnto[1] queued 19.0us, served 22.0us, prio 10
+  0.018165 ?[671769:1] mmap(coid 0x40000000) = 0 <161.0us>  -> procnto[1] queued 80.0us, served 46.0us, prio 10
+  0.018193 wc[671768:1] ConnectDetach(coid=0x40000001) = 0 <53.0us>
+  0.018254 wc[671768:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <7.0us>
+  0.018265 wc[671768:1] combine("/proc/boot/wc") on coid 0x40000001 = -1 errno 2 (No such file or directory) <98.0us>  -> procnto[1] queued 41.0us, served 30.0us, prio 10
+  0.018336 ?[671769:1] mmap(coid 0x40000000) = 0 <94.0us>  -> procnto[1] queued 28.0us, served 47.0us, prio 10
+  0.018374 wc[671768:1] ConnectDetach(coid=0x40000001) = 0 <5.0us>
+  0.018382 wc[671768:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <6.0us>
+  0.018391 wc[671768:1] combine("/proc/boot/wc") on coid 0x40000001 = -1 errno 2 (No such file or directory) <56.0us>  -> procnto[1] queued 10.0us, served 21.0us, prio 10
+  0.018452 ?[671769:1] mmap(coid 0x40000000) = 0 <187.0us>  -> procnto[1] queued 62.0us, served 85.0us, prio 10
+  0.018454 wc[671768:1] ConnectDetach(coid=0x40000001) = 0 <66.0us>
+  0.018544 wc[671768:1] combine("/system/bin/wc") on coid 0x40000000 = redirect 0x800b0000 <48.0us>  -> procnto[1] queued 11.0us, served 19.0us, prio 10
+  0.018597 wc[671768:1] ConnectAttach(pid=45063 (devb-virtio), chid=3, index=0x40000000, flags=0) = 1073741825 <12.0us>
+  0.018624 wc[671768:1] combine("/system/bin/wc") on coid 0x40000001 = 0 <156.0us>  -> devb-virtio[45063] queued 25.0us, served 108.0us, prio 10
+  0.018648 ?[671769:1] mmap(coid 0x40000000) = 0 <65.0us>  -> procnto[1] queued 11.0us, served 35.0us, prio 10
+  0.018718 ?[671769:1] close(coid 0x40000002) = 0 <45.0us>  -> procnto[1] queued 6.0us, served 13.0us, prio 10
+  0.018796 wc[671768:1] ConnectDetach(coid=0x40000001) = 0 <7.0us>
+  0.018801 ?[671769:1] ConnectDetach(coid=0x40000002) = 0 <4.0us>
+  0.018814 wc[671768:1] combine("/system/bin/wc") on coid 0x40000000 = redirect 0x800b0000 <197.0us>  -> procnto[1] queued 87.0us, served 39.0us, prio 10
+  0.018815 ?[671769:1] close(coid 0x40000001) = 0 <206.0us>  -> procnto[1] queued 102.0us, served 24.0us, prio 10
+  0.019025 wc[671768:1] ConnectAttach(pid=45063 (devb-virtio), chid=3, index=0x40000000, flags=0) = 1073741825 <9.0us>
+  0.019031 ?[671769:1] ConnectDetach(coid=0x40000001) = 0 <3.0us>
+  0.019038 wc[671768:1] combine("/system/bin/wc") on coid 0x40000001 = 0 <309.0us>  -> devb-virtio[45063] queued 16.0us, served 244.0us, prio 10
+  0.019043 ?[671769:1] mmap(coid 0x40000000) = 0 <329.0us>  -> procnto[1] queued 7.0us, served 258.0us, prio 10
+  0.019369 wc[671768:1] ConnectDetach(coid=0x40000001) = 0 <5.0us>
+  0.019385 ?[671769:1] __Ring0(func_p=0xffffff8060094960) = 676572656 <7.0us>
+  0.019388 wc[671768:1] SignalProcmask(pid=0, tid=0, how=2, sig_blocked->bits[0]=0) = 0 <3.0us>
+  0.019408 wc[671768:1] SignalProcmask(pid=0, tid=0, how=0, sig_blocked->bits[0]=0x20000) = 0 <1.0us>
+  0.019413 wc[671768:1] SignalProcmask(pid=0, tid=0, how=2, sig_blocked->bits[0]=0) = 0 <1.0us>
+  0.019415 ?[671769:1] ThreadCtl(cmd=10, data_p=0xffffff8083a52ed0) = 0 <4.0us>
+  0.019423 ?[671769:1] spawn(coid 0x40000000) = ? <unfinished>  -> procnto[1], prio 10
+  0.019426 wc[671768:1] SignalAction(pid=0, sigstub_p=0x533f3343e8, signo=1, act->sa_handler_p=0) = 0 <3.0us>
+  0.019434 wc[671768:1] SignalAction(pid=0, sigstub_p=0x533f3343e8, signo=2, act->sa_handler_p=0) = 0 <0.0us>
+  0.019437 wc[671768:1] SignalAction(pid=0, sigstub_p=0x533f3343e8, signo=3, act->sa_handler_p=0) = 0 <0.0us>
+  0.019443 wc[671768:1] SignalAction(pid=0, sigstub_p=0x533f3343e8, signo=15, act->sa_handler_p=0) = 0 <0.0us>
+  0.019447 wc[671768:1] SignalAction(pid=0, sigstub_p=0x533f3343e8, signo=18, act->sa_handler_p=0) = 0 <3.0us>
+  0.019456 wc[671768:1] sysconf(coid 0x40000000) = 0 <88.0us>  -> procnto[1] queued 33.0us, served 18.0us, prio 10
+  0.019559 ls[671767:1] TimerInfo(pid=0, id=0, flags=1, info_p=0) = -1 errno 22 (Invalid argument) <8.0us>
+  0.019571 wc[671768:1] spawn(coid 0x40000000) = 1073741824 <5762.0us>  -> procnto[1] queued 13.0us, served 5718.0us, prio 10
+  0.019593 ls[671767:1] ConnectServerInfo(pid=0, coid=0) = 0 <4.0us>
+  0.019601 ls[671767:1] ConnectServerInfo(pid=0, coid=1) = 1 <1.0us>
+  0.019604 ls[671767:1] ConnectServerInfo(pid=0, coid=2) = 2 <1.0us>
+  0.019609 ls[671767:1] ConnectServerInfo(pid=0, coid=3) = 3 <1.0us>
+  0.019613 ls[671767:1] ConnectServerInfo(pid=0, coid=4) = 13 <1.0us>
+  0.019644 ls[671767:1] TimerTimeout(clock_id=2, timeout_flags=80, ntime_sec=30, ntime_nsec=0) = 0 <25.0us>
+  0.019687 ls[671767:1] close(fd 13) = 0 <84.0us>  -> pipe[122889] queued 25.0us, served 41.0us, prio 10
+  0.019762 ?[671770:1] combine("/system/bin/wc") on coid 0x40000000 = redirect 0x800b0000 <83.0us>  -> procnto[1] queued 17.0us, served 43.0us, prio 10
+  0.019775 ls[671767:1] ConnectDetach(coid=13) = 0 <20.0us>
+  0.019801 ls[671767:1] ConnectServerInfo(pid=0, coid=14) = 1073741824 <5.0us>
+  0.019824 ls[671767:1] munmap(coid 0x40000000) = 0 <155.0us>  -> procnto[1] queued 22.0us, served 112.0us, prio 10
+  0.019853 ?[671770:1] ConnectAttach(pid=45063 (devb-virtio), chid=3, index=0x40000000, flags=0) = 1073741825 <8.0us>
+  0.019864 ?[671770:1] combine("/system/bin/wc") on coid 0x40000001 = 3 <397.0us>  -> devb-virtio[45063] queued 17.0us, served 250.0us, prio 10
+  0.020215 ls[671767:1] ConnectServerInfo(pid=0, coid=0x40000000) = 1073741824 <4.0us>
+  0.020225 ls[671767:1] ConnectDetach(coid=0x40000000) = 0 <29.0us>
+  0.020260 ls[671767:1] ConnectServerInfo(pid=0, coid=0x40000001) = -1 errno 22 (Invalid argument) <9.0us>
+  0.020279 ls[671767:1] __Ring0(func_p=0xffffff8060095600) = 0 <6.0us>
+  0.020280 ?[671770:1] ConnectServerInfo(pid=671770 (?), coid=0x40000001) = 1073741825 <13.0us>
+  0.020300 ?[671770:1] read(coid 0x40000001, 64 bytes) = 64 <127.0us>  -> devb-virtio[45063] queued 26.0us, served 76.0us, prio 10
+  0.020439 ?[671770:1] read(coid 0x40000001, 560 bytes) = 560 <124.0us>  -> devb-virtio[45063] queued 28.0us, served 60.0us, prio 10
+  0.020476 ls[671767:1] MsgSend() = 0
+  0.020532 ls[671767:1] SysCpupageGet(index=2) = -12288 <2.0us>
+  0.020569 ls[671767:1] sysconf(coid 0x40000000) = 0 <138.0us>  -> procnto[1] queued 70.0us, served 33.0us, prio 10
+  0.020576 ?[671770:1] mmap(coid 0x40000000) = 0 <134.0us>  -> procnto[1] queued 78.0us, served 25.0us, prio 10
+  0.020717 ?[671770:1] mmap(coid 0x40000000) = 0 <1730.0us>  -> procnto[1] queued 11.0us, served 1694.0us, prio 10
+  0.020767 ls[671767:1] sysconf(coid 0x40000000) = 0 <50.0us>  -> procnto[1] queued 12.0us, served 12.0us, prio 10
+  0.020825 ls[671767:1] mmap(coid 0x40000000) = 0 <86.0us>  -> procnto[1] queued 7.0us, served 50.0us, prio 10
+  0.020941 ls[671767:1] combine("/data/qtrace/libfsnotify.so.1") on coid 0x40000000 = redirect 0x800b0000 <55.0us>  -> procnto[1] queued 6.0us, served 26.0us, prio 10
+  0.021012 ls[671767:1] ConnectAttach(pid=45063 (devb-virtio), chid=3, index=0, flags=0) = 4 <6.0us>
+  0.021021 ls[671767:1] combine("/data/qtrace/libfsnotify.so.1") on fd 4 = -1 errno 2 (No such file or directory) <312.0us>  -> devb-virtio[45063] queued 26.0us, served 259.0us, prio 10
+  0.021342 ls[671767:1] ConnectDetach(coid=4) = 0 <5.0us>
+  0.021350 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0, flags=0) = 4 <7.0us>
+  0.021361 ls[671767:1] combine("/data/qtrace/libfsnotify.so.1") on fd 4 = -1 errno 2 (No such file or directory) <57.0us>  -> procnto[1] queued 12.0us, served 19.0us, prio 10
+  0.021424 ls[671767:1] ConnectDetach(coid=4) = 0 <4.0us>
+  0.021433 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0, flags=0) = 4 <11.0us>
+  0.021453 ls[671767:1] combine("/data/qtrace/libfsnotify.so.1") on fd 4 = -1 errno 2 (No such file or directory) <494.0us>  -> procnto[1] queued 130.0us, served 348.0us, prio 10
+  0.021954 ls[671767:1] ConnectDetach(coid=4) = 0 <3.0us>
+  0.021974 ls[671767:1] combine("/proc/boot/libfsnotify.so.1") on coid 0x40000000 = redirect 0x800b0000 <41.0us>  -> procnto[1] queued 8.0us, served 18.0us, prio 10
+  0.022020 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0, flags=0) = 4 <5.0us>
+  0.022028 ls[671767:1] combine("/proc/boot/libfsnotify.so.1") on fd 4 = -1 errno 2 (No such file or directory) <55.0us>  -> procnto[1] queued 6.0us, served 11.0us, prio 10
+  0.022095 ls[671767:1] ConnectDetach(coid=4) = 0 <6.0us>
+  0.022108 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0, flags=0) = 4 <7.0us>
+  0.022118 ls[671767:1] combine("/proc/boot/libfsnotify.so.1") on fd 4 = 3 <118.0us>  -> procnto[1] queued 19.0us, served 72.0us, prio 10
+  0.022246 ls[671767:1] read(fd 4, 64 bytes) = 64 <62.0us>  -> procnto[1] queued 20.0us, served 24.0us, prio 10
+  0.022319 ls[671767:1] read(fd 4, 64 bytes) = 64 <35.0us>  -> procnto[1] queued 7.0us, served 9.0us, prio 10
+  0.022360 ls[671767:1] read(fd 4, 448 bytes) = 448 <23.0us>  -> procnto[1] queued 5.0us, served 6.0us, prio 10
+  0.022447 ls[671767:1] mmap(coid 0x40000000) = 0 <200.0us>  -> procnto[1] queued 70.0us, served 42.0us, prio 10
+  0.022457 ?[671770:1] mmap(coid 0x40000000) = 0 <680.0us>  -> procnto[1] queued 59.0us, served 592.0us, prio 10
+  0.022658 ls[671767:1] mmap(coid 0x40000000) = 0 <105.0us>  -> procnto[1] queued 30.0us, served 54.0us, prio 10
+  0.022767 ls[671767:1] mmap(coid 0x40000000) = 0 <74.0us>  -> procnto[1] queued 6.0us, served 47.0us, prio 10
+  0.022852 ls[671767:1] mmap(coid 0x40000000) = 0 <96.0us>  -> procnto[1] queued 6.0us, served 64.0us, prio 10
+  0.022958 ls[671767:1] read(fd 4, 4096 bytes) = 4096 <57.0us>  -> procnto[1] queued 12.0us, served 20.0us, prio 10
+  0.023039 ls[671767:1] close(fd 4) = 0 <89.0us>  -> procnto[1] queued 7.0us, served 50.0us, prio 10
+  0.023137 ls[671767:1] ConnectDetach(coid=4) = 0 <3.0us>
+  0.023148 ?[671770:1] mmap(coid 0x40000000) = 0 <69.0us>  -> procnto[1] queued 10.0us, served 34.0us, prio 10
+  0.023167 ls[671767:1] mmap(coid 0x40000000) = 0 <77.0us>  -> procnto[1] queued 6.0us, served 46.0us, prio 10
+  0.023222 ?[671770:1] read(coid 0x40000001, 32 bytes) = 32 <121.0us>  -> devb-virtio[45063] queued 29.0us, served 50.0us, prio 10
+  0.023258 ls[671767:1] combine("/data/qtrace/libsecpol.so.1") on coid 0x40000000 = redirect 0x800b0000 <72.0us>  -> procnto[1] queued 12.0us, served 29.0us, prio 10
+  0.023339 ls[671767:1] ConnectAttach(pid=45063 (devb-virtio), chid=3, index=0, flags=0) = 4 <8.0us>
+  0.023356 ?[671770:1] read(coid 0x40000001, 28 bytes) = 28 <117.0us>  -> devb-virtio[45063] queued 40.0us, served 39.0us, prio 10
+  0.023356 ls[671767:1] combine("/data/qtrace/libsecpol.so.1") on fd 4 = -1 errno 2 (No such file or directory) <162.0us>  -> devb-virtio[45063] queued 31.0us, served 101.0us, prio 10
+  0.023504 ?[671770:1] combine("/proc/boot/ldqnx-64.so.2") on coid 0x40000000 = redirect 0x800b0000 <78.0us>  -> procnto[1] queued 16.0us, served 22.0us, prio 10
+  0.023529 ls[671767:1] ConnectDetach(coid=4) = 0 <4.0us>
+  0.023535 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0, flags=0) = 4 <7.0us>
+  0.023547 ls[671767:1] combine("/data/qtrace/libsecpol.so.1") on fd 4 = -1 errno 2 (No such file or directory) <69.0us>  -> procnto[1] queued 16.0us, served 16.0us, prio 10
+  0.023605 ?[671770:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741826 <12.0us>
+  0.023626 ?[671770:1] combine("/proc/boot/ldqnx-64.so.2") on coid 0x40000002 = -1 errno 2 (No such file or directory) <59.0us>  -> procnto[1] queued 10.0us, served 12.0us, prio 10
+  0.023629 ls[671767:1] ConnectDetach(coid=4) = 0 <5.0us>
+  0.023637 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0, flags=0) = 4 <6.0us>
+  0.023646 ls[671767:1] combine("/data/qtrace/libsecpol.so.1") on fd 4 = -1 errno 2 (No such file or directory) <157.0us>  -> procnto[1] queued 115.0us, served 23.0us, prio 10
+  0.023704 ?[671770:1] ConnectDetach(coid=0x40000002) = 0 <34.0us>
+  0.023755 ?[671770:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741826 <8.0us>
+  0.023767 ?[671770:1] combine("/proc/boot/ldqnx-64.so.2") on coid 0x40000002 = 3 <85.0us>  -> procnto[1] queued 11.0us, served 52.0us, prio 10
+  0.023808 ls[671767:1] ConnectDetach(coid=4) = 0 <4.0us>
+  0.023821 ls[671767:1] combine("/proc/boot/libsecpol.so.1") on coid 0x40000000 = redirect 0x800b0000 <54.0us>  -> procnto[1] queued 11.0us, served 28.0us, prio 10
+  0.023860 ?[671770:1] read(coid 0x40000002, 64 bytes) = 64 <50.0us>  -> procnto[1] queued 14.0us, served 19.0us, prio 10
+  0.023881 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0, flags=0) = 4 <6.0us>
+  0.023892 ls[671767:1] combine("/proc/boot/libsecpol.so.1") on fd 4 = -1 errno 2 (No such file or directory) <72.0us>  -> procnto[1] queued 21.0us, served 13.0us, prio 10
+  0.023918 ?[671770:1] read(coid 0x40000002, 448 bytes) = 448 <78.0us>  -> procnto[1] queued 8.0us, served 41.0us, prio 10
+  0.023976 ls[671767:1] ConnectDetach(coid=4) = 0 <11.0us>
+  0.023994 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0, flags=0) = 4 <5.0us>
+  0.024002 ls[671767:1] combine("/proc/boot/libsecpol.so.1") on fd 4 = 3 <201.0us>  -> procnto[1] queued 67.0us, served 62.0us, prio 10
+  0.024004 ?[671770:1] mmap(coid 0x40000000) = 0 <173.0us>  -> procnto[1] queued 87.0us, served 33.0us, prio 10
+  0.024200 ?[671770:1] mmap(coid 0x40000000) = 0 <95.0us>  -> procnto[1] queued 15.0us, served 55.0us, prio 10
+  0.024223 ls[671767:1] read(fd 4, 64 bytes) = 64 <72.0us>  -> procnto[1] queued 11.0us, served 30.0us, prio 10
+  0.024301 ?[671770:1] mmap(coid 0x40000000) = 0 <174.0us>  -> procnto[1] queued 42.0us, served 95.0us, prio 10
+  0.024304 ls[671767:1] read(fd 4, 64 bytes) = 64 <88.0us>  -> procnto[1] queued 42.0us, served 22.0us, prio 10
+  0.024408 ls[671767:1] read(fd 4, 448 bytes) = 448 <129.0us>  -> procnto[1] queued 68.0us, served 22.0us, prio 10
+  0.024496 ?[671770:1] mmap(coid 0x40000000) = 0 <99.0us>  -> procnto[1] queued 16.0us, served 34.0us, prio 10
+  0.024560 ls[671767:1] mmap(coid 0x40000000) = 0 <55.0us>  -> procnto[1] queued 15.0us, served 20.0us, prio 10
+  0.024606 ?[671770:1] close(coid 0x40000002) = 0 <68.0us>  -> procnto[1] queued 20.0us, served 22.0us, prio 10
+  0.024619 ls[671767:1] mmap(coid 0x40000000) = 0 <95.0us>  -> procnto[1] queued 11.0us, served 37.0us, prio 10
+  0.024703 ?[671770:1] ConnectDetach(coid=0x40000002) = 0 <4.0us>
+  0.024720 ls[671767:1] mmap(coid 0x40000000) = 0 <78.0us>  -> procnto[1] queued 7.0us, served 46.0us, prio 10
+  0.024722 ?[671770:1] close(coid 0x40000001) = 0 <156.0us>  -> devb-virtio[45063] queued 39.0us, served 64.0us, prio 10
+  0.024807 ls[671767:1] mmap(coid 0x40000000) = 0 <109.0us>  -> procnto[1] queued 10.0us, served 65.0us, prio 10
+  0.024890 ?[671770:1] ConnectDetach(coid=0x40000001) = 0 <19.0us>
+  0.024915 ?[671770:1] mmap(coid 0x40000000) = 0 <315.0us>  -> procnto[1] queued 22.0us, served 277.0us, prio 10
+  0.024928 ls[671767:1] read(fd 4, 4096 bytes) = 4096 <54.0us>  -> procnto[1] queued 11.0us, served 23.0us, prio 10
+  0.025002 ls[671767:1] close(fd 4) = 0 <38.0us>  -> procnto[1] queued 7.0us, served 12.0us, prio 10
+  0.025044 ls[671767:1] ConnectDetach(coid=4) = 0 <4.0us>
+  0.025060 ls[671767:1] combine("/data/qtrace/libm.so.3") on coid 0x40000000 = redirect 0x800b0000 <67.0us>  -> procnto[1] queued 6.0us, served 36.0us, prio 10
+  0.025137 ls[671767:1] ConnectAttach(pid=45063 (devb-virtio), chid=3, index=0, flags=0) = 4 <7.0us>
+  0.025155 ls[671767:1] combine("/data/qtrace/libm.so.3") on fd 4 = -1 errno 2 (No such file or directory) <115.0us>  -> devb-virtio[45063] queued 14.0us, served 76.0us, prio 10
+  0.025237 ?[671770:1] __Ring0(func_p=0xffffff8060094960) = 487440048 <5.0us>
+  0.025262 ?[671770:1] ThreadCtl(cmd=10, data_p=0xffffff8083adced0) = 0 <7.0us>
+  0.025274 ?[671770:1] spawn(coid 0x40000000) = ? <unfinished>  -> procnto[1], prio 10
+  0.025278 ls[671767:1] ConnectDetach(coid=4) = 0 <4.0us>
+  0.025285 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0, flags=0) = 4 <6.0us>
+  0.025296 ls[671767:1] combine("/data/qtrace/libm.so.3") on fd 4 = -1 errno 2 (No such file or directory) <72.0us>  -> procnto[1] queued 15.0us, served 32.0us, prio 10
+  0.025383 ls[671767:1] ConnectDetach(coid=4) = 0 <3.0us>
+  0.025394 wc[671768:1] TimerInfo(pid=0, id=0, flags=1, info_p=0) = -1 errno 22 (Invalid argument) <3.0us>
+  0.025394 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0, flags=0) = 4 <5.0us>
+  0.025404 wc[671768:1] ConnectServerInfo(pid=0, coid=0) = 0 <4.0us>
+  0.025406 ls[671767:1] combine("/data/qtrace/libm.so.3") on fd 4 = -1 errno 2 (No such file or directory) <57.0us>  -> procnto[1] queued 13.0us, served 12.0us, prio 10
+  0.025412 wc[671768:1] ConnectServerInfo(pid=0, coid=1) = 1 <2.0us>
+  0.025417 wc[671768:1] ConnectServerInfo(pid=0, coid=2) = 2 <1.0us>
+  0.025420 wc[671768:1] ConnectServerInfo(pid=0, coid=3) = 3 <1.0us>
+  0.025424 wc[671768:1] ConnectServerInfo(pid=0, coid=4) = 1073741824 <1.0us>
+  0.025430 wc[671768:1] munmap(coid 0x40000000) = 0 <187.0us>  -> procnto[1] queued 52.0us, served 118.0us, prio 10
+  0.025498 ls[671767:1] ConnectDetach(coid=4) = 0 <6.0us>
+  0.025514 ls[671767:1] combine("/proc/boot/libm.so.3") on coid 0x40000000 = redirect 0x800b0000 <48.0us>  -> procnto[1] queued 11.0us, served 20.0us, prio 10
+  0.025566 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0, flags=0) = 4 <5.0us>
+  0.025574 ls[671767:1] combine("/proc/boot/libm.so.3") on fd 4 = -1 errno 2 (No such file or directory) <44.0us>  -> procnto[1] queued 6.0us, served 8.0us, prio 10
+  0.025630 ls[671767:1] ConnectDetach(coid=4) = 0 <2.0us>
+  0.025635 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0, flags=0) = 4 <3.0us>
+  0.025641 ls[671767:1] combine("/proc/boot/libm.so.3") on fd 4 = 3 <193.0us>  -> procnto[1] queued 9.0us, served 132.0us, prio 10
+  0.025820 wc[671768:1] ConnectServerInfo(pid=0, coid=0x40000000) = 1073741824 <7.0us>
+  0.025838 wc[671768:1] ConnectDetach(coid=0x40000000) = 0 <14.0us>
+  0.025851 ls[671767:1] read(fd 4, 64 bytes) = 64 <49.0us>  -> procnto[1] queued 14.0us, served 21.0us, prio 10
+  0.025855 wc[671768:1] ConnectServerInfo(pid=0, coid=0x40000001) = -1 errno 22 (Invalid argument) <2.0us>
+  0.025871 wc[671768:1] __Ring0(func_p=0xffffff8060095600) = 0 <6.0us>
+  0.025910 ls[671767:1] read(fd 4, 64 bytes) = 64 <53.0us>  -> procnto[1] queued 13.0us, served 16.0us, prio 10
+  0.025969 ls[671767:1] read(fd 4, 392 bytes) = 392 <58.0us>  -> procnto[1] queued 6.0us, served 24.0us, prio 10
+  0.026032 wc[671768:1] MsgSend() = 0
+  0.026036 ls[671767:1] mmap(coid 0x40000000) = 0 <71.0us>  -> procnto[1] queued 13.0us, served 23.0us, prio 10
+  0.026077 wc[671768:1] SysCpupageGet(index=2) = -12288 <2.0us>
+  0.026111 wc[671768:1] sysconf(coid 0x40000000) = 0 <247.0us>  -> procnto[1] queued 168.0us, served 53.0us, prio 10
+  0.026117 ls[671767:1] mmap(coid 0x40000000) = 0 <277.0us>  -> procnto[1] queued 177.0us, served 77.0us, prio 10
+  0.026399 wc[671768:1] sysconf(coid 0x40000000) = 0 <107.0us>  -> procnto[1] queued 49.0us, served 22.0us, prio 10
+  0.026405 ls[671767:1] mmap(coid 0x40000000) = 0 <129.0us>  -> procnto[1] queued 47.0us, served 57.0us, prio 10
+  0.026526 wc[671768:1] mmap(coid 0x40000000) = 0 <125.0us>  -> procnto[1] queued 16.0us, served 64.0us, prio 10
+  0.026544 ls[671767:1] mmap(coid 0x40000000) = 0 <108.0us>  -> procnto[1] queued 13.0us, served 56.0us, prio 10
+  0.026666 ls[671767:1] read(fd 4, 4096 bytes) = 4096 <78.0us>  -> procnto[1] queued 17.0us, served 22.0us, prio 10
+  0.026672 wc[671768:1] combine("/data/qtrace/libfsnotify.so.1") on coid 0x40000000 = redirect 0x800b0000 <70.0us>  -> procnto[1] queued 15.0us, served 30.0us, prio 10
+  0.026752 wc[671768:1] ConnectAttach(pid=45063 (devb-virtio), chid=3, index=0, flags=0) = 4 <8.0us>
+  0.026765 wc[671768:1] combine("/data/qtrace/libfsnotify.so.1") on fd 4 = -1 errno 2 (No such file or directory) <135.0us>  -> devb-virtio[45063] queued 20.0us, served 77.0us, prio 10
+  0.026769 ls[671767:1] close(fd 4) = 0 <48.0us>  -> procnto[1] queued 10.0us, served 17.0us, prio 10
+  0.026822 ls[671767:1] ConnectDetach(coid=4) = 0 <3.0us>
+  0.026837 ls[671767:1] combine("/data/qtrace/libz.so.2") on coid 0x40000000 = redirect 0x800b0000 <61.0us>  -> procnto[1] queued 6.0us, served 16.0us, prio 10
+  0.026909 ls[671767:1] ConnectAttach(pid=45063 (devb-virtio), chid=3, index=0, flags=0) = 4 <11.0us>
+  0.026910 wc[671768:1] ConnectDetach(coid=4) = 0 <5.0us>
+  0.026919 wc[671768:1] ConnectAttach(pid=1 (procnto), chid=1, index=0, flags=0) = 4 <8.0us>
+  0.026924 ls[671767:1] combine("/data/qtrace/libz.so.2") on fd 4 = -1 errno 2 (No such file or directory) <184.0us>  -> devb-virtio[45063] queued 33.0us, served 109.0us, prio 10
+  0.026930 wc[671768:1] combine("/data/qtrace/libfsnotify.so.1") on fd 4 = -1 errno 2 (No such file or directory) <80.0us>  -> procnto[1] queued 22.0us, served 22.0us, prio 10
+  0.027013 wc[671768:1] ConnectDetach(coid=4) = 0 <2.0us>
+  0.027018 wc[671768:1] ConnectAttach(pid=1 (procnto), chid=1, index=0, flags=0) = 4 <3.0us>
+  0.027024 wc[671768:1] combine("/data/qtrace/libfsnotify.so.1") on fd 4 = -1 errno 2 (No such file or directory) <28.0us>  -> procnto[1] queued 5.0us, served 9.0us, prio 10
+  0.027055 wc[671768:1] ConnectDetach(coid=4) = 0 <5.0us>
+  0.027073 wc[671768:1] combine("/proc/boot/libfsnotify.so.1") on coid 0x40000000 = redirect 0x800b0000 <73.0us>  -> procnto[1] queued 11.0us, served 20.0us, prio 10
+  0.027120 ls[671767:1] ConnectDetach(coid=4) = 0 <7.0us>
+  0.027132 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0, flags=0) = 4 <8.0us>
+  0.027144 ls[671767:1] combine("/data/qtrace/libz.so.2") on fd 4 = -1 errno 2 (No such file or directory) <69.0us>  -> procnto[1] queued 17.0us, served 35.0us, prio 10
+  0.027158 wc[671768:1] ConnectAttach(pid=1 (procnto), chid=1, index=0, flags=0) = 4 <8.0us>
+  0.027170 wc[671768:1] combine("/proc/boot/libfsnotify.so.1") on fd 4 = -1 errno 2 (No such file or directory) <94.0us>  -> procnto[1] queued 35.0us, served 22.0us, prio 10
+  0.027218 ls[671767:1] ConnectDetach(coid=4) = 0 <2.0us>
+  0.027224 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0, flags=0) = 4 <4.0us>
+  0.027248 ls[671767:1] combine("/data/qtrace/libz.so.2") on fd 4 = -1 errno 2 (No such file or directory) <57.0us>  -> procnto[1] queued 21.0us, served 10.0us, prio 10
+  0.027268 wc[671768:1] ConnectDetach(coid=4) = 0 <3.0us>
+  0.027274 wc[671768:1] ConnectAttach(pid=1 (procnto), chid=1, index=0, flags=0) = 4 <4.0us>
+  0.027305 wc[671768:1] combine("/proc/boot/libfsnotify.so.1") on fd 4 = 3 <95.0us>  -> procnto[1] queued 26.0us, served 44.0us, prio 10
+  0.027318 ls[671767:1] ConnectDetach(coid=4) = 0 <8.0us>
+  0.027335 ls[671767:1] combine("/proc/boot/libz.so.2") on coid 0x40000000 = redirect 0x800b0000 <54.0us>  -> procnto[1] queued 6.0us, served 13.0us, prio 10
+  0.027400 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0, flags=0) = 4 <4.0us>
+  0.027411 ls[671767:1] combine("/proc/boot/libz.so.2") on fd 4 = -1 errno 2 (No such file or directory) <41.0us>  -> procnto[1] queued 9.0us, served 15.0us, prio 10
+  0.027413 wc[671768:1] read(fd 4, 64 bytes) = 64 <65.0us>  -> procnto[1] queued 14.0us, served 31.0us, prio 10
+  0.027475 ls[671767:1] ConnectDetach(coid=4) = 0 <9.0us>
+  0.027489 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0, flags=0) = 4 <4.0us>
+  0.027497 ls[671767:1] combine("/proc/boot/libz.so.2") on fd 4 = 3 <93.0us>  -> procnto[1] queued 19.0us, served 48.0us, prio 10
+  0.027499 wc[671768:1] read(fd 4, 64 bytes) = 64 <65.0us>  -> procnto[1] queued 34.0us, served 15.0us, prio 10
+  0.027579 wc[671768:1] read(fd 4, 448 bytes) = 448 <95.0us>  -> procnto[1] queued 48.0us, served 16.0us, prio 10
+  0.027596 ls[671767:1] read(fd 4, 64 bytes) = 64 <110.0us>  -> procnto[1] queued 59.0us, served 23.0us, prio 10
+  0.027694 wc[671768:1] mmap(coid 0x40000000) = 0 <47.0us>  -> procnto[1] queued 12.0us, served 19.0us, prio 10
+  0.027716 ls[671767:1] read(fd 4, 64 bytes) = 64 <115.0us>  -> procnto[1] queued 11.0us, served 72.0us, prio 10
+  0.027747 wc[671768:1] mmap(coid 0x40000000) = 0 <144.0us>  -> procnto[1] queued 77.0us, served 41.0us, prio 10
+  0.027842 ls[671767:1] read(fd 4, 448 bytes) = 448 <55.0us>  -> procnto[1] queued 6.0us, served 13.0us, prio 10
+  0.027907 wc[671768:1] mmap(coid 0x40000000) = 0 <158.0us>  -> procnto[1] queued 23.0us, served 66.0us, prio 10
+  0.028035 ls[671767:1] mmap(coid 0x40000000) = 0 <66.0us>  -> procnto[1] queued 16.0us, served 32.0us, prio 10
+  0.028093 wc[671768:1] mmap(coid 0x40000000) = 0 <160.0us>  -> procnto[1] queued 25.0us, served 92.0us, prio 10
+  0.028105 ls[671767:1] mmap(coid 0x40000000) = 0 <94.0us>  -> procnto[1] queued 8.0us, served 59.0us, prio 10
+  0.028205 ls[671767:1] mmap(coid 0x40000000) = 0 <82.0us>  -> procnto[1] queued 5.0us, served 50.0us, prio 10
+  0.028289 wc[671768:1] read(fd 4, 4096 bytes) = 4096 <137.0us>  -> procnto[1] queued 66.0us, served 44.0us, prio 10
+  0.028293 ls[671767:1] mmap(coid 0x40000000) = 0 <120.0us>  -> procnto[1] queued 70.0us, served 31.0us, prio 10
+  0.028432 ls[671767:1] read(fd 4, 4096 bytes) = 4096 <49.0us>  -> procnto[1] queued 11.0us, served 15.0us, prio 10
+  0.028439 wc[671768:1] close(fd 4) = 0 <67.0us>  -> procnto[1] queued 15.0us, served 30.0us, prio 10
+  0.028505 ls[671767:1] close(fd 4) = 0 <52.0us>  -> procnto[1] queued 16.0us, served 11.0us, prio 10
+  0.028513 wc[671768:1] ConnectDetach(coid=4) = 0 <4.0us>
+  0.028532 wc[671768:1] mmap(coid 0x40000000) = 0 <102.0us>  -> procnto[1] queued 47.0us, served 41.0us, prio 10
+  0.028574 ls[671767:1] ConnectDetach(coid=4) = 0 <3.0us>
+  0.028588 ls[671767:1] combine("/data/qtrace/libc.so.6") on coid 0x40000000 = redirect 0x800b0000 <51.0us>  -> procnto[1] queued 6.0us, served 17.0us, prio 10
+  0.028640 wc[671768:1] combine("/data/qtrace/libsecpol.so.1") on coid 0x40000000 = redirect 0x800b0000 <64.0us>  -> procnto[1] queued 22.0us, served 21.0us, prio 10
+  0.028647 ls[671767:1] ConnectAttach(pid=45063 (devb-virtio), chid=3, index=0, flags=0) = 4 <6.0us>
+  0.028655 ls[671767:1] combine("/data/qtrace/libc.so.6") on fd 4 = -1 errno 2 (No such file or directory) <112.0us>  -> devb-virtio[45063] queued 16.0us, served 72.0us, prio 10
+  0.028712 wc[671768:1] ConnectAttach(pid=45063 (devb-virtio), chid=3, index=0, flags=0) = 4 <6.0us>
+  0.028721 wc[671768:1] combine("/data/qtrace/libsecpol.so.1") on fd 4 = -1 errno 2 (No such file or directory) <114.0us>  -> devb-virtio[45063] queued 18.0us, served 64.0us, prio 10
+  0.028776 ls[671767:1] ConnectDetach(coid=4) = 0 <4.0us>
+  0.028782 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0, flags=0) = 4 <6.0us>
+  0.028791 ls[671767:1] combine("/data/qtrace/libc.so.6") on fd 4 = -1 errno 2 (No such file or directory) <65.0us>  -> procnto[1] queued 14.0us, served 27.0us, prio 10
+  0.028843 wc[671768:1] ConnectDetach(coid=4) = 0 <4.0us>
+  0.028850 wc[671768:1] ConnectAttach(pid=1 (procnto), chid=1, index=0, flags=0) = 4 <6.0us>
+  0.028861 wc[671768:1] combine("/data/qtrace/libsecpol.so.1") on fd 4 = -1 errno 2 (No such file or directory) <129.0us>  -> procnto[1] queued 61.0us, served 24.0us, prio 10
+  0.028865 ls[671767:1] ConnectDetach(coid=4) = 0 <40.0us>
+  0.028914 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0, flags=0) = 4 <11.0us>
+  0.028935 ls[671767:1] combine("/data/qtrace/libc.so.6") on fd 4 = -1 errno 2 (No such file or directory) <244.0us>  -> procnto[1] queued 159.0us, served 40.0us, prio 10
+  0.029014 wc[671768:1] ConnectDetach(coid=4) = 0 <111.0us>
+  0.029135 wc[671768:1] ConnectAttach(pid=1 (procnto), chid=1, index=0, flags=0) = 4 <8.0us>
+  0.029157 wc[671768:1] combine("/data/qtrace/libsecpol.so.1") on fd 4 = -1 errno 2 (No such file or directory) <81.0us>  -> procnto[1] queued 16.0us, served 15.0us, prio 10
+  0.029214 ls[671767:1] ConnectDetach(coid=4) = 0 <9.0us>
+  0.029238 ls[671767:1] combine("/proc/boot/libc.so.6") on coid 0x40000000 = redirect 0x800b0000 <84.0us>  -> procnto[1] queued 23.0us, served 33.0us, prio 10
+  0.029258 wc[671768:1] ConnectDetach(coid=4) = 0 <4.0us>
+  0.029275 wc[671768:1] combine("/proc/boot/libsecpol.so.1") on coid 0x40000000 = redirect 0x800b0000 <77.0us>  -> procnto[1] queued 8.0us, served 24.0us, prio 10
+  0.029343 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0, flags=0) = 4 <13.0us>
+  0.029361 wc[671768:1] ConnectAttach(pid=1 (procnto), chid=1, index=0, flags=0) = 4 <13.0us>
+  0.029362 ls[671767:1] combine("/proc/boot/libc.so.6") on fd 4 = -1 errno 2 (No such file or directory) <133.0us>  -> procnto[1] queued 12.0us, served 44.0us, prio 10
+  0.029377 wc[671768:1] combine("/proc/boot/libsecpol.so.1") on fd 4 = -1 errno 2 (No such file or directory) <202.0us>  -> procnto[1] queued 141.0us, served 22.0us, prio 10
+  0.029538 ls[671767:1] ConnectDetach(coid=4) = 0 <61.0us>
+  0.029599 wc[671768:1] ConnectDetach(coid=4) = 0 <4.0us>
+  0.029606 wc[671768:1] ConnectAttach(pid=1 (procnto), chid=1, index=0, flags=0) = 4 <8.0us>
+  0.029608 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0, flags=0) = 4 <7.0us>
+  0.029617 wc[671768:1] combine("/proc/boot/libsecpol.so.1") on fd 4 = 3 <268.0us>  -> procnto[1] queued 49.0us, served 184.0us, prio 10
+  0.029618 ls[671767:1] combine("/proc/boot/libc.so.6") on fd 4 = 3 <267.0us>  -> procnto[1] queued 62.0us, served 169.0us, prio 10
+  0.029895 wc[671768:1] read(fd 4, 64 bytes) = 64 <103.0us>  -> procnto[1] queued 62.0us, served 17.0us, prio 10
+  0.029896 ls[671767:1] read(fd 4, 64 bytes) = 64 <122.0us>  -> procnto[1] queued 76.0us, served 28.0us, prio 10
+  0.030013 wc[671768:1] read(fd 4, 64 bytes) = 64 <57.0us>  -> procnto[1] queued 9.0us, served 26.0us, prio 10
+  0.030031 ls[671767:1] read(fd 4, 64 bytes) = 64 <89.0us>  -> procnto[1] queued 19.0us, served 26.0us, prio 10
+  0.030074 wc[671768:1] read(fd 4, 448 bytes) = 448 <107.0us>  -> procnto[1] queued 25.0us, served 37.0us, prio 10
+  0.030129 ls[671767:1] read(fd 4, 392 bytes) = 392 <245.0us>  -> procnto[1] queued 38.0us, served 172.0us, prio 10
+  0.030363 wc[671768:1] mmap(coid 0x40000000) = 0 <109.0us>  -> procnto[1] queued 7.0us, served 57.0us, prio 10
+  0.030384 ls[671767:1] mmap(coid 0x40000000) = 0 <131.0us>  -> procnto[1] queued 69.0us, served 28.0us, prio 10
+  0.030494 wc[671768:1] mmap(coid 0x40000000) = 0 <270.0us>  -> procnto[1] queued 20.0us, served 207.0us, prio 10
+  0.030528 ls[671767:1] mmap(coid 0x40000000) = 0 <245.0us>  -> procnto[1] queued 6.0us, served 205.0us, prio 10
+  0.030782 wc[671768:1] mmap(coid 0x40000000) = 0 <332.0us>  -> procnto[1] queued 103.0us, served 212.0us, prio 10
+  0.030782 ls[671767:1] mmap(coid 0x40000000) = 0 <315.0us>  -> procnto[1] queued 80.0us, served 201.0us, prio 10
+  0.031107 ls[671767:1] mmap(coid 0x40000000) = 0 <114.0us>  -> procnto[1] queued 11.0us, served 61.0us, prio 10
+  0.031124 wc[671768:1] mmap(coid 0x40000000) = 0 <96.0us>  -> procnto[1] queued 12.0us, served 67.0us, prio 10
+  0.031242 wc[671768:1] read(fd 4, 4096 bytes) = 4096 <58.0us>  -> procnto[1] queued 12.0us, served 17.0us, prio 10
+  0.031264 ls[671767:1] mmap(coid 0x40000000) = 0 <131.0us>  -> procnto[1] queued 27.0us, served 79.0us, prio 10
+  0.031330 wc[671768:1] close(fd 4) = 0 <67.0us>  -> procnto[1] queued 10.0us, served 19.0us, prio 10
+  0.031410 wc[671768:1] ConnectDetach(coid=4) = 0 <3.0us>
+  0.031410 ls[671767:1] read(fd 4, 16384 bytes) = 16384 <91.0us>  -> procnto[1] queued 12.0us, served 34.0us, prio 10
+  0.031426 wc[671768:1] combine("/data/qtrace/libm.so.3") on coid 0x40000000 = redirect 0x800b0000 <109.0us>  -> procnto[1] queued 19.0us, served 35.0us, prio 10
+  0.031537 ls[671767:1] close(fd 4) = 0 <40.0us>  -> procnto[1] queued 10.0us, served 14.0us, prio 10
+  0.031550 wc[671768:1] ConnectAttach(pid=45063 (devb-virtio), chid=3, index=0, flags=0) = 4 <9.0us>
+  0.031562 wc[671768:1] combine("/data/qtrace/libm.so.3") on fd 4 = -1 errno 2 (No such file or directory) <148.0us>  -> devb-virtio[45063] queued 32.0us, served 73.0us, prio 10
+  0.031581 ls[671767:1] ConnectDetach(coid=4) = 0 <3.0us>
+  0.031597 ls[671767:1] mmap(coid 0x40000000) = 0 <56.0us>  -> procnto[1] queued 10.0us, served 30.0us, prio 10
+  0.031661 ls[671767:1] combine("/data/qtrace/libgcc_s.so.1") on coid 0x40000000 = redirect 0x800b0000 <65.0us>  -> procnto[1] queued 8.0us, served 28.0us, prio 10
+  0.031724 wc[671768:1] ConnectDetach(coid=4) = 0 <2.0us>
+  0.031730 wc[671768:1] ConnectAttach(pid=1 (procnto), chid=1, index=0, flags=0) = 4 <6.0us>
+  0.031731 ls[671767:1] ConnectAttach(pid=45063 (devb-virtio), chid=3, index=0, flags=0) = 4 <11.0us>
+  0.031741 wc[671768:1] combine("/data/qtrace/libm.so.3") on fd 4 = -1 errno 2 (No such file or directory) <60.0us>  -> procnto[1] queued 5.0us, served 29.0us, prio 10
+  0.031745 ls[671767:1] combine("/data/qtrace/libgcc_s.so.1") on fd 4 = -1 errno 2 (No such file or directory) <126.0us>  -> devb-virtio[45063] queued 27.0us, served 68.0us, prio 10
+  0.031808 wc[671768:1] ConnectDetach(coid=4) = 0 <4.0us>
+  0.031815 wc[671768:1] ConnectAttach(pid=1 (procnto), chid=1, index=0, flags=0) = 4 <6.0us>
+  0.031827 wc[671768:1] combine("/data/qtrace/libm.so.3") on fd 4 = -1 errno 2 (No such file or directory) <65.0us>  -> procnto[1] queued 13.0us, served 26.0us, prio 10
+  0.031880 ls[671767:1] ConnectDetach(coid=4) = 0 <4.0us>
+  0.031896 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0, flags=0) = 4 <8.0us>
+  0.031897 wc[671768:1] ConnectDetach(coid=4) = 0 <3.0us>
+  0.031908 ls[671767:1] combine("/data/qtrace/libgcc_s.so.1") on fd 4 = -1 errno 2 (No such file or directory) <93.0us>  -> procnto[1] queued 45.0us, served 12.0us, prio 10
+  0.031911 wc[671768:1] combine("/proc/boot/libm.so.3") on coid 0x40000000 = redirect 0x800b0000 <95.0us>  -> procnto[1] queued 39.0us, served 24.0us, prio 10
+  0.032009 ls[671767:1] ConnectDetach(coid=4) = 0 <4.0us>
+  0.032015 wc[671768:1] ConnectAttach(pid=1 (procnto), chid=1, index=0, flags=0) = 4 <7.0us>
+  0.032019 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0, flags=0) = 4 <6.0us>
+  0.032024 wc[671768:1] combine("/proc/boot/libm.so.3") on fd 4 = -1 errno 2 (No such file or directory) <71.0us>  -> procnto[1] queued 37.0us, served 16.0us, prio 10
+  0.032029 ls[671767:1] combine("/data/qtrace/libgcc_s.so.1") on fd 4 = -1 errno 2 (No such file or directory) <99.0us>  -> procnto[1] queued 46.0us, served 26.0us, prio 10
+  0.032098 wc[671768:1] ConnectDetach(coid=4) = 0 <3.0us>
+  0.032112 wc[671768:1] ConnectAttach(pid=1 (procnto), chid=1, index=0, flags=0) = 4 <4.0us>
+  0.032131 ls[671767:1] ConnectDetach(coid=4) = 0 <2.0us>
+  0.032139 wc[671768:1] combine("/proc/boot/libm.so.3") on fd 4 = 3 <73.0us>  -> procnto[1] queued 14.0us, served 43.0us, prio 10
+  0.032145 ls[671767:1] combine("/proc/boot/libgcc_s.so.1") on coid 0x40000000 = redirect 0x800b0000 <48.0us>  -> procnto[1] queued 15.0us, served 15.0us, prio 10
+  0.032202 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0, flags=0) = 4 <5.0us>
+  0.032221 ls[671767:1] combine("/proc/boot/libgcc_s.so.1") on fd 4 = -1 errno 2 (No such file or directory) <89.0us>  -> procnto[1] queued 26.0us, served 17.0us, prio 10
+  0.032222 wc[671768:1] read(fd 4, 64 bytes) = 64 <77.0us>  -> procnto[1] queued 18.0us, served 24.0us, prio 10
+  0.032315 wc[671768:1] read(fd 4, 64 bytes) = 64 <72.0us>  -> procnto[1] queued 30.0us, served 14.0us, prio 10
+  0.032323 ls[671767:1] ConnectDetach(coid=4) = 0 <24.0us>
+  0.032354 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0, flags=0) = 4 <11.0us>
+  0.032376 ls[671767:1] combine("/proc/boot/libgcc_s.so.1") on fd 4 = 3 <75.0us>  -> procnto[1] queued 14.0us, served 35.0us, prio 10
+  0.032396 wc[671768:1] read(fd 4, 392 bytes) = 392 <25.0us>  -> procnto[1] queued 5.0us, served 8.0us, prio 10
+  0.032432 wc[671768:1] mmap(coid 0x40000000) = 0 <93.0us>  -> procnto[1] queued 26.0us, served 17.0us, prio 10
+  0.032464 ls[671767:1] read(fd 4, 64 bytes) = 64 <113.0us>  -> procnto[1] queued 17.0us, served 48.0us, prio 10
+  0.032555 wc[671768:1] mmap(coid 0x40000000) = 0 <168.0us>  -> procnto[1] queued 67.0us, served 72.0us, prio 10
+  0.032591 ls[671767:1] read(fd 4, 64 bytes) = 64 <125.0us>  -> procnto[1] queued 73.0us, served 20.0us, prio 10
+  0.032723 ls[671767:1] read(fd 4, 448 bytes) = 448 <66.0us>  -> procnto[1] queued 39.0us, served 13.0us, prio 10
+  0.032732 wc[671768:1] mmap(coid 0x40000000) = 0 <121.0us>  -> procnto[1] queued 37.0us, served 62.0us, prio 10
+  0.032797 ls[671767:1] mmap(coid 0x40000000) = 0 <47.0us>  -> procnto[1] queued 11.0us, served 18.0us, prio 10
+  0.032857 ls[671767:1] mmap(coid 0x40000000) = 0 <101.0us>  -> procnto[1] queued 15.0us, served 53.0us, prio 10
+  0.032864 wc[671768:1] mmap(coid 0x40000000) = 0 <105.0us>  -> procnto[1] queued 11.0us, served 71.0us, prio 10
+  0.032968 ls[671767:1] mmap(coid 0x40000000) = 0 <123.0us>  -> procnto[1] queued 25.0us, served 67.0us, prio 10
+  0.032976 wc[671768:1] read(fd 4, 4096 bytes) = 4096 <55.0us>  -> procnto[1] queued 18.0us, served 24.0us, prio 10
+  0.033041 wc[671768:1] close(fd 4) = 0 <35.0us>  -> procnto[1] queued 5.0us, served 10.0us, prio 10
+  0.033100 wc[671768:1] ConnectDetach(coid=4) = 0 <44.0us>
+  0.033101 ls[671767:1] mmap(coid 0x40000000) = 0 <154.0us>  -> procnto[1] queued 57.0us, served 55.0us, prio 10
+  0.033158 wc[671768:1] combine("/data/qtrace/libz.so.2") on coid 0x40000000 = redirect 0x800b0000 <96.0us>  -> procnto[1] queued 16.0us, served 40.0us, prio 10
+  0.033263 wc[671768:1] ConnectAttach(pid=45063 (devb-virtio), chid=3, index=0, flags=0) = 4 <8.0us>
+  0.033263 ls[671767:1] read(fd 4, 4096 bytes) = 4096 <49.0us>  -> procnto[1] queued 12.0us, served 16.0us, prio 10
+  0.033274 wc[671768:1] combine("/data/qtrace/libz.so.2") on fd 4 = -1 errno 2 (No such file or directory) <230.0us>  -> devb-virtio[45063] queued 17.0us, served 75.0us, prio 10
+  0.033323 ls[671767:1] close(fd 4) = 0 <117.0us>  -> procnto[1] queued 6.0us, served 11.0us, prio 10
+  0.033454 ls[671767:1] ConnectDetach(coid=4) = 0 <3.0us>
+  0.033515 wc[671768:1] ConnectDetach(coid=4) = 0 <4.0us>
+  0.033522 wc[671768:1] ConnectAttach(pid=1 (procnto), chid=1, index=0, flags=0) = 4 <7.0us>
+  0.033532 wc[671768:1] combine("/data/qtrace/libz.so.2") on fd 4 = -1 errno 2 (No such file or directory) <36.0us>  -> procnto[1] queued 11.0us, served 13.0us, prio 10
+  0.033575 wc[671768:1] ConnectDetach(coid=4) = 0 <2.0us>
+  0.033579 wc[671768:1] ConnectAttach(pid=1 (procnto), chid=1, index=0, flags=0) = 4 <4.0us>
+  0.033585 wc[671768:1] combine("/data/qtrace/libz.so.2") on fd 4 = -1 errno 2 (No such file or directory) <30.0us>  -> procnto[1] queued 6.0us, served 8.0us, prio 10
+  0.033619 wc[671768:1] ConnectDetach(coid=4) = 0 <5.0us>
+  0.033632 wc[671768:1] combine("/proc/boot/libz.so.2") on coid 0x40000000 = redirect 0x800b0000 <35.0us>  -> procnto[1] queued 6.0us, served 13.0us, prio 10
+  0.033672 wc[671768:1] ConnectAttach(pid=1 (procnto), chid=1, index=0, flags=0) = 4 <4.0us>
+  0.033678 wc[671768:1] combine("/proc/boot/libz.so.2") on fd 4 = -1 errno 2 (No such file or directory) <27.0us>  -> procnto[1] queued 5.0us, served 8.0us, prio 10
+  0.033709 wc[671768:1] ConnectDetach(coid=4) = 0 <2.0us>
+  0.033716 wc[671768:1] ConnectAttach(pid=1 (procnto), chid=1, index=0, flags=0) = 4 <4.0us>
+  0.033722 wc[671768:1] combine("/proc/boot/libz.so.2") on fd 4 = 3 <52.0us>  -> procnto[1] queued 5.0us, served 32.0us, prio 10
+  0.033780 wc[671768:1] read(fd 4, 64 bytes) = 64 <30.0us>  -> procnto[1] queued 5.0us, served 7.0us, prio 10
+  0.033815 wc[671768:1] read(fd 4, 64 bytes) = 64 <26.0us>  -> procnto[1] queued 5.0us, served 7.0us, prio 10
+  0.033849 wc[671768:1] read(fd 4, 448 bytes) = 448 <24.0us>  -> procnto[1] queued 5.0us, served 6.0us, prio 10
+  0.033879 wc[671768:1] mmap(coid 0x40000000) = 0 <35.0us>  -> procnto[1] queued 4.0us, served 14.0us, prio 10
+  0.033918 wc[671768:1] mmap(coid 0x40000000) = 0 <49.0us>  -> procnto[1] queued 5.0us, served 26.0us, prio 10
+  0.033970 wc[671768:1] mmap(coid 0x40000000) = 0 <49.0us>  -> procnto[1] queued 5.0us, served 30.0us, prio 10
+  0.034025 wc[671768:1] mmap(coid 0x40000000) = 0 <62.0us>  -> procnto[1] queued 5.0us, served 40.0us, prio 10
+  0.034094 wc[671768:1] read(fd 4, 4096 bytes) = 4096 <52.0us>  -> procnto[1] queued 6.0us, served 12.0us, prio 10
+  0.034160 wc[671768:1] close(fd 4) = 0 <43.0us>  -> procnto[1] queued 12.0us, served 14.0us, prio 10
+  0.034208 wc[671768:1] ConnectDetach(coid=4) = 0 <7.0us>
+  0.034226 wc[671768:1] combine("/data/qtrace/libc.so.6") on coid 0x40000000 = redirect 0x800b0000 <39.0us>  -> procnto[1] queued 6.0us, served 17.0us, prio 10
+  0.034270 wc[671768:1] ConnectAttach(pid=45063 (devb-virtio), chid=3, index=0, flags=0) = 4 <6.0us>
+  0.034278 wc[671768:1] combine("/data/qtrace/libc.so.6") on fd 4 = -1 errno 2 (No such file or directory) <90.0us>  -> devb-virtio[45063] queued 13.0us, served 57.0us, prio 10
+  0.034333 ls[671767:1] SysCpupageGet(index=2) = -12288 <1.0us>
+  0.034376 wc[671768:1] ConnectDetach(coid=4) = 0 <4.0us>
+  0.034383 wc[671768:1] ConnectAttach(pid=1 (procnto), chid=1, index=0, flags=0) = 4 <5.0us>
+  0.034391 wc[671768:1] combine("/data/qtrace/libc.so.6") on fd 4 = -1 errno 2 (No such file or directory) <38.0us>  -> procnto[1] queued 10.0us, served 12.0us, prio 10
+  0.034433 wc[671768:1] ConnectDetach(coid=4) = 0 <2.0us>
+  0.034438 wc[671768:1] ConnectAttach(pid=1 (procnto), chid=1, index=0, flags=0) = 4 <4.0us>
+  0.034444 wc[671768:1] combine("/data/qtrace/libc.so.6") on fd 4 = -1 errno 2 (No such file or directory) <27.0us>  -> procnto[1] queued 5.0us, served 9.0us, prio 10
+  0.034475 wc[671768:1] ConnectDetach(coid=4) = 0 <2.0us>
+  0.034485 wc[671768:1] combine("/proc/boot/libc.so.6") on coid 0x40000000 = redirect 0x800b0000 <35.0us>  -> procnto[1] queued 5.0us, served 13.0us, prio 10
+  0.034529 wc[671768:1] ConnectAttach(pid=1 (procnto), chid=1, index=0, flags=0) = 4 <3.0us>
+  0.034535 wc[671768:1] combine("/proc/boot/libc.so.6") on fd 4 = -1 errno 2 (No such file or directory) <29.0us>  -> procnto[1] queued 5.0us, served 8.0us, prio 10
+  0.034551 ls[671767:1] sysconf(coid 0x40000000) = 0 <157.0us>  -> procnto[1] queued 110.0us, served 23.0us, prio 10
+  0.034574 wc[671768:1] ConnectDetach(coid=4) = 0 <76.0us>
+  0.034672 wc[671768:1] ConnectAttach(pid=1 (procnto), chid=1, index=0, flags=0) = 4 <8.0us>
+  0.034684 wc[671768:1] combine("/proc/boot/libc.so.6") on fd 4 = 3 <110.0us>  -> procnto[1] queued 19.0us, served 45.0us, prio 10
+  0.034724 ls[671767:1] SysCpupageSet(index=1, value=0xab17e5b0) = 0 <2.0us>
+  0.034763 ls[671767:1] mmap(coid 0x40000000) = 0 <121.0us>  -> procnto[1] queued 43.0us, served 48.0us, prio 10
+  0.034800 wc[671768:1] read(fd 4, 64 bytes) = 64 <46.0us>  -> procnto[1] queued 16.0us, served 8.0us, prio 10
+  0.034852 wc[671768:1] read(fd 4, 64 bytes) = 64 <91.0us>  -> procnto[1] queued 33.0us, served 17.0us, prio 10
+  0.034917 ls[671767:1] mprotect(coid 0x40000000) = 0 <141.0us>  -> procnto[1] queued 8.0us, served 107.0us, prio 10
+  0.034959 wc[671768:1] read(fd 4, 392 bytes) = 392 <125.0us>  -> procnto[1] queued 78.0us, served 26.0us, prio 10
+  0.035070 ls[671767:1] mprotect(coid 0x40000000) = 0 <103.0us>  -> procnto[1] queued 17.0us, served 65.0us, prio 10
+  0.035089 wc[671768:1] mmap(coid 0x40000000) = 0 <98.0us>  -> procnto[1] queued 13.0us, served 64.0us, prio 10
+  0.035177 ls[671767:1] mprotect(coid 0x40000000) = 0 <82.0us>  -> procnto[1] queued 10.0us, served 54.0us, prio 10
+  0.035196 wc[671768:1] mmap(coid 0x40000000) = 0 <133.0us>  -> procnto[1] queued 47.0us, served 68.0us, prio 10
+  0.035266 ls[671767:1] mprotect(coid 0x40000000) = 0 <60.0us>  -> procnto[1] queued 9.0us, served 25.0us, prio 10
+  0.035330 ls[671767:1] mprotect(coid 0x40000000) = 0 <63.0us>  -> procnto[1] queued 17.0us, served 31.0us, prio 10
+  0.035333 wc[671768:1] mmap(coid 0x40000000) = 0 <75.0us>  -> procnto[1] queued 7.0us, served 56.0us, prio 10
+  0.035402 ls[671767:1] mprotect(coid 0x40000000) = 0 <85.0us>  -> procnto[1] queued 6.0us, served 46.0us, prio 10
+  0.035428 wc[671768:1] mmap(coid 0x40000000) = 0 <161.0us>  -> procnto[1] queued 52.0us, served 64.0us, prio 10
+  0.035500 ls[671767:1] mprotect(coid 0x40000000) = 0 <64.0us>  -> procnto[1] queued 12.0us, served 29.0us, prio 10
+  0.035592 ls[671767:1] mprotect(coid 0x40000000) = 0 <92.0us>  -> procnto[1] queued 13.0us, served 37.0us, prio 10
+  0.035648 wc[671768:1] mmap(coid 0x40000000) = 0 <142.0us>  -> procnto[1] queued 33.0us, served 68.0us, prio 10
+  0.035704 ls[671767:1] SysCpupageGet(index=1) = -1424497232 <2.0us>
+  0.035728 ls[671767:1] madvise(coid 0x40000000) = 0 <55.0us>  -> procnto[1] queued 13.0us, served 20.0us, prio 10
+  0.035802 wc[671768:1] read(fd 4, 16384 bytes) = 16384 <44.0us>  -> procnto[1] queued 12.0us, served 18.0us, prio 10
+  0.035867 wc[671768:1] close(fd 4) = 0 <32.0us>  -> procnto[1] queued 6.0us, served 11.0us, prio 10
+  0.035903 wc[671768:1] ConnectDetach(coid=4) = 0 <3.0us>
+  0.035913 ls[671767:1] umask(coid 0x40000000) = 0 <97.0us>  -> procnto[1] queued 48.0us, served 34.0us, prio 10
+  0.035917 wc[671768:1] mmap(coid 0x40000000) = 0 <131.0us>  -> procnto[1] queued 64.0us, served 30.0us, prio 10
+  0.036021 ls[671767:1] umask(coid 0x40000000) = 0 <80.0us>  -> procnto[1] queued 46.0us, served 17.0us, prio 10
+  0.036064 wc[671768:1] combine("/data/qtrace/libgcc_s.so.1") on coid 0x40000000 = redirect 0x800b0000 <55.0us>  -> procnto[1] queued 12.0us, served 24.0us, prio 10
+  0.036135 ls[671767:1] SyncCreate(type=0, sync_p=0x25ab179a00, count=0, owner=0) = 0 <3.0us>
+  0.036136 wc[671768:1] ConnectAttach(pid=45063 (devb-virtio), chid=3, index=0, flags=0) = 4 <8.0us>
+  0.036144 ls[671767:1] SyncCreate(type=0, sync_p=0x25ab179a08, count=0, owner=0) = 0 <1.0us>
+  0.036148 ls[671767:1] SyncCreate(type=0, sync_p=0x25ab179a10, count=0, owner=0) = 0 <0.0us>
+  0.036148 wc[671768:1] combine("/data/qtrace/libgcc_s.so.1") on fd 4 = -1 errno 2 (No such file or directory) <103.0us>  -> devb-virtio[45063] queued 17.0us, served 54.0us, prio 10
+  0.036151 ls[671767:1] SyncCreate(type=0, sync_p=0x25ab179a18, count=0, owner=0) = 0 <0.0us>
+  0.036157 ls[671767:1] SyncCreate(type=0, sync_p=0x25ab179a20, count=0, owner=0) = 0 <1.0us>
+  0.036164 ls[671767:1] SyncCreate(type=0, sync_p=0x25ab179a28, count=0, owner=0) = 0 <0.0us>
+  0.036183 ls[671767:1] devctl(fd 1, DCMD_CHR #24) = -1 errno 89 (Function not implemented) <83.0us>  -> pipe[122889] queued 16.0us, served 41.0us, prio 10
+  0.036265 wc[671768:1] ConnectDetach(coid=4) = 0 <9.0us>
+  0.036277 wc[671768:1] ConnectAttach(pid=1 (procnto), chid=1, index=0, flags=0) = 4 <7.0us>
+  0.036288 wc[671768:1] combine("/data/qtrace/libgcc_s.so.1") on fd 4 = -1 errno 2 (No such file or directory) <48.0us>  -> procnto[1] queued 10.0us, served 12.0us, prio 10
+  0.036341 wc[671768:1] ConnectDetach(coid=4) = 0 <5.0us>
+  0.036347 ls[671767:1] devctl(fd 1, DCMD_CHR #24) = -1 errno 89 (Function not implemented) <83.0us>  -> pipe[122889] queued 20.0us, served 30.0us, prio 10
+  0.036349 wc[671768:1] ConnectAttach(pid=1 (procnto), chid=1, index=0, flags=0) = 4 <4.0us>
+  0.036356 wc[671768:1] combine("/data/qtrace/libgcc_s.so.1") on fd 4 = -1 errno 2 (No such file or directory) <32.0us>  -> procnto[1] queued 5.0us, served 9.0us, prio 10
+  0.036392 wc[671768:1] ConnectDetach(coid=4) = 0 <1.0us>
+  0.036412 wc[671768:1] combine("/proc/boot/libgcc_s.so.1") on coid 0x40000000 = redirect 0x800b0000 <42.0us>  -> procnto[1] queued 8.0us, served 19.0us, prio 10
+  0.036459 wc[671768:1] ConnectAttach(pid=1 (procnto), chid=1, index=0, flags=0) = 4 <5.0us>
+  0.036578 wc[671768:1] combine("/proc/boot/libgcc_s.so.1") on fd 4 = -1 errno 2 (No such file or directory) <130.0us>  -> procnto[1] queued 50.0us, served 30.0us, prio 10
+  0.036658 ls[671767:1] devctl(fd 0, DCMD_CHR #24) = -1 errno 89 (Function not implemented) <105.0us>  -> pipe[122889] queued 26.0us, served 40.0us, prio 10
+  0.036713 wc[671768:1] ConnectDetach(coid=4) = 0 <3.0us>
+  0.036718 wc[671768:1] ConnectAttach(pid=1 (procnto), chid=1, index=0, flags=0) = 4 <5.0us>
+  0.036726 wc[671768:1] combine("/proc/boot/libgcc_s.so.1") on fd 4 = 3 <94.0us>  -> procnto[1] queued 15.0us, served 58.0us, prio 10
+  0.036789 ls[671767:1] devctl(fd 1, DCMD_CHR #24) = -1 errno 89 (Function not implemented) <91.0us>  -> pipe[122889] queued 19.0us, served 27.0us, prio 10
+  0.036825 wc[671768:1] read(fd 4, 64 bytes) = 64 <59.0us>  -> procnto[1] queued 5.0us, served 9.0us, prio 10
+  0.036901 wc[671768:1] read(fd 4, 64 bytes) = 64 <60.0us>  -> procnto[1] queued 14.0us, served 18.0us, prio 10
+  0.036902 ls[671767:1] devctl(fd 2, DCMD_CHR #24) = -1 errno 89 (Function not implemented) <75.0us>  -> pipe[122889] queued 21.0us, served 32.0us, prio 10
+  0.036972 wc[671768:1] read(fd 4, 448 bytes) = 448 <48.0us>  -> procnto[1] queued 9.0us, served 18.0us, prio 10
+  0.037024 wc[671768:1] mmap(coid 0x40000000) = 0 <43.0us>  -> procnto[1] queued 7.0us, served 18.0us, prio 10
+  0.037072 wc[671768:1] mmap(coid 0x40000000) = 0 <92.0us>  -> procnto[1] queued 6.0us, served 31.0us, prio 10
+  0.037159 ls[671767:1] combine("/proc/boot") on coid 0x40000000 = redirect 0x800b0000 <204.0us>  -> procnto[1] queued 123.0us, served 50.0us, prio 10
+  0.037175 wc[671768:1] mmap(coid 0x40000000) = 0 <225.0us>  -> procnto[1] queued 121.0us, served 83.0us, prio 10
+  0.037380 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <13.0us>
+  0.037397 ls[671767:1] combine("/proc/boot") on coid 0x40000001 = -1 errno 2 (No such file or directory) <75.0us>  -> procnto[1] queued 27.0us, served 15.0us, prio 10
+  0.037410 wc[671768:1] mmap(coid 0x40000000) = 0 <140.0us>  -> procnto[1] queued 62.0us, served 60.0us, prio 10
+  0.037484 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <5.0us>
+  0.037492 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <17.0us>
+  0.037514 ls[671767:1] combine("/proc/boot") on coid 0x40000001 = 3 <363.0us>  -> procnto[1] queued 11.0us, served 323.0us, prio 10
+  0.037554 wc[671768:1] read(fd 4, 4096 bytes) = 4096 <43.0us>  -> procnto[1] queued 10.0us, served 14.0us, prio 10
+  0.037608 wc[671768:1] close(fd 4) = 0 <142.0us>  -> procnto[1] queued 6.0us, served 108.0us, prio 10
+  0.037754 wc[671768:1] ConnectDetach(coid=4) = 0 <3.0us>
+  0.037888 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <5.0us>
+  0.038019 ls[671767:1] combine("/proc/boot") on coid 0x40000000 = redirect 0x800b0000 <67.0us>  -> procnto[1] queued 16.0us, served 25.0us, prio 10
+  0.038091 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <5.0us>
+  0.038099 ls[671767:1] combine("/proc/boot") on coid 0x40000001 = -1 errno 2 (No such file or directory) <29.0us>  -> procnto[1] queued 5.0us, served 9.0us, prio 10
+  0.038133 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.038138 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <3.0us>
+  0.038144 ls[671767:1] combine("/proc/boot") on coid 0x40000001 = 3 <136.0us>  -> procnto[1] queued 5.0us, served 92.0us, prio 10
+  0.038290 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.038295 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0, flags=0) = 4 <3.0us>
+  0.038312 ls[671767:1] opendir(fd 4) = 0 <44.0us>  -> procnto[1] queued 6.0us, served 24.0us, prio 10
+  0.038414 ls[671767:1] ConnectServerInfo(pid=0, coid=4) = 4 <7.0us>
+  0.038429 ls[671767:1] sysconf(coid 0x40000000) = 0 <30.0us>  -> procnto[1] queued 6.0us, served 10.0us, prio 10
+  0.038466 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0, flags=1) = 5 <4.0us>
+  0.038475 ls[671767:1] dup(fd 5) = 0 <27.0us>  -> procnto[1] queued 5.0us, served 9.0us, prio 10
+  0.038507 ls[671767:1] ConnectFlags(pid=0, coid=5, masks=1, bits=0) = 129 <2.0us>
+  0.038540 ls[671767:1] open("/.") on coid 0x40000000 = redirect 0x800b0000 <39.0us>  -> procnto[1] queued 6.0us, served 22.0us, prio 10
+  0.038590 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0, flags=1) = 6 <3.0us>
+  0.038596 ls[671767:1] open("/.") on fd 6 = -1 errno 2 (No such file or directory) <42.0us>  -> procnto[1] queued 5.0us, served 15.0us, prio 10
+  0.038650 ls[671767:1] ConnectDetach(coid=6) = 0 <3.0us>
+  0.038659 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0, flags=1) = 6 <7.0us>
+  0.038664 wc[671768:1] SysCpupageGet(index=2) = -12288 <3.0us>
+  0.038676 ls[671767:1] open("/.") on fd 6 = 0 <124.0us>  -> procnto[1] queued 19.0us, served 81.0us, prio 10
+  0.038811 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0, flags=1) = 7 <3.0us>
+  0.038817 ls[671767:1] open("/.") on fd 7 = -1 errno 2 (No such file or directory) <33.0us>  -> procnto[1] queued 6.0us, served 9.0us, prio 10
+  0.038857 ls[671767:1] ConnectDetach(coid=7) = 0 <2.0us>
+  0.038914 wc[671768:1] sysconf(coid 0x40000000) = 0 <56.0us>  -> procnto[1] queued 13.0us, served 10.0us, prio 10
+  0.038959 ls[671767:1] read(fd 6, 4096 bytes) = 2088 <165.0us>  -> procnto[1] queued 6.0us, served 110.0us, prio 10
+  0.038985 wc[671768:1] SysCpupageSet(index=1, value=0xdf2f35b0) = 0 <3.0us>
+  0.039020 wc[671768:1] mmap(coid 0x40000000) = 0 <94.0us>  -> procnto[1] queued 11.0us, served 37.0us, prio 10
+  0.039142 wc[671768:1] mprotect(coid 0x40000000) = 0 <83.0us>  -> procnto[1] queued 11.0us, served 31.0us, prio 10
+  0.039221 ls[671767:1] combine("/procnto-smp-instr") on coid 0x40000000 = redirect 0x800b0000 <213.0us>  -> procnto[1] queued 46.0us, served 61.0us, prio 10
+  0.039237 wc[671768:1] mprotect(coid 0x40000000) = 0 <247.0us>  -> procnto[1] queued 43.0us, served 138.0us, prio 10
+  0.039444 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <5.0us>
+  0.039463 ls[671767:1] combine("/procnto-smp-instr") on coid 0x40000001 = -1 errno 2 (No such file or directory) <53.0us>  -> procnto[1] queued 18.0us, served 10.0us, prio 10
+  0.039495 wc[671768:1] mprotect(coid 0x40000000) = 0 <108.0us>  -> procnto[1] queued 41.0us, served 49.0us, prio 10
+  0.039520 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <33.0us>
+  0.039594 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <9.0us>
+  0.039610 ls[671767:1] combine("/procnto-smp-instr") on coid 0x40000001 = 3 <146.0us>  -> procnto[1] queued 64.0us, served 43.0us, prio 10
+  0.039625 wc[671768:1] mprotect(coid 0x40000000) = 0 <130.0us>  -> procnto[1] queued 70.0us, served 39.0us, prio 10
+  0.039762 wc[671768:1] mprotect(coid 0x40000000) = 0 <77.0us>  -> procnto[1] queued 11.0us, served 34.0us, prio 10
+  0.039769 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <5.0us>
+  0.039847 wc[671768:1] mprotect(coid 0x40000000) = 0 <51.0us>  -> procnto[1] queued 8.0us, served 25.0us, prio 10
+  0.039903 wc[671768:1] mprotect(coid 0x40000000) = 0 <67.0us>  -> procnto[1] queued 5.0us, served 42.0us, prio 10
+  0.039975 wc[671768:1] mprotect(coid 0x40000000) = 0 <63.0us>  -> procnto[1] queued 7.0us, served 38.0us, prio 10
+  0.040048 wc[671768:1] SysCpupageGet(index=1) = -550554192 <1.0us>
+  0.040054 wc[671768:1] madvise(coid 0x40000000) = 0 <100.0us>  -> procnto[1] queued 40.0us, served 24.0us, prio 10
+  0.040060 ls[671767:1] combine("/ability") on coid 0x40000000 = redirect 0x800b0000 <129.0us>  -> procnto[1] queued 43.0us, served 59.0us, prio 10
+  0.040199 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <13.0us>
+  0.040215 ls[671767:1] combine("/ability") on coid 0x40000001 = -1 errno 2 (No such file or directory) <37.0us>  -> procnto[1] queued 10.0us, served 11.0us, prio 10
+  0.040255 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <3.0us>
+  0.040261 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <9.0us>
+  0.040273 ls[671767:1] combine("/ability") on coid 0x40000001 = 3 <90.0us>  -> procnto[1] queued 6.0us, served 66.0us, prio 10
+  0.040367 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.040524 ls[671767:1] readlink("/ability") on coid 0x40000000 = redirect 0x800b0000 <62.0us>  -> procnto[1] queued 7.0us, served 25.0us, prio 10
+  0.040590 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <4.0us>
+  0.040597 ls[671767:1] readlink("/ability") on coid 0x40000001 = -1 errno 2 (No such file or directory) <39.0us>  -> procnto[1] queued 6.0us, served 17.0us, prio 10
+  0.040640 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <3.0us>
+  0.040646 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <3.0us>
+  0.040653 ls[671767:1] readlink("/ability") on coid 0x40000001 = 0 <68.0us>  -> procnto[1] queued 5.0us, served 47.0us, prio 10
+  0.040732 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.040792 ls[671767:1] combine("/build") on coid 0x40000000 = redirect 0x800b0000 <44.0us>  -> procnto[1] queued 7.0us, served 20.0us, prio 10
+  0.040841 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <3.0us>
+  0.040847 ls[671767:1] combine("/build") on coid 0x40000001 = -1 errno 2 (No such file or directory) <34.0us>  -> procnto[1] queued 5.0us, served 7.0us, prio 10
+  0.040884 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.040889 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <2.0us>
+  0.040894 ls[671767:1] combine("/build") on coid 0x40000001 = 3 <44.0us>  -> procnto[1] queued 5.0us, served 22.0us, prio 10
+  0.040945 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.040959 ls[671767:1] combine("/build.date") on coid 0x40000000 = redirect 0x800b0000 <40.0us>  -> procnto[1] queued 7.0us, served 17.0us, prio 10
+  0.041003 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <3.0us>
+  0.041008 ls[671767:1] combine("/build.date") on coid 0x40000001 = -1 errno 2 (No such file or directory) <24.0us>  -> procnto[1] queued 6.0us, served 6.0us, prio 10
+  0.041036 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.041040 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <3.0us>
+  0.041043 wc[671768:1] umask(coid 0x40000000) = 0 <53.0us>  -> procnto[1] queued 14.0us, served 13.0us, prio 10
+  0.041045 ls[671767:1] combine("/build.date") on coid 0x40000001 = 3 <59.0us>  -> procnto[1] queued 16.0us, served 24.0us, prio 10
+  0.041120 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <5.0us>
+  0.041136 ls[671767:1] combine("/cam-disk.so") on coid 0x40000000 = redirect 0x800b0000 <168.0us>  -> procnto[1] queued 62.0us, served 59.0us, prio 10
+  0.041140 wc[671768:1] umask(coid 0x40000000) = 0 <146.0us>  -> procnto[1] queued 73.0us, served 43.0us, prio 10
+  0.041316 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <8.0us>
+  0.041326 wc[671768:1] SyncCreate(type=0, sync_p=0x2bdf2eea00, count=0, owner=0) = 0 <3.0us>
+  0.041328 ls[671767:1] combine("/cam-disk.so") on coid 0x40000001 = -1 errno 2 (No such file or directory) <97.0us>  -> procnto[1] queued 33.0us, served 15.0us, prio 10
+  0.041333 wc[671768:1] SyncCreate(type=0, sync_p=0x2bdf2eea08, count=0, owner=0) = 0 <0.0us>
+  0.041347 wc[671768:1] SyncCreate(type=0, sync_p=0x2bdf2eea10, count=0, owner=0) = 0 <1.0us>
+  0.041351 wc[671768:1] SyncCreate(type=0, sync_p=0x2bdf2eea18, count=0, owner=0) = 0 <1.0us>
+  0.041355 wc[671768:1] SyncCreate(type=0, sync_p=0x2bdf2eea20, count=0, owner=0) = 0 <1.0us>
+  0.041366 wc[671768:1] SyncCreate(type=0, sync_p=0x2bdf2eea28, count=0, owner=0) = 0 <2.0us>
+  0.041375 wc[671768:1] devctl(fd 1, DCMD_CHR #24) = -1 errno 89 (Function not implemented) <97.0us>  -> pipe[122889] queued 32.0us, served 34.0us, prio 10
+  0.041437 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <5.0us>
+  0.041447 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <7.0us>
+  0.041457 ls[671767:1] combine("/cam-disk.so") on coid 0x40000001 = 3 <58.0us>  -> procnto[1] queued 11.0us, served 28.0us, prio 10
+  0.041519 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.041539 ls[671767:1] combine("/cat") on coid 0x40000000 = redirect 0x800b0000 <44.0us>  -> procnto[1] queued 6.0us, served 22.0us, prio 10
+  0.041589 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <7.0us>
+  0.041596 wc[671768:1] read(fd 0, 4096 bytes) = 641 <14631.0us>  -> pipe[122889] queued 29.0us, served 14567.0us, prio 10
+  0.041599 ls[671767:1] combine("/cat") on coid 0x40000001 = -1 errno 2 (No such file or directory) <43.0us>  -> procnto[1] queued 5.0us, served 12.0us, prio 10
+  0.041647 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <6.0us>
+  0.041660 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <3.0us>
+  0.041666 ls[671767:1] combine("/cat") on coid 0x40000001 = 3 <42.0us>  -> procnto[1] queued 8.0us, served 18.0us, prio 10
+  0.041715 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.041724 ls[671767:1] readlink("/cat") on coid 0x40000000 = redirect 0x800b0000 <46.0us>  -> procnto[1] queued 6.0us, served 20.0us, prio 10
+  0.041775 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <3.0us>
+  0.041780 ls[671767:1] readlink("/cat") on coid 0x40000001 = -1 errno 2 (No such file or directory) <24.0us>  -> procnto[1] queued 5.0us, served 8.0us, prio 10
+  0.041809 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <3.0us>
+  0.041816 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <5.0us>
+  0.041823 ls[671767:1] readlink("/cat") on coid 0x40000001 = 0 <31.0us>  -> procnto[1] queued 5.0us, served 9.0us, prio 10
+  0.041860 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.041869 ls[671767:1] combine("/chmod") on coid 0x40000000 = redirect 0x800b0000 <43.0us>  -> procnto[1] queued 7.0us, served 20.0us, prio 10
+  0.041918 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <3.0us>
+  0.041924 ls[671767:1] combine("/chmod") on coid 0x40000001 = -1 errno 2 (No such file or directory) <106.0us>  -> procnto[1] queued 5.0us, served 77.0us, prio 10
+  0.042046 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <3.0us>
+  0.042052 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <5.0us>
+  0.042060 ls[671767:1] combine("/chmod") on coid 0x40000001 = 3 <47.0us>  -> procnto[1] queued 7.0us, served 20.0us, prio 10
+  0.042111 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.042117 ls[671767:1] readlink("/chmod") on coid 0x40000000 = redirect 0x800b0000 <51.0us>  -> procnto[1] queued 11.0us, served 17.0us, prio 10
+  0.042173 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <5.0us>
+  0.042185 ls[671767:1] readlink("/chmod") on coid 0x40000001 = -1 errno 2 (No such file or directory) <35.0us>  -> procnto[1] queued 7.0us, served 8.0us, prio 10
+  0.042227 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <3.0us>
+  0.042234 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <4.0us>
+  0.042262 ls[671767:1] readlink("/chmod") on coid 0x40000001 = 0 <43.0us>  -> procnto[1] queued 8.0us, served 14.0us, prio 10
+  0.042312 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <3.0us>
+  0.042329 ls[671767:1] combine("/dd") on coid 0x40000000 = redirect 0x800b0000 <48.0us>  -> procnto[1] queued 6.0us, served 25.0us, prio 10
+  0.042381 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <4.0us>
+  0.042388 ls[671767:1] combine("/dd") on coid 0x40000001 = -1 errno 2 (No such file or directory) <32.0us>  -> procnto[1] queued 5.0us, served 7.0us, prio 10
+  0.042424 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.042428 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <3.0us>
+  0.042433 ls[671767:1] combine("/dd") on coid 0x40000001 = 3 <47.0us>  -> procnto[1] queued 5.0us, served 23.0us, prio 10
+  0.042485 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.042492 ls[671767:1] readlink("/dd") on coid 0x40000000 = redirect 0x800b0000 <37.0us>  -> procnto[1] queued 5.0us, served 17.0us, prio 10
+  0.042536 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <8.0us>
+  0.042546 ls[671767:1] readlink("/dd") on coid 0x40000001 = -1 errno 2 (No such file or directory) <29.0us>  -> procnto[1] queued 6.0us, served 6.0us, prio 10
+  0.042584 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.042588 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <3.0us>
+  0.042594 ls[671767:1] readlink("/dd") on coid 0x40000001 = 0 <28.0us>  -> procnto[1] queued 4.0us, served 9.0us, prio 10
+  0.042629 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.042637 ls[671767:1] combine("/devb-virtio") on coid 0x40000000 = redirect 0x800b0000 <36.0us>  -> procnto[1] queued 6.0us, served 15.0us, prio 10
+  0.042681 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <3.0us>
+  0.042686 ls[671767:1] combine("/devb-virtio") on coid 0x40000001 = -1 errno 2 (No such file or directory) <22.0us>  -> procnto[1] queued 5.0us, served 6.0us, prio 10
+  0.042716 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.042722 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <3.0us>
+  0.042727 ls[671767:1] combine("/devb-virtio") on coid 0x40000001 = 3 <37.0us>  -> procnto[1] queued 5.0us, served 17.0us, prio 10
+  0.042771 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.042779 ls[671767:1] combine("/devc-serpl011") on coid 0x40000000 = redirect 0x800b0000 <62.0us>  -> procnto[1] queued 15.0us, served 15.0us, prio 10
+  0.042851 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <8.0us>
+  0.042862 ls[671767:1] combine("/devc-serpl011") on coid 0x40000001 = -1 errno 2 (No such file or directory) <58.0us>  -> procnto[1] queued 24.0us, served 13.0us, prio 10
+  0.042930 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <3.0us>
+  0.042937 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <3.0us>
+  0.042943 ls[671767:1] combine("/devc-serpl011") on coid 0x40000001 = 3 <48.0us>  -> procnto[1] queued 8.0us, served 21.0us, prio 10
+  0.042998 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.043006 ls[671767:1] combine("/echo") on coid 0x40000000 = redirect 0x800b0000 <40.0us>  -> procnto[1] queued 6.0us, served 17.0us, prio 10
+  0.043052 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <3.0us>
+  0.043058 ls[671767:1] combine("/echo") on coid 0x40000001 = -1 errno 2 (No such file or directory) <30.0us>  -> procnto[1] queued 5.0us, served 7.0us, prio 10
+  0.043093 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.043099 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <4.0us>
+  0.043106 ls[671767:1] combine("/echo") on coid 0x40000001 = 3 <38.0us>  -> procnto[1] queued 4.0us, served 17.0us, prio 10
+  0.043148 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.043155 ls[671767:1] readlink("/echo") on coid 0x40000000 = redirect 0x800b0000 <159.0us>  -> procnto[1] queued 7.0us, served 22.0us, prio 10
+  0.043329 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <15.0us>
+  0.043350 ls[671767:1] readlink("/echo") on coid 0x40000001 = -1 errno 2 (No such file or directory) <51.0us>  -> procnto[1] queued 16.0us, served 15.0us, prio 10
+  0.043406 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <3.0us>
+  0.043412 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <5.0us>
+  0.043420 ls[671767:1] readlink("/echo") on coid 0x40000001 = 0 <46.0us>  -> procnto[1] queued 13.0us, served 11.0us, prio 10
+  0.043471 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <9.0us>
+  0.043498 ls[671767:1] combine("/fs-dos.so") on coid 0x40000000 = redirect 0x800b0000 <79.0us>  -> procnto[1] queued 14.0us, served 40.0us, prio 10
+  0.043586 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <8.0us>
+  0.043597 ls[671767:1] combine("/fs-dos.so") on coid 0x40000001 = -1 errno 2 (No such file or directory) <35.0us>  -> procnto[1] queued 10.0us, served 10.0us, prio 10
+  0.043643 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.043648 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <3.0us>
+  0.043653 ls[671767:1] combine("/fs-dos.so") on coid 0x40000001 = 3 <41.0us>  -> procnto[1] queued 6.0us, served 22.0us, prio 10
+  0.043704 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.043717 ls[671767:1] combine("/fs-qnx6.so") on coid 0x40000000 = redirect 0x800b0000 <46.0us>  -> procnto[1] queued 6.0us, served 20.0us, prio 10
+  0.043770 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <3.0us>
+  0.043776 ls[671767:1] combine("/fs-qnx6.so") on coid 0x40000001 = -1 errno 2 (No such file or directory) <37.0us>  -> procnto[1] queued 5.0us, served 6.0us, prio 10
+  0.043819 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.043823 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <3.0us>
+  0.043829 ls[671767:1] combine("/fs-qnx6.so") on coid 0x40000001 = 3 <38.0us>  -> procnto[1] queued 5.0us, served 17.0us, prio 10
+  0.043872 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.043880 ls[671767:1] combine("/fs-qtd.so") on coid 0x40000000 = redirect 0x800b0000 <35.0us>  -> procnto[1] queued 5.0us, served 16.0us, prio 10
+  0.043923 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <3.0us>
+  0.043929 ls[671767:1] combine("/fs-qtd.so") on coid 0x40000001 = -1 errno 2 (No such file or directory) <34.0us>  -> procnto[1] queued 5.0us, served 6.0us, prio 10
+  0.043967 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <3.0us>
+  0.043973 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <3.0us>
+  0.043979 ls[671767:1] combine("/fs-qtd.so") on coid 0x40000001 = 3 <43.0us>  -> procnto[1] queued 6.0us, served 23.0us, prio 10
+  0.044026 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.044036 ls[671767:1] combine("/fsevmgr") on coid 0x40000000 = redirect 0x800b0000 <44.0us>  -> procnto[1] queued 6.0us, served 20.0us, prio 10
+  0.044085 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <23.0us>
+  0.044113 ls[671767:1] combine("/fsevmgr") on coid 0x40000001 = -1 errno 2 (No such file or directory) <38.0us>  -> procnto[1] queued 8.0us, served 9.0us, prio 10
+  0.044154 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.044159 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <3.0us>
+  0.044165 ls[671767:1] combine("/fsevmgr") on coid 0x40000001 = 3 <38.0us>  -> procnto[1] queued 4.0us, served 19.0us, prio 10
+  0.044212 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.044220 ls[671767:1] combine("/getconf") on coid 0x40000000 = redirect 0x800b0000 <36.0us>  -> procnto[1] queued 5.0us, served 18.0us, prio 10
+  0.044261 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <3.0us>
+  0.044267 ls[671767:1] combine("/getconf") on coid 0x40000001 = -1 errno 2 (No such file or directory) <27.0us>  -> procnto[1] queued 5.0us, served 5.0us, prio 10
+  0.044297 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.044302 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <3.0us>
+  0.044308 ls[671767:1] combine("/getconf") on coid 0x40000001 = 3 <40.0us>  -> procnto[1] queued 6.0us, served 16.0us, prio 10
+  0.044351 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.044358 ls[671767:1] combine("/grep") on coid 0x40000000 = redirect 0x800b0000 <36.0us>  -> procnto[1] queued 6.0us, served 15.0us, prio 10
+  0.044410 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <4.0us>
+  0.044417 ls[671767:1] combine("/grep") on coid 0x40000001 = -1 errno 2 (No such file or directory) <33.0us>  -> procnto[1] queued 6.0us, served 8.0us, prio 10
+  0.044454 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <3.0us>
+  0.044462 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <4.0us>
+  0.044469 ls[671767:1] combine("/grep") on coid 0x40000001 = 3 <47.0us>  -> procnto[1] queued 6.0us, served 22.0us, prio 10
+  0.044520 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.044528 ls[671767:1] readlink("/grep") on coid 0x40000000 = redirect 0x800b0000 <53.0us>  -> procnto[1] queued 14.0us, served 25.0us, prio 10
+  0.044586 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <3.0us>
+  0.044591 ls[671767:1] readlink("/grep") on coid 0x40000001 = -1 errno 2 (No such file or directory) <27.0us>  -> procnto[1] queued 5.0us, served 7.0us, prio 10
+  0.044620 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.044624 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <3.0us>
+  0.044630 ls[671767:1] readlink("/grep") on coid 0x40000001 = 0 <29.0us>  -> procnto[1] queued 5.0us, served 10.0us, prio 10
+  0.044667 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.044676 ls[671767:1] mmap(coid 0x40000000) = 0 <107.0us>  -> procnto[1] queued 14.0us, served 74.0us, prio 10
+  0.044799 ls[671767:1] combine("/io-blk.so") on coid 0x40000000 = redirect 0x800b0000 <73.0us>  -> procnto[1] queued 7.0us, served 18.0us, prio 10
+  0.044883 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <4.0us>
+  0.044890 ls[671767:1] combine("/io-blk.so") on coid 0x40000001 = -1 errno 2 (No such file or directory) <51.0us>  -> procnto[1] queued 9.0us, served 15.0us, prio 10
+  0.044944 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.044948 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <3.0us>
+  0.044954 ls[671767:1] combine("/io-blk.so") on coid 0x40000001 = 3 <59.0us>  -> procnto[1] queued 5.0us, served 22.0us, prio 10
+  0.045023 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <4.0us>
+  0.045039 ls[671767:1] combine("/ksh") on coid 0x40000000 = redirect 0x800b0000 <57.0us>  -> procnto[1] queued 11.0us, served 30.0us, prio 10
+  0.045107 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <6.0us>
+  0.045116 ls[671767:1] combine("/ksh") on coid 0x40000001 = -1 errno 2 (No such file or directory) <45.0us>  -> procnto[1] queued 5.0us, served 8.0us, prio 10
+  0.045166 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.045173 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <4.0us>
+  0.045181 ls[671767:1] combine("/ksh") on coid 0x40000001 = 3 <82.0us>  -> procnto[1] queued 19.0us, served 35.0us, prio 10
+  0.045273 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <5.0us>
+  0.045292 ls[671767:1] combine("/ldqnx-64.so.2") on coid 0x40000000 = redirect 0x800b0000 <66.0us>  -> procnto[1] queued 11.0us, served 29.0us, prio 10
+  0.045362 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <5.0us>
+  0.045369 ls[671767:1] combine("/ldqnx-64.so.2") on coid 0x40000001 = -1 errno 2 (No such file or directory) <30.0us>  -> procnto[1] queued 6.0us, served 7.0us, prio 10
+  0.045405 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.045410 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <3.0us>
+  0.045415 ls[671767:1] combine("/ldqnx-64.so.2") on coid 0x40000001 = 3 <51.0us>  -> procnto[1] queued 5.0us, served 27.0us, prio 10
+  0.045470 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.045482 ls[671767:1] combine("/libc.so.6") on coid 0x40000000 = redirect 0x800b0000 <39.0us>  -> procnto[1] queued 6.0us, served 17.0us, prio 10
+  0.045529 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <4.0us>
+  0.045537 ls[671767:1] combine("/libc.so.6") on coid 0x40000001 = -1 errno 2 (No such file or directory) <34.0us>  -> procnto[1] queued 6.0us, served 7.0us, prio 10
+  0.045577 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <3.0us>
+  0.045584 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <5.0us>
+  0.045592 ls[671767:1] combine("/libc.so.6") on coid 0x40000001 = 3 <54.0us>  -> procnto[1] queued 8.0us, served 22.0us, prio 10
+  0.045651 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.045662 ls[671767:1] combine("/libcam.so.2") on coid 0x40000000 = redirect 0x800b0000 <58.0us>  -> procnto[1] queued 6.0us, served 25.0us, prio 10
+  0.045724 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <4.0us>
+  0.045747 ls[671767:1] combine("/libcam.so.2") on coid 0x40000001 = -1 errno 2 (No such file or directory) <46.0us>  -> procnto[1] queued 14.0us, served 16.0us, prio 10
+  0.045807 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <5.0us>
+  0.045817 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <6.0us>
+  0.045826 ls[671767:1] combine("/libcam.so.2") on coid 0x40000001 = 3 <52.0us>  -> procnto[1] queued 10.0us, served 24.0us, prio 10
+  0.045887 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.045910 ls[671767:1] combine("/libcrypto.so.3") on coid 0x40000000 = redirect 0x800b0000 <42.0us>  -> procnto[1] queued 6.0us, served 20.0us, prio 10
+  0.045961 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <4.0us>
+  0.045967 ls[671767:1] combine("/libcrypto.so.3") on coid 0x40000001 = -1 errno 2 (No such file or directory) <42.0us>  -> procnto[1] queued 5.0us, served 12.0us, prio 10
+  0.046012 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.046016 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <2.0us>
+  0.046021 ls[671767:1] combine("/libcrypto.so.3") on coid 0x40000001 = 3 <39.0us>  -> procnto[1] queued 5.0us, served 17.0us, prio 10
+  0.046070 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.046077 ls[671767:1] combine("/libfsnotify.so.1") on coid 0x40000000 = redirect 0x800b0000 <36.0us>  -> procnto[1] queued 6.0us, served 16.0us, prio 10
+  0.046121 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <3.0us>
+  0.046126 ls[671767:1] combine("/libfsnotify.so.1") on coid 0x40000001 = -1 errno 2 (No such file or directory) <32.0us>  -> procnto[1] queued 5.0us, served 6.0us, prio 10
+  0.046161 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <1.0us>
+  0.046164 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <8.0us>
+  0.046175 ls[671767:1] combine("/libfsnotify.so.1") on coid 0x40000001 = 3 <38.0us>  -> procnto[1] queued 5.0us, served 15.0us, prio 10
+  0.046217 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.046224 ls[671767:1] combine("/libgcc_s.so.1") on coid 0x40000000 = redirect 0x800b0000 <36.0us>  -> procnto[1] queued 6.0us, served 15.0us, prio 10
+  0.046267 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <4.0us>
+  0.046273 ls[671767:1] combine("/libgcc_s.so.1") on coid 0x40000001 = -1 errno 2 (No such file or directory) <31.0us>  -> procnto[1] queued 5.0us, served 6.0us, prio 10
+  0.046309 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.046313 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <3.0us>
+  0.046318 ls[671767:1] combine("/libgcc_s.so.1") on coid 0x40000001 = 3 <38.0us>  -> procnto[1] queued 5.0us, served 17.0us, prio 10
+  0.046359 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.046366 ls[671767:1] combine("/libjail.so.1") on coid 0x40000000 = redirect 0x800b0000 <35.0us>  -> procnto[1] queued 6.0us, served 14.0us, prio 10
+  0.046405 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <3.0us>
+  0.046413 ls[671767:1] combine("/libjail.so.1") on coid 0x40000001 = -1 errno 2 (No such file or directory) <40.0us>  -> procnto[1] queued 8.0us, served 6.0us, prio 10
+  0.046457 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.046461 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <3.0us>
+  0.046466 ls[671767:1] combine("/libjail.so.1") on coid 0x40000001 = 3 <37.0us>  -> procnto[1] queued 6.0us, served 15.0us, prio 10
+  0.046510 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.046517 ls[671767:1] combine("/libjson.so.1") on coid 0x40000000 = redirect 0x800b0000 <41.0us>  -> procnto[1] queued 5.0us, served 14.0us, prio 10
+  0.046564 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <5.0us>
+  0.046572 ls[671767:1] combine("/libjson.so.1") on coid 0x40000001 = -1 errno 2 (No such file or directory) <33.0us>  -> procnto[1] queued 7.0us, served 8.0us, prio 10
+  0.046613 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <3.0us>
+  0.046619 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <3.0us>
+  0.046625 ls[671767:1] combine("/libjson.so.1") on coid 0x40000001 = 3 <43.0us>  -> procnto[1] queued 6.0us, served 19.0us, prio 10
+  0.046674 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <1.0us>
+  0.046682 ls[671767:1] combine("/libm.so.3") on coid 0x40000000 = redirect 0x800b0000 <43.0us>  -> procnto[1] queued 6.0us, served 17.0us, prio 10
+  0.046730 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <2.0us>
+  0.046735 ls[671767:1] combine("/libm.so.3") on coid 0x40000001 = -1 errno 2 (No such file or directory) <22.0us>  -> procnto[1] queued 5.0us, served 5.0us, prio 10
+  0.046764 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.046774 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <3.0us>
+  0.046779 ls[671767:1] combine("/libm.so.3") on coid 0x40000001 = 3 <37.0us>  -> procnto[1] queued 5.0us, served 17.0us, prio 10
+  0.046822 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <1.0us>
+  0.046829 ls[671767:1] combine("/libpci.so.3.0") on coid 0x40000000 = redirect 0x800b0000 <36.0us>  -> procnto[1] queued 6.0us, served 15.0us, prio 10
+  0.046872 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <3.0us>
+  0.046878 ls[671767:1] combine("/libpci.so.3.0") on coid 0x40000001 = -1 errno 2 (No such file or directory) <37.0us>  -> procnto[1] queued 4.0us, served 17.0us, prio 10
+  0.046919 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.046923 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <4.0us>
+  0.046930 ls[671767:1] combine("/libpci.so.3.0") on coid 0x40000001 = 3 <51.0us>  -> procnto[1] queued 6.0us, served 26.0us, prio 10
+  0.046990 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <3.0us>
+  0.047004 ls[671767:1] combine("/libqcrypto.so.1.0") on coid 0x40000000 = redirect 0x800b0000 <65.0us>  -> procnto[1] queued 9.0us, served 23.0us, prio 10
+  0.047080 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <8.0us>
+  0.047092 ls[671767:1] combine("/libqcrypto.so.1.0") on coid 0x40000001 = -1 errno 2 (No such file or directory) <141.0us>  -> procnto[1] queued 11.0us, served 18.0us, prio 10
+  0.047255 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <5.0us>
+  0.047264 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <7.0us>
+  0.047275 ls[671767:1] combine("/libqcrypto.so.1.0") on coid 0x40000001 = 3 <56.0us>  -> procnto[1] queued 11.0us, served 29.0us, prio 10
+  0.047337 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.047356 ls[671767:1] combine("/libqh.so.1") on coid 0x40000000 = redirect 0x800b0000 <103.0us>  -> procnto[1] queued 12.0us, served 39.0us, prio 10
+  0.047470 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <13.0us>
+  0.047488 ls[671767:1] combine("/libqh.so.1") on coid 0x40000001 = -1 errno 2 (No such file or directory) <52.0us>  -> procnto[1] queued 16.0us, served 13.0us, prio 10
+  0.047546 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <3.0us>
+  0.047552 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <4.0us>
+  0.047558 ls[671767:1] combine("/libqh.so.1") on coid 0x40000001 = 3 <52.0us>  -> procnto[1] queued 7.0us, served 26.0us, prio 10
+  0.047615 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.047629 ls[671767:1] combine("/libregex.so.1") on coid 0x40000000 = redirect 0x800b0000 <50.0us>  -> procnto[1] queued 7.0us, served 23.0us, prio 10
+  0.047683 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <3.0us>
+  0.047689 ls[671767:1] combine("/libregex.so.1") on coid 0x40000001 = -1 errno 2 (No such file or directory) <29.0us>  -> procnto[1] queued 6.0us, served 7.0us, prio 10
+  0.047722 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.047729 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <3.0us>
+  0.047735 ls[671767:1] combine("/libregex.so.1") on coid 0x40000001 = 3 <56.0us>  -> procnto[1] queued 5.0us, served 27.0us, prio 10
+  0.047800 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <5.0us>
+  0.047813 ls[671767:1] combine("/libsecpol.so.1") on coid 0x40000000 = redirect 0x800b0000 <47.0us>  -> procnto[1] queued 7.0us, served 18.0us, prio 10
+  0.047864 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <4.0us>
+  0.047871 ls[671767:1] combine("/libsecpol.so.1") on coid 0x40000001 = -1 errno 2 (No such file or directory) <27.0us>  -> procnto[1] queued 6.0us, served 7.0us, prio 10
+  0.047907 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <1.0us>
+  0.047911 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <3.0us>
+  0.047916 ls[671767:1] combine("/libsecpol.so.1") on coid 0x40000001 = 3 <40.0us>  -> procnto[1] queued 5.0us, served 23.0us, prio 10
+  0.047959 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.047967 ls[671767:1] combine("/libslog2.so") on coid 0x40000000 = redirect 0x800b0000 <39.0us>  -> procnto[1] queued 6.0us, served 16.0us, prio 10
+  0.048010 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <3.0us>
+  0.048016 ls[671767:1] combine("/libslog2.so") on coid 0x40000001 = -1 errno 2 (No such file or directory) <29.0us>  -> procnto[1] queued 5.0us, served 6.0us, prio 10
+  0.048048 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.048052 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <3.0us>
+  0.048057 ls[671767:1] combine("/libslog2.so") on coid 0x40000001 = 3 <35.0us>  -> procnto[1] queued 5.0us, served 18.0us, prio 10
+  0.048102 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.048109 ls[671767:1] readlink("/libslog2.so") on coid 0x40000000 = redirect 0x800b0000 <41.0us>  -> procnto[1] queued 6.0us, served 16.0us, prio 10
+  0.048154 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <4.0us>
+  0.048161 ls[671767:1] readlink("/libslog2.so") on coid 0x40000001 = -1 errno 2 (No such file or directory) <36.0us>  -> procnto[1] queued 7.0us, served 9.0us, prio 10
+  0.048200 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.048204 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <3.0us>
+  0.048209 ls[671767:1] readlink("/libslog2.so") on coid 0x40000001 = 0 <54.0us>  -> procnto[1] queued 5.0us, served 12.0us, prio 10
+  0.048279 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <4.0us>
+  0.048298 ls[671767:1] combine("/libslog2.so.1") on coid 0x40000000 = redirect 0x800b0000 <55.0us>  -> procnto[1] queued 11.0us, served 27.0us, prio 10
+  0.048358 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <5.0us>
+  0.048365 ls[671767:1] combine("/libslog2.so.1") on coid 0x40000001 = -1 errno 2 (No such file or directory) <36.0us>  -> procnto[1] queued 6.0us, served 8.0us, prio 10
+  0.048405 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.048409 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <3.0us>
+  0.048414 ls[671767:1] combine("/libslog2.so.1") on coid 0x40000001 = 3 <51.0us>  -> procnto[1] queued 6.0us, served 24.0us, prio 10
+  0.048471 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <1.0us>
+  0.048480 ls[671767:1] combine("/libslog2parse.so.1") on coid 0x40000000 = redirect 0x800b0000 <36.0us>  -> procnto[1] queued 5.0us, served 16.0us, prio 10
+  0.048523 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <3.0us>
+  0.048529 ls[671767:1] combine("/libslog2parse.so.1") on coid 0x40000001 = -1 errno 2 (No such file or directory) <26.0us>  -> procnto[1] queued 4.0us, served 6.0us, prio 10
+  0.048563 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.048567 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <3.0us>
+  0.048572 ls[671767:1] combine("/libslog2parse.so.1") on coid 0x40000001 = 3 <38.0us>  -> procnto[1] queued 5.0us, served 18.0us, prio 10
+  0.048617 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.048625 ls[671767:1] combine("/libslog2shim.so.1") on coid 0x40000000 = redirect 0x800b0000 <43.0us>  -> procnto[1] queued 5.0us, served 16.0us, prio 10
+  0.048673 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <3.0us>
+  0.048678 ls[671767:1] combine("/libslog2shim.so.1") on coid 0x40000001 = -1 errno 2 (No such file or directory) <25.0us>  -> procnto[1] queued 5.0us, served 5.0us, prio 10
+  0.048710 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <3.0us>
+  0.048715 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <4.0us>
+  0.048722 ls[671767:1] combine("/libslog2shim.so.1") on coid 0x40000001 = 3 <42.0us>  -> procnto[1] queued 5.0us, served 18.0us, prio 10
+  0.048769 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.048776 ls[671767:1] combine("/libsocket.so") on coid 0x40000000 = redirect 0x800b0000 <35.0us>  -> procnto[1] queued 5.0us, served 15.0us, prio 10
+  0.048817 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <3.0us>
+  0.048823 ls[671767:1] combine("/libsocket.so") on coid 0x40000001 = -1 errno 2 (No such file or directory) <32.0us>  -> procnto[1] queued 9.0us, served 7.0us, prio 10
+  0.048862 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.048866 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <3.0us>
+  0.048875 ls[671767:1] combine("/libsocket.so") on coid 0x40000001 = 3 <38.0us>  -> procnto[1] queued 6.0us, served 16.0us, prio 10
+  0.048918 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.048924 ls[671767:1] readlink("/libsocket.so") on coid 0x40000000 = redirect 0x800b0000 <38.0us>  -> procnto[1] queued 5.0us, served 18.0us, prio 10
+  0.048966 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <3.0us>
+  0.048972 ls[671767:1] readlink("/libsocket.so") on coid 0x40000001 = -1 errno 2 (No such file or directory) <64.0us>  -> procnto[1] queued 4.0us, served 6.0us, prio 10
+  0.049052 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <6.0us>
+  0.049063 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <6.0us>
+  0.049072 ls[671767:1] readlink("/libsocket.so") on coid 0x40000001 = 0 <57.0us>  -> procnto[1] queued 9.0us, served 16.0us, prio 10
+  0.049133 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.049146 ls[671767:1] combine("/libsocket.so.4") on coid 0x40000000 = redirect 0x800b0000 <51.0us>  -> procnto[1] queued 6.0us, served 28.0us, prio 10
+  0.049201 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <3.0us>
+  0.049207 ls[671767:1] combine("/libsocket.so.4") on coid 0x40000001 = -1 errno 2 (No such file or directory) <27.0us>  -> procnto[1] queued 4.0us, served 7.0us, prio 10
+  0.049239 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.049243 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <3.0us>
+  0.049248 ls[671767:1] combine("/libsocket.so.4") on coid 0x40000001 = 3 <52.0us>  -> procnto[1] queued 5.0us, served 25.0us, prio 10
+  0.049304 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.049312 ls[671767:1] combine("/libz.so.2") on coid 0x40000000 = redirect 0x800b0000 <55.0us>  -> procnto[1] queued 5.0us, served 24.0us, prio 10
+  0.049377 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <5.0us>
+  0.049387 ls[671767:1] combine("/libz.so.2") on coid 0x40000001 = -1 errno 2 (No such file or directory) <44.0us>  -> procnto[1] queued 8.0us, served 7.0us, prio 10
+  0.049437 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <3.0us>
+  0.049444 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <5.0us>
+  0.049454 ls[671767:1] combine("/libz.so.2") on coid 0x40000001 = 3 <39.0us>  -> procnto[1] queued 6.0us, served 18.0us, prio 10
+  0.049501 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.049509 ls[671767:1] combine("/ln") on coid 0x40000000 = redirect 0x800b0000 <59.0us>  -> procnto[1] queued 6.0us, served 22.0us, prio 10
+  0.049581 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <8.0us>
+  0.049592 ls[671767:1] combine("/ln") on coid 0x40000001 = -1 errno 2 (No such file or directory) <44.0us>  -> procnto[1] queued 15.0us, served 11.0us, prio 10
+  0.049641 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.049645 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <3.0us>
+  0.049651 ls[671767:1] combine("/ln") on coid 0x40000001 = 3 <49.0us>  -> procnto[1] queued 5.0us, served 25.0us, prio 10
+  0.049703 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.049715 ls[671767:1] readlink("/ln") on coid 0x40000000 = redirect 0x800b0000 <92.0us>  -> procnto[1] queued 6.0us, served 66.0us, prio 10
+  0.049811 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <3.0us>
+  0.049817 ls[671767:1] readlink("/ln") on coid 0x40000001 = -1 errno 2 (No such file or directory) <29.0us>  -> procnto[1] queued 5.0us, served 8.0us, prio 10
+  0.049852 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.049856 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <3.0us>
+  0.049862 ls[671767:1] readlink("/ln") on coid 0x40000001 = 0 <39.0us>  -> procnto[1] queued 5.0us, served 12.0us, prio 10
+  0.049904 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.049918 ls[671767:1] combine("/ls") on coid 0x40000000 = redirect 0x800b0000 <42.0us>  -> procnto[1] queued 6.0us, served 16.0us, prio 10
+  0.049964 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <3.0us>
+  0.049969 ls[671767:1] combine("/ls") on coid 0x40000001 = -1 errno 2 (No such file or directory) <27.0us>  -> procnto[1] queued 5.0us, served 6.0us, prio 10
+  0.050006 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.050011 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <3.0us>
+  0.050018 ls[671767:1] combine("/ls") on coid 0x40000001 = 3 <41.0us>  -> procnto[1] queued 5.0us, served 19.0us, prio 10
+  0.050065 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <1.0us>
+  0.050070 ls[671767:1] readlink("/ls") on coid 0x40000000 = redirect 0x800b0000 <42.0us>  -> procnto[1] queued 5.0us, served 16.0us, prio 10
+  0.050115 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <3.0us>
+  0.050120 ls[671767:1] readlink("/ls") on coid 0x40000001 = -1 errno 2 (No such file or directory) <25.0us>  -> procnto[1] queued 5.0us, served 6.0us, prio 10
+  0.050159 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.050164 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <2.0us>
+  0.050169 ls[671767:1] readlink("/ls") on coid 0x40000001 = 0 <34.0us>  -> procnto[1] queued 5.0us, served 11.0us, prio 10
+  0.050209 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.050217 ls[671767:1] combine("/mount") on coid 0x40000000 = redirect 0x800b0000 <34.0us>  -> procnto[1] queued 5.0us, served 15.0us, prio 10
+  0.050258 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <3.0us>
+  0.050264 ls[671767:1] combine("/mount") on coid 0x40000001 = -1 errno 2 (No such file or directory) <27.0us>  -> procnto[1] queued 4.0us, served 6.0us, prio 10
+  0.050299 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <1.0us>
+  0.050303 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <2.0us>
+  0.050308 ls[671767:1] combine("/mount") on coid 0x40000001 = 3 <43.0us>  -> procnto[1] queued 5.0us, served 17.0us, prio 10
+  0.050356 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <1.0us>
+  0.050363 ls[671767:1] combine("/mount_fs.sh") on coid 0x40000000 = redirect 0x800b0000 <38.0us>  -> procnto[1] queued 5.0us, served 14.0us, prio 10
+  0.050408 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <3.0us>
+  0.050413 ls[671767:1] combine("/mount_fs.sh") on coid 0x40000001 = -1 errno 2 (No such file or directory) <28.0us>  -> procnto[1] queued 5.0us, served 5.0us, prio 10
+  0.050446 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <3.0us>
+  0.050452 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <3.0us>
+  0.050457 ls[671767:1] combine("/mount_fs.sh") on coid 0x40000001 = 3 <95.0us>  -> procnto[1] queued 5.0us, served 17.0us, prio 10
+  0.050583 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <6.0us>
+  0.050602 ls[671767:1] combine("/on") on coid 0x40000000 = redirect 0x800b0000 <101.0us>  -> procnto[1] queued 13.0us, served 40.0us, prio 10
+  0.050716 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <9.0us>
+  0.050729 ls[671767:1] combine("/on") on coid 0x40000001 = -1 errno 2 (No such file or directory) <51.0us>  -> procnto[1] queued 10.0us, served 18.0us, prio 10
+  0.050790 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <4.0us>
+  0.050809 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <8.0us>
+  0.050821 ls[671767:1] combine("/on") on coid 0x40000001 = 3 <69.0us>  -> procnto[1] queued 11.0us, served 31.0us, prio 10
+  0.050902 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <3.0us>
+  0.050917 ls[671767:1] combine("/pidin") on coid 0x40000000 = redirect 0x800b0000 <46.0us>  -> procnto[1] queued 6.0us, served 23.0us, prio 10
+  0.050967 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <3.0us>
+  0.050973 ls[671767:1] combine("/pidin") on coid 0x40000001 = -1 errno 2 (No such file or directory) <25.0us>  -> procnto[1] queued 4.0us, served 6.0us, prio 10
+  0.051007 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <1.0us>
+  0.051011 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <2.0us>
+  0.051016 ls[671767:1] combine("/pidin") on coid 0x40000001 = 3 <46.0us>  -> procnto[1] queued 5.0us, served 22.0us, prio 10
+  0.051065 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.051073 ls[671767:1] combine("/qcrypto-openssl-3.so") on coid 0x40000000 = redirect 0x800b0000 <41.0us>  -> procnto[1] queued 5.0us, served 21.0us, prio 10
+  0.051118 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <4.0us>
+  0.051125 ls[671767:1] combine("/qcrypto-openssl-3.so") on coid 0x40000001 = -1 errno 2 (No such file or directory) <30.0us>  -> procnto[1] queued 6.0us, served 7.0us, prio 10
+  0.051159 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.051165 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <4.0us>
+  0.051171 ls[671767:1] combine("/qcrypto-openssl-3.so") on coid 0x40000001 = 3 <38.0us>  -> procnto[1] queued 5.0us, served 17.0us, prio 10
+  0.051216 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <1.0us>
+  0.051222 ls[671767:1] combine("/qcrypto.conf") on coid 0x40000000 = redirect 0x800b0000 <40.0us>  -> procnto[1] queued 6.0us, served 14.0us, prio 10
+  0.051269 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <3.0us>
+  0.051274 ls[671767:1] combine("/qcrypto.conf") on coid 0x40000001 = -1 errno 2 (No such file or directory) <28.0us>  -> procnto[1] queued 5.0us, served 6.0us, prio 10
+  0.051312 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.051316 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <3.0us>
+  0.051321 ls[671767:1] combine("/qcrypto.conf") on coid 0x40000001 = 3 <37.0us>  -> procnto[1] queued 5.0us, served 17.0us, prio 10
+  0.051370 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <3.0us>
+  0.051381 ls[671767:1] combine("/qtd_public_key.pem") on coid 0x40000000 = redirect 0x800b0000 <44.0us>  -> procnto[1] queued 6.0us, served 19.0us, prio 10
+  0.051430 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <4.0us>
+  0.051437 ls[671767:1] combine("/qtd_public_key.pem") on coid 0x40000001 = -1 errno 2 (No such file or directory) <30.0us>  -> procnto[1] queued 5.0us, served 7.0us, prio 10
+  0.051474 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.051478 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <3.0us>
+  0.051483 ls[671767:1] combine("/qtd_public_key.pem") on coid 0x40000001 = 3 <41.0us>  -> procnto[1] queued 5.0us, served 20.0us, prio 10
+  0.051531 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.051538 ls[671767:1] combine("/rm") on coid 0x40000000 = redirect 0x800b0000 <35.0us>  -> procnto[1] queued 5.0us, served 15.0us, prio 10
+  0.051581 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <2.0us>
+  0.051586 ls[671767:1] combine("/rm") on coid 0x40000001 = -1 errno 2 (No such file or directory) <26.0us>  -> procnto[1] queued 5.0us, served 5.0us, prio 10
+  0.051615 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.051620 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <2.0us>
+  0.051625 ls[671767:1] combine("/rm") on coid 0x40000001 = 3 <37.0us>  -> procnto[1] queued 4.0us, served 18.0us, prio 10
+  0.051669 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.051675 ls[671767:1] readlink("/rm") on coid 0x40000000 = redirect 0x800b0000 <35.0us>  -> procnto[1] queued 5.0us, served 14.0us, prio 10
+  0.051716 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <2.0us>
+  0.051726 ls[671767:1] readlink("/rm") on coid 0x40000001 = -1 errno 2 (No such file or directory) <80.0us>  -> procnto[1] queued 21.0us, served 24.0us, prio 10
+  0.051811 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <3.0us>
+  0.051817 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <4.0us>
+  0.051824 ls[671767:1] readlink("/rm") on coid 0x40000001 = 0 <54.0us>  -> procnto[1] queued 9.0us, served 18.0us, prio 10
+  0.051891 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <5.0us>
+  0.051909 ls[671767:1] combine("/rtc") on coid 0x40000000 = redirect 0x800b0000 <52.0us>  -> procnto[1] queued 11.0us, served 24.0us, prio 10
+  0.051965 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <5.0us>
+  0.051972 ls[671767:1] combine("/rtc") on coid 0x40000001 = -1 errno 2 (No such file or directory) <26.0us>  -> procnto[1] queued 5.0us, served 8.0us, prio 10
+  0.052002 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.052006 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <4.0us>
+  0.052012 ls[671767:1] combine("/rtc") on coid 0x40000001 = 3 <45.0us>  -> procnto[1] queued 5.0us, served 23.0us, prio 10
+  0.052061 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <1.0us>
+  0.052068 ls[671767:1] combine("/setconf") on coid 0x40000000 = redirect 0x800b0000 <35.0us>  -> procnto[1] queued 5.0us, served 15.0us, prio 10
+  0.052110 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <3.0us>
+  0.052118 ls[671767:1] combine("/setconf") on coid 0x40000001 = -1 errno 2 (No such file or directory) <52.0us>  -> procnto[1] queued 7.0us, served 20.0us, prio 10
+  0.052177 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.052190 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <4.0us>
+  0.052196 ls[671767:1] combine("/setconf") on coid 0x40000001 = 3 <41.0us>  -> procnto[1] queued 6.0us, served 19.0us, prio 10
+  0.052242 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.052248 ls[671767:1] readlink("/setconf") on coid 0x40000000 = redirect 0x800b0000 <39.0us>  -> procnto[1] queued 5.0us, served 18.0us, prio 10
+  0.052294 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <3.0us>
+  0.052300 ls[671767:1] readlink("/setconf") on coid 0x40000001 = -1 errno 2 (No such file or directory) <51.0us>  -> procnto[1] queued 4.0us, served 11.0us, prio 10
+  0.052357 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <3.0us>
+  0.052362 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <3.0us>
+  0.052367 ls[671767:1] readlink("/setconf") on coid 0x40000001 = 0 <28.0us>  -> procnto[1] queued 5.0us, served 12.0us, prio 10
+  0.052404 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.052414 ls[671767:1] combine("/setfacl") on coid 0x40000000 = redirect 0x800b0000 <41.0us>  -> procnto[1] queued 5.0us, served 19.0us, prio 10
+  0.052460 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <2.0us>
+  0.052465 ls[671767:1] combine("/setfacl") on coid 0x40000001 = -1 errno 2 (No such file or directory) <25.0us>  -> procnto[1] queued 5.0us, served 5.0us, prio 10
+  0.052495 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.052500 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <2.0us>
+  0.052505 ls[671767:1] combine("/setfacl") on coid 0x40000001 = 3 <36.0us>  -> procnto[1] queued 4.0us, served 18.0us, prio 10
+  0.052545 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.052552 ls[671767:1] combine("/sh") on coid 0x40000000 = redirect 0x800b0000 <34.0us>  -> procnto[1] queued 5.0us, served 15.0us, prio 10
+  0.052594 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <3.0us>
+  0.052599 ls[671767:1] combine("/sh") on coid 0x40000001 = -1 errno 2 (No such file or directory) <30.0us>  -> procnto[1] queued 4.0us, served 6.0us, prio 10
+  0.052637 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.052642 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <2.0us>
+  0.052647 ls[671767:1] combine("/sh") on coid 0x40000001 = 3 <36.0us>  -> procnto[1] queued 4.0us, served 17.0us, prio 10
+  0.052690 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.052695 ls[671767:1] readlink("/sh") on coid 0x40000000 = redirect 0x800b0000 <34.0us>  -> procnto[1] queued 5.0us, served 15.0us, prio 10
+  0.052734 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <3.0us>
+  0.052740 ls[671767:1] readlink("/sh") on coid 0x40000001 = -1 errno 2 (No such file or directory) <24.0us>  -> procnto[1] queued 4.0us, served 6.0us, prio 10
+  0.052770 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.052774 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <2.0us>
+  0.052779 ls[671767:1] readlink("/sh") on coid 0x40000001 = 0 <42.0us>  -> procnto[1] queued 4.0us, served 13.0us, prio 10
+  0.052824 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.052831 ls[671767:1] combine("/sleep") on coid 0x40000000 = redirect 0x800b0000 <33.0us>  -> procnto[1] queued 5.0us, served 14.0us, prio 10
+  0.052868 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <3.0us>
+  0.052873 ls[671767:1] combine("/sleep") on coid 0x40000001 = -1 errno 2 (No such file or directory) <23.0us>  -> procnto[1] queued 5.0us, served 5.0us, prio 10
+  0.052901 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <1.0us>
+  0.052907 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <2.0us>
+  0.052911 ls[671767:1] combine("/sleep") on coid 0x40000001 = 3 <36.0us>  -> procnto[1] queued 5.0us, served 17.0us, prio 10
+  0.052955 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <1.0us>
+  0.052960 ls[671767:1] readlink("/sleep") on coid 0x40000000 = redirect 0x800b0000 <60.0us>  -> procnto[1] queued 4.0us, served 19.0us, prio 10
+  0.053030 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <8.0us>
+  0.053050 ls[671767:1] readlink("/sleep") on coid 0x40000001 = -1 errno 2 (No such file or directory) <45.0us>  -> procnto[1] queued 17.0us, served 13.0us, prio 10
+  0.053102 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <3.0us>
+  0.053107 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <3.0us>
+  0.053113 ls[671767:1] readlink("/sleep") on coid 0x40000001 = 0 <33.0us>  -> procnto[1] queued 5.0us, served 14.0us, prio 10
+  0.053151 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.053166 ls[671767:1] combine("/slog2info") on coid 0x40000000 = redirect 0x800b0000 <41.0us>  -> procnto[1] queued 5.0us, served 22.0us, prio 10
+  0.053211 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <3.0us>
+  0.053217 ls[671767:1] combine("/slog2info") on coid 0x40000001 = -1 errno 2 (No such file or directory) <24.0us>  -> procnto[1] queued 4.0us, served 7.0us, prio 10
+  0.053245 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.053250 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <3.0us>
+  0.053255 ls[671767:1] combine("/slog2info") on coid 0x40000001 = 3 <47.0us>  -> procnto[1] queued 5.0us, served 22.0us, prio 10
+  0.053309 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <3.0us>
+  0.053319 ls[671767:1] combine("/slogger2") on coid 0x40000000 = redirect 0x800b0000 <33.0us>  -> procnto[1] queued 5.0us, served 15.0us, prio 10
+  0.053357 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <3.0us>
+  0.053362 ls[671767:1] combine("/slogger2") on coid 0x40000001 = -1 errno 2 (No such file or directory) <26.0us>  -> procnto[1] queued 5.0us, served 6.0us, prio 10
+  0.053392 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.053397 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <2.0us>
+  0.053402 ls[671767:1] combine("/slogger2") on coid 0x40000001 = 3 <79.0us>  -> procnto[1] queued 4.0us, served 19.0us, prio 10
+  0.053500 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <5.0us>
+  0.053518 ls[671767:1] combine("/startup-script") on coid 0x40000000 = redirect 0x800b0000 <55.0us>  -> procnto[1] queued 11.0us, served 27.0us, prio 10
+  0.053578 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <5.0us>
+  0.053586 ls[671767:1] combine("/startup-script") on coid 0x40000001 = -1 errno 2 (No such file or directory) <35.0us>  -> procnto[1] queued 5.0us, served 8.0us, prio 10
+  0.053632 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.053637 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <4.0us>
+  0.053644 ls[671767:1] combine("/startup-script") on coid 0x40000001 = 3 <46.0us>  -> procnto[1] queued 6.0us, served 24.0us, prio 10
+  0.053697 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.053707 ls[671767:1] combine("/startup.sh") on coid 0x40000000 = redirect 0x800b0000 <39.0us>  -> procnto[1] queued 7.0us, served 19.0us, prio 10
+  0.053750 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <4.0us>
+  0.053757 ls[671767:1] combine("/startup.sh") on coid 0x40000001 = -1 errno 2 (No such file or directory) <27.0us>  -> procnto[1] queued 5.0us, served 7.0us, prio 10
+  0.053787 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.053795 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <3.0us>
+  0.053801 ls[671767:1] combine("/startup.sh") on coid 0x40000001 = 3 <38.0us>  -> procnto[1] queued 4.0us, served 19.0us, prio 10
+  0.053846 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.053853 ls[671767:1] combine("/toybox") on coid 0x40000000 = redirect 0x800b0000 <40.0us>  -> procnto[1] queued 5.0us, served 15.0us, prio 10
+  0.053908 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <6.0us>
+  0.053917 ls[671767:1] combine("/toybox") on coid 0x40000001 = -1 errno 2 (No such file or directory) <34.0us>  -> procnto[1] queued 8.0us, served 8.0us, prio 10
+  0.053955 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.053960 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <3.0us>
+  0.053965 ls[671767:1] combine("/toybox") on coid 0x40000001 = 3 <50.0us>  -> procnto[1] queued 6.0us, served 23.0us, prio 10
+  0.054020 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.054029 ls[671767:1] combine("/umount") on coid 0x40000000 = redirect 0x800b0000 <37.0us>  -> procnto[1] queued 7.0us, served 18.0us, prio 10
+  0.054070 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <4.0us>
+  0.054077 ls[671767:1] combine("/umount") on coid 0x40000001 = -1 errno 2 (No such file or directory) <25.0us>  -> procnto[1] queued 5.0us, served 5.0us, prio 10
+  0.054106 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.054111 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <3.0us>
+  0.054116 ls[671767:1] combine("/umount") on coid 0x40000001 = 3 <41.0us>  -> procnto[1] queued 5.0us, served 18.0us, prio 10
+  0.054162 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.054169 ls[671767:1] combine("/waitfor") on coid 0x40000000 = redirect 0x800b0000 <36.0us>  -> procnto[1] queued 5.0us, served 14.0us, prio 10
+  0.054214 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <3.0us>
+  0.054220 ls[671767:1] combine("/waitfor") on coid 0x40000001 = -1 errno 2 (No such file or directory) <25.0us>  -> procnto[1] queued 5.0us, served 5.0us, prio 10
+  0.054254 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.054259 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <3.0us>
+  0.054264 ls[671767:1] combine("/waitfor") on coid 0x40000001 = 3 <42.0us>  -> procnto[1] queued 5.0us, served 18.0us, prio 10
+  0.054314 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.054320 ls[671767:1] readlink("/waitfor") on coid 0x40000000 = redirect 0x800b0000 <35.0us>  -> procnto[1] queued 5.0us, served 15.0us, prio 10
+  0.054366 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <4.0us>
+  0.054373 ls[671767:1] readlink("/waitfor") on coid 0x40000001 = -1 errno 2 (No such file or directory) <28.0us>  -> procnto[1] queued 5.0us, served 7.0us, prio 10
+  0.054407 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <2.0us>
+  0.054412 ls[671767:1] ConnectAttach(pid=1 (procnto), chid=1, index=0x40000000, flags=0) = 1073741825 <3.0us>
+  0.054418 ls[671767:1] readlink("/waitfor") on coid 0x40000001 = 0 <35.0us>  -> procnto[1] queued 4.0us, served 13.0us, prio 10
+  0.054458 ls[671767:1] ConnectDetach(coid=0x40000001) = 0 <5.0us>
+  0.054471 ls[671767:1] read(fd 6, 4096 bytes) = 0 <35.0us>  -> procnto[1] queued 6.0us, served 12.0us, prio 10
+  0.054548 ls[671767:1] close(fd 6) = 0 <30.0us>  -> procnto[1] queued 5.0us, served 10.0us, prio 10
+  0.054587 ls[671767:1] ConnectDetach(coid=6) = 0 <2.0us>
+  0.054597 ls[671767:1] close(fd 5) = 0 <38.0us>  -> procnto[1] queued 11.0us, served 6.0us, prio 10
+  0.054648 ls[671767:1] ConnectDetach(coid=5) = 0 <2.0us>
+  0.055887 ls[671767:1] close(fd 4) = 0 <63.0us>  -> procnto[1] queued 8.0us, served 19.0us, prio 10
+  0.055960 ls[671767:1] ConnectDetach(coid=4) = 0 <5.0us>
+  0.056000 ls[671767:1] SyncCreate(type=0, sync_p=0x25ab179a30, count=0, owner=0) = 0 <3.0us>
+  0.056013 ls[671767:1] write(fd 1, 641 bytes) = 641 <232.0us>  -> pipe[122889] queued 19.0us, served 189.0us, prio 10
+  0.056262 ls[671767:1] SyncCreate(type=0, sync_p=0x25ab179a38, count=0, owner=0) = 0 <2.0us>
+  0.056273 ls[671767:1] ThreadDestroy(tid=4294967295, priority=0xffffffff, status_p=0) = 0 <12.0us>
+  0.056312 wc[671768:1] read(fd 0, 4096 bytes) = 0 <277.0us>  -> pipe[122889] queued 19.0us, served 213.0us, prio 10
+  0.056326 ls[671767:1] TimerInfo(pid=0, id=0, flags=1, info_p=0) = -1 errno 22 (Invalid argument) <3.0us>
+  0.056337 ls[671767:1] ConnectServerInfo(pid=0, coid=0) = 0 <4.0us>
+  0.056348 ls[671767:1] TimerTimeout(clock_id=2, timeout_flags=80, ntime_sec=30, ntime_nsec=0) = 0 <5.0us>
+  0.056357 ls[671767:1] close(fd 0) = 0 <87.0us>  -> pipe[122889] queued 24.0us, served 41.0us, prio 10
+  0.056449 ls[671767:1] ConnectDetach(coid=0) = 0 <16.0us>
+  0.056469 ls[671767:1] ConnectServerInfo(pid=0, coid=1) = 1 <3.0us>
+  0.056480 ls[671767:1] TimerTimeout(clock_id=2, timeout_flags=80, ntime_sec=30, ntime_nsec=0) = 0 <12.0us>
+  0.056500 ls[671767:1] close(fd 1) = 0 <98.0us>  -> pipe[122889] queued 19.0us, served 39.0us, prio 10
+  0.056603 ls[671767:1] ConnectDetach(coid=1) = 0 <12.0us>
+  0.056619 ls[671767:1] ConnectServerInfo(pid=0, coid=2) = 2 <4.0us>
+  0.056630 ls[671767:1] TimerTimeout(clock_id=2, timeout_flags=80, ntime_sec=30, ntime_nsec=0) = 0 <3.0us>
+  0.056638 ls[671767:1] close(fd 2) = 0 <81.0us>  -> pipe[122889] queued 31.0us, served 30.0us, prio 10
+  0.056723 ls[671767:1] ConnectDetach(coid=2) = 0 <10.0us>
+  0.056736 ls[671767:1] ConnectServerInfo(pid=0, coid=3) = 3 <3.0us>
+  0.056745 ls[671767:1] TimerTimeout(clock_id=2, timeout_flags=80, ntime_sec=30, ntime_nsec=0) = 0 <7.0us>
+  0.056756 ls[671767:1] close(fd 3) = 0 <83.0us>  -> devb-virtio[45063] queued 17.0us, served 41.0us, prio 10
+  0.056795 wc[671768:1] SyncCreate(type=0, sync_p=0x2bdf2eea30, count=0, owner=0) = 0 <2.0us>
+  0.056804 wc[671768:1] write(fd 1, 3 bytes) = 3 <198.0us>  -> pipe[122889] queued 25.0us, served 130.0us, prio 10
+  0.056844 ls[671767:1] ConnectDetach(coid=3) = 0 <11.0us>
+  0.056859 ls[671767:1] ConnectServerInfo(pid=0, coid=4) = 1073741824 <5.0us>
+  0.056871 ls[671767:1] munmap(coid 0x40000000) = 0 <256.0us>  -> procnto[1] queued 8.0us, served 227.0us, prio 10
+  0.057015 wc[671768:1] SyncCreate(type=0, sync_p=0x2bdf2eea38, count=0, owner=0) = 0 <1.0us>
+  0.057127 wc[671768:1] ThreadDestroy(tid=4294967295, priority=0xffffffff, status_p=0) = 0 <7.0us>
+  0.057213 wc[671768:1] TimerInfo(pid=0, id=0, flags=1, info_p=0) = -1 errno 22 (Invalid argument) <28.0us>
+  0.057247 wc[671768:1] ConnectServerInfo(pid=0, coid=0) = 0 <5.0us>
+  0.057257 wc[671768:1] TimerTimeout(clock_id=2, timeout_flags=80, ntime_sec=30, ntime_nsec=0) = 0 <2.0us>
+  0.057262 ls[671767:1] ConnectServerInfo(pid=0, coid=0x40000000) = 1073741824 <7.0us>
+  0.057263 wc[671768:1] close(fd 0) = 0 <240.0us>  -> pipe[122889] queued 76.0us, served 40.0us, prio 10
+  0.057274 ls[671767:1] ConnectDetach(coid=0x40000000) = 0 <11.0us>
+  0.057290 ls[671767:1] ConnectServerInfo(pid=0, coid=0x40000001) = -1 errno 22 (Invalid argument) <2.0us>
+  0.057309 ls[671767:1] __Ring0(func_p=0xffffff8060095600) = 0 <20.0us>
+  0.057413 sh[671766:1] sysconf(coid 0x40000000) = 0 <182.0us>  -> procnto[1] queued 81.0us, served 24.0us, prio 10
+  0.057509 wc[671768:1] ConnectDetach(coid=0) = 0 <11.0us>
+  0.057523 wc[671768:1] ConnectServerInfo(pid=0, coid=1) = 1 <3.0us>
+  0.057539 wc[671768:1] TimerTimeout(clock_id=2, timeout_flags=80, ntime_sec=30, ntime_nsec=0) = 0 <4.0us>
+  0.057552 wc[671768:1] close(fd 1) = 0 <85.0us>  -> pipe[122889] queued 44.0us, served 26.0us, prio 10
+  0.057606 sh[671766:1] proc_resource(coid 0x40000000) = 0 <152.0us>  -> procnto[1] queued 15.0us, served 29.0us, prio 10
+  0.057640 wc[671768:1] ConnectDetach(coid=1) = 0 <10.0us>
+  0.057653 wc[671768:1] ConnectServerInfo(pid=0, coid=2) = 2 <4.0us>
+  0.057669 wc[671768:1] TimerTimeout(clock_id=2, timeout_flags=80, ntime_sec=30, ntime_nsec=0) = 0 <2.0us>
+  0.057674 wc[671768:1] close(fd 2) = 0 <194.0us>  -> pipe[122889] queued 10.0us, served 159.0us, prio 10
+  0.057768 sh[671766:1] proc_resource(coid 0x40000000) = 0 <49.0us>  -> procnto[1] queued 13.0us, served 25.0us, prio 10
+  0.057828 sh[671766:1] wait(coid 0x40000000) = 0 <148.0us>  -> procnto[1] queued 9.0us, served 39.0us, prio 10
+  0.057871 wc[671768:1] ConnectDetach(coid=2) = 0 <12.0us>
+  0.057887 wc[671768:1] ConnectServerInfo(pid=0, coid=3) = 3 <3.0us>
+  0.057895 wc[671768:1] TimerTimeout(clock_id=2, timeout_flags=80, ntime_sec=30, ntime_nsec=0) = 0 <2.0us>
+  0.057900 wc[671768:1] close(fd 3) = 0 <135.0us>  -> devb-virtio[45063] queued 69.0us, served 49.0us, prio 10
+  0.057985 sh[671766:1] sysconf(coid 0x40000000) = 0 <54.0us>  -> procnto[1] queued 7.0us, served 10.0us, prio 10
+  0.058038 wc[671768:1] ConnectDetach(coid=3) = 0 <14.0us>
+  0.058050 sh[671766:1] proc_resource(coid 0x40000000) = 0 <108.0us>  -> procnto[1] queued 11.0us, served 30.0us, prio 10
+  0.058056 wc[671768:1] ConnectServerInfo(pid=0, coid=4) = 1073741824 <4.0us>
+  0.058071 wc[671768:1] munmap(coid 0x40000000) = 0 <261.0us>  -> procnto[1] queued 8.0us, served 224.0us, prio 10
+  0.058191 sh[671766:1] proc_resource(coid 0x40000000) = 0 <66.0us>  -> procnto[1] queued 11.0us, served 23.0us, prio 10
+  0.058268 sh[671766:1] wait(coid 0x40000000) = 0 <111.0us>  -> procnto[1] queued 5.0us, served 58.0us, prio 10
+  0.058479 sh[671766:1] SignalReturn(s_p=0x2e9a94f190) = 4 <12.0us>
+  0.058498 wc[671768:1] ConnectServerInfo(pid=0, coid=0x40000000) = 1073741824 <8.0us>
+  0.058503 sh[671766:1] SignalSuspend(sig_blocked->bits[0]=0, sig_blocked->bits[1]=0) = -1 errno 4 (Interrupted function call) <172.0us>
+  0.058511 wc[671768:1] ConnectDetach(coid=0x40000000) = 0 <13.0us>
+  0.058527 wc[671768:1] ConnectServerInfo(pid=0, coid=0x40000001) = -1 errno 22 (Invalid argument) <1.0us>
+  0.058600 wc[671768:1] __Ring0(func_p=0xffffff8060095600) = 0 <23.0us>
+  0.058699 sh[671766:1] sysconf(coid 0x40000000) = 0 <76.0us>  -> procnto[1] queued 12.0us, served 12.0us, prio 10
+  0.058788 sh[671766:1] proc_resource(coid 0x40000000) = 0 <95.0us>  -> procnto[1] queued 16.0us, served 23.0us, prio 10
+  0.058896 sh[671766:1] proc_resource(coid 0x40000000) = 0 <69.0us>  -> procnto[1] queued 12.0us, served 21.0us, prio 10
+  0.058974 sh[671766:1] wait(coid 0x40000000) = 0 <69.0us>  -> procnto[1] queued 11.0us, served 21.0us, prio 10
+  0.059060 sh[671766:1] sysconf(coid 0x40000000) = 0 <45.0us>  -> procnto[1] queued 15.0us, served 15.0us, prio 10
+  0.059112 sh[671766:1] proc_resource(coid 0x40000000) = 0 <61.0us>  -> procnto[1] queued 7.0us, served 23.0us, prio 10
+  0.059192 sh[671766:1] proc_resource(coid 0x40000000) = 0 <54.0us>  -> procnto[1] queued 13.0us, served 21.0us, prio 10
+  0.059257 sh[671766:1] wait(coid 0x40000000) = -1 errno 10 (No child processes) <41.0us>  -> procnto[1] queued 6.0us, served 15.0us, prio 10
+  0.059305 sh[671766:1] SignalReturn(s_p=0x2e9a94f190) = 4 <5.0us>
+  0.059320 sh[671766:1] SignalProcmask(pid=0, tid=0, how=2, sig_blocked->bits[0]=0) = 0 <1.0us>
+  0.059329 sh[671766:1] ConnectServerInfo(pid=0, coid=10) = 10 <3.0us>
+  0.059337 sh[671766:1] sysconf(coid 0x40000000) = 0 <37.0us>  -> procnto[1] queued 5.0us, served 8.0us, prio 10
+  0.059378 sh[671766:1] close(fd 0) = -1 errno 9 (Bad file descriptor) <2.0us>
+  0.059383 sh[671766:1] ConnectAttach(pid=0, chid=10, index=0, flags=32832) = 0 <10.0us>
+  0.059397 sh[671766:1] dup(fd 0) = 0 <66.0us>  -> pipe[122889] queued 13.0us, served 24.0us, prio 10
+  0.059472 sh[671766:1] ConnectFlags(pid=0, coid=0, masks=1, bits=0) = 192 <4.0us>
+  0.059482 sh[671766:1] close(fd 10) = 0 <69.0us>  -> pipe[122889] queued 15.0us, served 25.0us, prio 10
+  0.059558 sh[671766:1] ConnectDetach(coid=10) = 0 <14.0us>
+  0.059627 sh[671766:1] SignalProcmask(pid=0, tid=0, how=0, sig_blocked->bits[0]=0x20000) = 0 <2.0us>
+  0.059633 sh[671766:1] SignalProcmask(pid=0, tid=0, how=2, sig_blocked->bits[0]=0) = 0 <1.0us>
+  0.059653 sh[671766:1] ThreadDestroy(tid=4294967295, priority=0xffffffff, status_p=0) = 0 <4.0us>
+  0.059678 sh[671766:1] TimerInfo(pid=0, id=0, flags=1, info_p=0) = -1 errno 22 (Invalid argument) <2.0us>
+  0.059683 sh[671766:1] ConnectServerInfo(pid=0, coid=0) = 0 <3.0us>
+  0.059689 sh[671766:1] TimerTimeout(clock_id=2, timeout_flags=80, ntime_sec=30, ntime_nsec=0) = 0 <2.0us>
+  0.059694 sh[671766:1] close(fd 0) = 0 <66.0us>  -> pipe[122889] queued 17.0us, served 23.0us, prio 10
+  0.059763 sh[671766:1] ConnectDetach(coid=0) = 0 <10.0us>
+  0.059776 sh[671766:1] ConnectServerInfo(pid=0, coid=1) = 1 <3.0us>
+  0.059785 sh[671766:1] TimerTimeout(clock_id=2, timeout_flags=80, ntime_sec=30, ntime_nsec=0) = 0 <1.0us>
+  0.059791 sh[671766:1] close(fd 1) = 0 <49.0us>  -> pipe[122889] queued 21.0us, served 15.0us, prio 10
+  0.059843 sh[671766:1] ConnectDetach(coid=1) = 0 <7.0us>
+  0.059852 sh[671766:1] ConnectServerInfo(pid=0, coid=2) = 2 <6.0us>
+  0.059863 sh[671766:1] TimerTimeout(clock_id=2, timeout_flags=80, ntime_sec=30, ntime_nsec=0) = 0 <4.0us>
+  0.059880 sh[671766:1] close(fd 2) = 0 <153.0us>  -> pipe[122889] queued 13.0us, served 122.0us, prio 10
+  0.060039 sh[671766:1] ConnectDetach(coid=2) = 0 <11.0us>
+  0.060059 sh[671766:1] ConnectServerInfo(pid=0, coid=3) = 3 <3.0us>
+  0.060075 sh[671766:1] TimerTimeout(clock_id=2, timeout_flags=80, ntime_sec=30, ntime_nsec=0) = 0 <4.0us>
+  0.060090 sh[671766:1] close(fd 3) = 0 <222.0us>  -> devb-virtio[45063] queued 124.0us, served 67.0us, prio 10
+  0.060319 sh[671766:1] ConnectDetach(coid=3) = 0 <11.0us>
+  0.060341 sh[671766:1] ConnectServerInfo(pid=0, coid=4) = 1073741824 <4.0us>
+  0.060350 sh[671766:1] munmap(coid 0x40000000) = 0 <151.0us>  -> procnto[1] queued 8.0us, served 120.0us, prio 10
+  0.060624 sh[671766:1] ConnectServerInfo(pid=0, coid=0x40000000) = 1073741824 <6.0us>
+  0.060635 sh[671766:1] ConnectDetach(coid=0x40000000) = 0 <12.0us>
+  0.060650 sh[671766:1] ConnectServerInfo(pid=0, coid=0x40000001) = -1 errno 22 (Invalid argument) <1.0us>
+  0.060664 sh[671766:1] __Ring0(func_p=0xffffff8060095600) = 0 <10.0us>
+% time   total us    calls  errors    avg us    max us  server           operation
+------ ---------- -------- ------- --------- ---------  ---------------- ----------------
+ 30.65    39614.0        2       2   19807.0   39442.0  (kernel)         SignalSuspend
+ 14.51    18755.9      308     117      60.9     494.0  procnto          combine
+ 11.53    14908.0        2       0    7454.0   14631.0  pipe             read
+ 10.32    13343.1       89       0     149.9    1730.0  procnto          mmap
+  7.11     9193.0        4       0    2298.3    5762.0  procnto          spawn
+  3.46     4469.0       66       0      67.7     245.0  procnto          read
+  2.75     3558.0        2       0    1779.0    2003.0  procnto          fork
+  2.47     3192.0       18      14     177.3     397.0  devb-virtio      combine
+  2.08     2692.0       25       0     107.7     309.0  pipe             close
+  1.89     2443.0       29       0      84.2     391.0  procnto          sysconf
+  1.73     2234.0      287       0       7.8     225.0  (kernel)         ConnectDetach
+  1.57     2032.0       45      15      45.2     159.0  procnto          readlink
+  1.35     1749.0       20       0      87.5     247.0  procnto          mprotect
+  1.35     1742.0       20       0      87.1     199.0  pipe             dup
+  1.20     1551.0      280       0       5.5      23.0  (kernel)         ConnectAttach
+  1.01     1311.0       20       0      65.5     206.0  procnto          close
+  0.78     1010.0        5       0     202.0     261.0  procnto          munmap
+  0.51      654.0        8       0      81.8     152.0  procnto          proc_resource
+  0.46      596.0        4       0     149.0     222.0  devb-virtio      close
+  0.41      534.0        6       6      89.0     105.0  pipe             devctl
+  0.38      489.0        4       0     122.3     127.0  devb-virtio      read
+  0.33      430.0        2       0     215.0     232.0  pipe             write
+  0.29      376.0        4       0      94.0     146.0  procnto          umask
+  0.29      369.0        4       1      92.3     148.0  procnto          wait
+  0.24      310.9       64       5       4.9      27.0  (kernel)         ConnectServerInfo
+  0.24      304.0        5       2      60.8     124.0  procnto          open
+  0.15      199.0        2       0      99.5     115.0  devb-virtio      dup
+  0.15      193.0        3       0      64.3     100.0  procnto          madvise
+  0.13      167.0        1       0     167.0     167.0  pipe             open
+  0.08       99.0        1       0      99.0      99.0  pipe             fstat
+  0.06       81.1       23       0       3.5      34.0  (kernel)         SignalProcmask
+  0.06       77.0        1       0      77.0      77.0  pipe             openfd
+  0.06       77.0        7       0      11.0      23.0  (kernel)         __Ring0
+  0.06       73.0       13       0       5.6      25.0  (kernel)         TimerTimeout
+  0.05       62.0       20       0       3.1      23.0  (kernel)         SignalAction
+  0.04       58.0        1       0      58.0      58.0  procnto          proc_getsetid
+  0.04       48.0       15       0       3.2      10.0  (kernel)         ConnectFlags
+  0.03       44.0        5       5       8.8      28.0  (kernel)         TimerInfo
+  0.03       44.0        1       0      44.0      44.0  procnto          opendir
+  0.03       35.0       27       0       1.3       4.0  (kernel)         SyncCreate
+  0.02       27.0        1       0      27.0      27.0  procnto          dup
+  0.02       24.0        4       0       6.0       8.0  (kernel)         ThreadCtl
+  0.02       23.0        3       0       7.7      12.0  (kernel)         ThreadDestroy
+  0.01       17.0        9       0       1.9       4.0  (kernel)         SysCpupageGet
+  0.01       17.0        2       0       8.5      12.0  (kernel)         SignalReturn
+  0.00        6.0        3       3       2.0       2.0  (kernel)         close
+  0.00        6.0        3       0       2.0       3.0  (kernel)         SysCpupageSet
+  0.00        5.0        4       0       1.3       3.0  (kernel)         ConnectClientInfo
+------ ---------- -------- ------- --------- ---------  ---------------- ----------------
+100.00   129242.1                                       total time in kernel calls

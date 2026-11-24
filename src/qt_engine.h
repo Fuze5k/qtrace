@@ -95,8 +95,14 @@ void qt_engine_summary(const qt_engine_t *e, FILE *f);
 
 /* Describe a call as text ("write(fd 1, 42 bytes)"); returns buf. */
 const char *qt_call_describe(const qt_engine_t *e, const qt_call_t *c, char *buf, size_t len);
+/* The call's result as text ("42", "-1 errno 2 (...)", "redirect 0x800b0000"); returns buf. */
+const char *qt_call_result(const qt_call_t *c, char *buf, size_t len);
 
 /* Name of a QNX I/O or system message type, NULL if unknown. */
 const char *qt_msg_name(uint32_t msg0);
+/* procnto's own messages (type below 0x100): e.g. "mmap", "munmap"; NULL if unknown. */
+const char *qt_sysmsg_name(uint32_t msg0);
+/* File type an io_connect asks for ("pipe", "socket", ...); NULL for a plain path lookup. */
+const char *qt_ftype_name(uint32_t ftype);
 
 #endif

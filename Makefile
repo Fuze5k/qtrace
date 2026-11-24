@@ -3,6 +3,7 @@
 #   make test            unit tests of the decoder on this host (no SDP needed)
 #   make qnx             cross-compile for QNX 8.0 (needs qcc: source qnxsdp-env.sh,
 #                        or run through env/qnx on macOS / Apple Silicon)
+#   make demo            the demo programs in demo/, for QNX (like make qnx)
 #   make gen             regenerate the event tables (needs the SAT event table text)
 #
 # SPDX-License-Identifier: Apache-2.0
@@ -16,7 +17,7 @@ QCFLAGS  ?= -Vgcc_nto$(ARCH) -std=gnu11 -O2 -g -Wall -Wextra -Werror
 CORE     = src/qt_engine.c src/qt_msg.c src/qt_events_gen.c src/qt_report.c src/qt_report_tpl.c
 QNX_SRC  = $(CORE) src/qt_kev.c src/qtrace.c
 
-.PHONY: all test qnx gen clean
+.PHONY: all test qnx demo gen clean
 
 all: test
 
@@ -35,6 +36,12 @@ qnx: build/$(ARCH)/qtrace
 build/$(ARCH)/qtrace: $(QNX_SRC) src/*.h src/qt_kcalls_qnx.h
 	@mkdir -p build/$(ARCH)
 	$(QCC) $(QCFLAGS) -o $@ $(QNX_SRC) -ltraceparser
+
+demo: build/$(ARCH)/kcalls
+
+build/$(ARCH)/kcalls: demo/kcalls.c
+	@mkdir -p build/$(ARCH)
+	$(QCC) $(QCFLAGS) -o $@ demo/kcalls.c
 
 SAT_TABLE ?= ../ref/sat/kercall_table_Events.txt
 gen:

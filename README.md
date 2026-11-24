@@ -7,17 +7,30 @@ almost every POSIX call is a **message to a server process**, it turns each
 for that server, how long the server worked on it, and at which priority**.
 
 ```
-$ qtrace -c ls /tmp
-  0.000005 ls[4242:1] open("/tmp") on coid 0x40000000 = 0 <9.0us>  -> procnto[1] queued 4.0us, served 2.0us, prio 10
-  0.000015 ls[4242:1] ConnectAttach(pid=8195 (devb-virtio), chid=1, index=0, flags=0) = 3 <1.0us>
-  0.000017 ls[4242:1] open("/tmp") on fd 3 = 0 <28.0us>  -> devb-virtio[8195] queued 4.0us, served 21.0us, prio 10
-  0.000046 ls[4242:1] write(fd 1, 42 bytes) = 42 <44.0us>  -> devc-pty[159762] queued 9.0us, served 32.0us, prio 10
+# qtrace -f -c sh -c "ls /proc/boot | wc -l"
+  0.011195 sh[671766:1] open("/", pipe) on coid 0x40000000 = redirect 0x800b0000 <66.0us>  -> procnto[1] queued 21.0us, served 20.0us, prio 10
+  0.011266 sh[671766:1] ConnectAttach(pid=122889 (pipe), chid=1, index=0, flags=64) = 1 <5.0us>
+  0.011274 sh[671766:1] open("/", pipe) on fd 1 = 0 <167.0us>  -> pipe[122889] queued 13.0us, served 125.0us, prio 10
+  0.012330 sh[671766:1] fork(coid 0x40000000) = 671767 <2003.0us>  -> procnto[1] queued 12.0us, served 1948.0us, prio 10
+  0.014108 ls[671767:1] spawn(coid 0x40000000) = 0 <227.0us>  -> procnto[1] queued 9.0us, served 193.0us, prio 10
+  ...
+  0.041596 wc[671768:1] read(fd 0, 4096 bytes) = 641 <14631.0us>  -> pipe[122889] queued 29.0us, served 14567.0us, prio 10
+  0.056013 ls[671767:1] write(fd 1, 641 bytes) = 641 <232.0us>  -> pipe[122889] queued 19.0us, served 189.0us, prio 10
   ...
 % time   total us    calls  errors    avg us    max us  server           operation
- 44.00       44.0        1       0      44.0      44.0  devc-pty         write
- 28.00       28.0        1       0      28.0      28.0  devb-virtio      open
+ 30.65    39614.0        2       2   19807.0   39442.0  (kernel)         SignalSuspend
+ 14.51    18755.9      308     117      60.9     494.0  procnto          combine
+ 11.53    14908.0        2       0    7454.0   14631.0  pipe             read
+ 10.32    13343.1       89       0     149.9    1730.0  procnto          mmap
 ```
-<sub>(Output from the decoder's unit test; real QEMU output will replace it.)</sub>
+<sub>Real output on QNX 8.0 in QEMU (aarch64le), trimmed. Full log and HTML report:
+[`examples/sh-pipeline.txt`](examples/sh-pipeline.txt),
+[`examples/sh-pipeline.html`](examples/sh-pipeline.html).</sub>
+
+Each line is one kernel call: time, process and thread, the call, its result
+and how long it took. A `MsgSend()` is shown as the operation it carries, with
+the server that answered: here `wc` spends 14.6 ms in a `read()` that the
+`pipe` server holds until `ls` has written its output.
 
 `qtrace -H report.html` also writes a self-contained HTML report — a timeline
 with the client's calls on top, the server threads that handled them below and
@@ -53,13 +66,20 @@ call itself — it is the server on the other end. `qtrace` makes that visible.
    server's `MsgReceive()` picks the message up, `COMM_REPLY` when it answers.
 3. **Explain.** The first 12 bytes of every message (wide mode) give the
    resource-manager message type, subtype and first argument
-   ([`src/qt_msg.c`](src/qt_msg.c)); `SYS_PATHMGR` events give the path name of
-   `open()`/`stat()`/`unlink()`; `ConnectAttach()` maps connection ids to
-   servers.
+   ([`src/qt_msg.c`](src/qt_msg.c)); messages to procnto itself (types below
+   0x100: `mmap`, `munmap`, `fork`, `spawn`, `sysconf` ...) are named from the
+   SDP headers. `SYS_PATHMGR` events give the path name of
+   `open()`/`stat()`/`unlink()`. When procnto's path manager answers a connect
+   with a redirect (`_IO_CONNECT_RET_LINK`), the C library asks each server on
+   the list in turn; qtrace carries the path along that walk.
+   `ConnectAttach()` maps connection ids to servers.
 
-Argument names and layouts of all 85 kernel calls and 76 trace events come
-from the event table of the *System Analysis Toolkit User's Guide*, turned into
-C tables by [`tools/gen_events.py`](tools/gen_events.py).
+Argument names and layouts of the 84 documented kernel calls and 76 trace
+events come from the event table of the *System Analysis Toolkit User's Guide*,
+turned into C tables by [`tools/gen_events.py`](tools/gen_events.py). The 9 kernel
+calls in `<sys/kercalls.h>` that the table does not list (`MsgReceivePulse`,
+`ConnectDupFd`, `InterruptUnblock`, `InterruptCtl`, `PipeOpen`, `PipeCtl`,
+`PipeClose` and two without a public wrapper) are shown by name and result.
 
 ## Evidence of QNX use
 
@@ -70,6 +90,11 @@ C tables by [`tools/gen_events.py`](tools/gen_events.py).
 | Reading `.kev` files with `libtraceparser` callbacks, CPU from `_NTO_TRACE_GETCPU()` | [`src/qt_kev.c`](src/qt_kev.c) |
 | Decoding QNX message passing (MsgSend/MsgReceive/MsgReply, rcvid, coid, side channels, priority inheritance) | [`src/qt_engine.c`](src/qt_engine.c) |
 | Resource-manager message types checked at compile time against `<sys/iomsg.h>` | [`src/qt_msg.c`](src/qt_msg.c) |
+| procnto's own messages (`_MEM_*`, `_PROC_*`, `_SYS_*`, `_PATH_*`) and `_FTYPE_*` checked against the SDP headers | [`src/qt_msg.c`](src/qt_msg.c) `qt_sysmsg_name()`, `qt_ftype_name()` |
+| Every `__KER_*` kernel call of `<sys/kercalls.h>` registered with `traceparser_cs()` | [`src/qt_kev.c`](src/qt_kev.c) `register_all()`, [`src/qt_kcalls_qnx.h`](src/qt_kcalls_qnx.h) |
+| Following procnto's path-manager redirect across servers | [`src/qt_engine.c`](src/qt_engine.c) `on_kenter()`, `on_system()` |
+| Booting the `mkqnximage` QEMU image on a Mac | [`env/run-qemu.sh`](env/run-qemu.sh) |
+| Real traces taken on QNX 8.0 (QEMU aarch64le) | [`examples/`](examples/), see "Checked on QNX 8.0" below |
 | Clock rate from the system page (`SYSPAGE_ENTRY(qtime)`) | [`src/qtrace.c`](src/qtrace.c) |
 | Cross-compiling with `qcc -Vgcc_ntoaarch64le` against SDP 8.0 | [`Makefile`](Makefile), [`env/qnx`](env/qnx) |
 
@@ -86,6 +111,7 @@ make qnx                      # -> build/aarch64le/qtrace
 
 # macOS (also Apple Silicon): the SDP's Linux host tools run in Docker
 env/qnx make qnx
+env/qnx make demo             # -> build/aarch64le/kcalls
 
 # Unit tests of the decoder, on any host, no SDP needed
 make test
@@ -116,6 +142,36 @@ env/run-qemu.sh vm ssh 'LD_LIBRARY_PATH=/data/qtrace /data/qtrace/qtrace -c -H /
 env/run-qemu.sh vm stop
 ```
 
+## Checked on QNX 8.0
+
+All runs on QNX 8.0.0 (`uname`: `QNX qtrace 8.0.0 ... QEMU_virt aarch64le`), 4
+virtual CPUs, built by `env/qnx make qnx demo`:
+
+- `qtrace -f -c -H sh-pipeline.html sh -c "ls /proc/boot | wc -l"`: exit 0;
+  `sh`, `ls` and `wc` make 1476 kernel calls and 703 messages to 3 servers
+  ([`examples/sh-pipeline.txt`](examples/sh-pipeline.txt),
+  [`examples/sh-pipeline.html`](examples/sh-pipeline.html)).
+- The same `.kev` files read with the SDP's `traceprinter` give the same
+  arguments, errors and return values for every call compared: for example
+  `CONNECT_ATTACH ... pid:45063 chid:3` (qtrace:
+  `ConnectAttach(pid=45063 (devb-virtio), chid=3, ...)`) and
+  `MSG_SENDV ret_val:-1, errno:2` (qtrace: `= -1 errno 2`).
+- [`demo/kcalls.c`](demo/kcalls.c) makes six of the kernel calls the event
+  table does not document. qtrace shows all six
+  ([`examples/kcalls.txt`](examples/kcalls.txt)):
+
+  ```
+  0.005680 kcalls[704534:1] MsgReceivePulse() = 0 <22.0us>
+  0.005745 kcalls[704534:1] InterruptUnblock() = -1 errno 3 (No such process) <36.0us>
+  0.005829 kcalls[704534:1] InterruptCtl() = -1 errno 89 (Function not implemented) <9.0us>
+  0.005881 kcalls[704534:1] PipeOpen() = -1 errno 14 (Bad address) <100.0us>
+  0.006025 kcalls[704534:1] PipeCtl() = -1 errno 22 (Invalid argument) <19.0us>
+  0.006082 kcalls[704534:1] PipeClose() = -1 errno 3 (No such process) <18.0us>
+  ```
+
+  `traceprinter` prints `MSG_RECEIVEPULSEV/24` but leaves out the other five
+  (kernel calls 61, 62, 98, 99 and 100) altogether.
+
 ## Usage
 
 ```
@@ -142,11 +198,13 @@ qtrace [-cfDv] [-o file] [-H report.html] [-p pid] -i file.kev
 src/qtrace.c          command line, capture (QNX only)
 src/qt_kev.c          libtraceparser adapter (QNX only)
 src/qt_engine.c       portable decoder: events -> calls, servers, timing
-src/qt_msg.c          resource-manager message names
+src/qt_msg.c          resource-manager and procnto message names
 src/qt_report.c       HTML report writer; template in report/template.html
 src/qt_events_gen.*   generated kernel-call and event tables
 tests/                decoder tests on synthetic traces (run on any host)
-env/                  Docker build environment for the SDP host tools
+demo/kcalls.c         makes kernel calls the SAT event table leaves out
+examples/             real qtrace output from QNX 8.0 in QEMU
+env/                  Docker build environment for the SDP host tools; QEMU runner
 tools/                generators for the tables and the embedded report
 ```
 

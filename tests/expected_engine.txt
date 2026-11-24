@@ -1,20 +1,23 @@
-  0.000005 demo[4242:1] open("/etc/hosts") on coid 0x40000000 = 0 <9.0us>  -> procnto[1] queued 4.0us, served 2.0us, prio 10
-  0.000015 demo[4242:1] ConnectAttach(pid=8195 (devb-virtio), chid=1, index=0, flags=0) = 3 <1.0us>
-  0.000017 demo[4242:1] open("/etc/hosts") on fd 3 = 0 <28.0us>  -> devb-virtio[8195] queued 4.0us, served 21.0us, prio 10
-  0.000046 demo[4242:1] write(fd 1, 42 bytes) = 42 <44.0us>  -> devc-pty[159762] queued 9.0us, served 32.0us, prio 10
-  0.000091 demo[4242:1] ClockTime(id=0, new_sec=0, new_nsec=0) = 0 <1.0us>
-  0.000093 demo[4242:1] open("/etc/nope") on coid 0x40000000 = -1 errno 2 (No such file or directory) <9.0us>  -> procnto[1] queued 4.0us, served 2.0us, prio 10
-  0.000106 demo[4242:1] close(fd 3) = 0 <7.0us>  -> devb-virtio[8195] queued 4.0us, served 1.0us, prio 10
-  0.000114 demo[4242:1] ConnectDetach(coid=3) = 0 <1.0us>
+  0.000005 demo[4242:1] open("/etc/hosts") on coid 0x40000000 = redirect 0x800b0000 <9.0us>  -> procnto[1] queued 4.0us, served 2.0us, prio 10
+  0.000015 demo[4242:1] ConnectAttach(pid=1 (procnto), chid=1, index=0, flags=0) = 3 <1.0us>
+  0.000017 demo[4242:1] open("/etc/hosts") on fd 3 = -1 errno 2 (No such file or directory) <8.0us>  -> procnto[1] queued 4.0us, served 1.0us, prio 10
+  0.000026 demo[4242:1] ConnectDetach(coid=3) = 0 <1.0us>
+  0.000028 demo[4242:1] ConnectAttach(pid=8195 (devb-virtio), chid=1, index=0, flags=0) = 3 <1.0us>
+  0.000030 demo[4242:1] open("/etc/hosts") on fd 3 = 0 <28.0us>  -> devb-virtio[8195] queued 4.0us, served 21.0us, prio 10
+  0.000059 demo[4242:1] write(fd 1, 42 bytes) = 42 <44.0us>  -> devc-pty[159762] queued 9.0us, served 32.0us, prio 10
+  0.000104 demo[4242:1] ClockTime(id=0, new_sec=0, new_nsec=0) = 0 <1.0us>
+  0.000106 demo[4242:1] open("/etc/nope") on coid 0x40000000 = -1 errno 2 (No such file or directory) <9.0us>  -> procnto[1] queued 4.0us, served 2.0us, prio 10
+  0.000119 demo[4242:1] close(fd 3) = 0 <7.0us>  -> devb-virtio[8195] queued 4.0us, served 1.0us, prio 10
+  0.000127 demo[4242:1] ConnectDetach(coid=3) = 0 <1.0us>
 --
 % time   total us    calls  errors    avg us    max us  server           operation
 ------ ---------- -------- ------- --------- ---------  ---------------- ----------------
- 44.00       44.0        1       0      44.0      44.0  devc-pty         write
- 28.00       28.0        1       0      28.0      28.0  devb-virtio      open
- 18.00       18.0        2       1       9.0       9.0  procnto          open
-  7.00        7.0        1       0       7.0       7.0  devb-virtio      close
-  1.00        1.0        1       0       1.0       1.0  (kernel)         ConnectAttach
-  1.00        1.0        1       0       1.0       1.0  (kernel)         ClockTime
-  1.00        1.0        1       0       1.0       1.0  (kernel)         ConnectDetach
+ 40.00       44.0        1       0      44.0      44.0  devc-pty         write
+ 25.45       28.0        1       0      28.0      28.0  devb-virtio      open
+ 23.64       26.0        3       2       8.7       9.0  procnto          open
+  6.36        7.0        1       0       7.0       7.0  devb-virtio      close
+  1.82        2.0        2       0       1.0       1.0  (kernel)         ConnectAttach
+  1.82        2.0        2       0       1.0       1.0  (kernel)         ConnectDetach
+  0.91        1.0        1       0       1.0       1.0  (kernel)         ClockTime
 ------ ---------- -------- ------- --------- ---------  ---------------- ----------------
-100.00      100.0                                       total time in kernel calls
+100.00      110.0                                       total time in kernel calls
